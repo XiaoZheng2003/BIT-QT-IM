@@ -1,4 +1,5 @@
-QT       += core gui
+QT       += core gui \
+            network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,15 +18,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    im.cpp
+    im.cpp \
+    mainwindow.cpp \
+    networktool.cpp
 
 HEADERS += \
-    im.h
+    im.h \
+    mainwindow.h \
+    networktool.h
 
 FORMS += \
-    im.ui
+    im.ui \
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    res.qrc
