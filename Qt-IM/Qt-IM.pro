@@ -17,17 +17,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    chat.cpp \
     main.cpp \
     im.cpp \
     mainwindow.cpp \
     networktool.cpp
 
 HEADERS += \
+    chat.h \
     im.h \
     mainwindow.h \
     networktool.h
 
 FORMS += \
+    chat.ui \
     im.ui \
     mainwindow.ui
 
