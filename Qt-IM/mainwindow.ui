@@ -102,9 +102,15 @@
       <attribute name="title">
        <string>群聊</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <widget class="QListWidget" name="groupList"/>
+        <widget class="QTreeWidget" name="groupList">
+         <column>
+          <property name="text">
+           <string>群聊名称</string>
+          </property>
+         </column>
+        </widget>
        </item>
       </layout>
      </widget>
