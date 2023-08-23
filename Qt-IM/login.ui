@@ -94,7 +94,7 @@ border:1px groove gray;border-radius:
 font: 10pt &quot;Candara&quot;;</string>
      </property>
      <property name="echoMode">
-      <enum>QLineEdit::NoEcho</enum>
+      <enum>QLineEdit::Password</enum>
      </property>
      <property name="placeholderText">
       <string>password</string>
