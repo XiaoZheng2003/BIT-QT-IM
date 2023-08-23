@@ -19,32 +19,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     add.cpp \
     chat.cpp \
-    file.cpp \
     login.cpp \
     main.cpp \
     im.cpp \
     mainwindow.cpp \
-    networktool.cpp \
-    regist.cpp
+    networktool.cpp
 
 HEADERS += \
     add.h \
     chat.h \
-    file.h \
     im.h \
     login.h \
     mainwindow.h \
-    networktool.h \
-    regist.h
+    networktool.h
 
 FORMS += \
     add.ui \
     chat.ui \
-    file.ui \
     im.ui \
     login.ui \
-    mainwindow.ui \
-    regist.ui
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

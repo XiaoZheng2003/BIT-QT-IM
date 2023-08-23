@@ -1,6 +1,6 @@
 #include "login.h"
 #include "ui_login.h"
-#include "regist.h"
+
 
 Login::Login(QWidget *parent) :
     QDialog(parent),
@@ -17,7 +17,6 @@ Login::~Login()
 void Login::on_regist_clicked()
 {
     this->close();
-    Regist *r=new Regist;
-    r->show();
+
 
 }
