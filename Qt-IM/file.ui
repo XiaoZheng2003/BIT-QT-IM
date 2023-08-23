@@ -6,23 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>943</width>
-    <height>638</height>
+    <width>344</width>
+    <height>398</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QTextEdit" name="textEdit">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>400</y>
-     <width>661</width>
-     <height>241</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QScrollBar" name="verticalScrollBar">
    <property name="geometry">
     <rect>
@@ -39,8 +29,8 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>720</x>
-     <y>30</y>
+     <x>220</x>
+     <y>360</y>
      <width>111</width>
      <height>21</height>
     </rect>
@@ -49,26 +39,13 @@
     <string>选择文件</string>
    </property>
   </widget>
-  <widget class="QScrollBar" name="verticalScrollBar_2">
-   <property name="geometry">
-    <rect>
-     <x>930</x>
-     <y>0</y>
-     <width>16</width>
-     <height>641</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Vertical</enum>
-   </property>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>111</width>
-     <height>31</height>
+     <width>141</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="text">
@@ -78,10 +55,10 @@
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>390</x>
-     <y>50</y>
-     <width>161</width>
-     <height>91</height>
+     <x>20</x>
+     <y>70</y>
+     <width>191</width>
+     <height>111</height>
     </rect>
    </property>
    <property name="text">
@@ -91,9 +68,9 @@
   <widget class="QProgressBar" name="progressBar">
    <property name="geometry">
     <rect>
-     <x>390</x>
-     <y>140</y>
-     <width>161</width>
+     <x>20</x>
+     <y>180</y>
+     <width>191</width>
      <height>23</height>
     </rect>
    </property>
@@ -104,9 +81,9 @@
   <widget class="QPushButton" name="pushButton_3">
    <property name="geometry">
     <rect>
-     <x>390</x>
-     <y>170</y>
-     <width>71</width>
+     <x>40</x>
+     <y>220</y>
+     <width>151</width>
      <height>31</height>
     </rect>
    </property>
@@ -117,9 +94,9 @@
   <widget class="QPushButton" name="pushButton_4">
    <property name="geometry">
     <rect>
-     <x>470</x>
-     <y>170</y>
-     <width>71</width>
+     <x>40</x>
+     <y>260</y>
+     <width>151</width>
      <height>31</height>
     </rect>
    </property>
@@ -130,9 +107,9 @@
   <widget class="QPushButton" name="pushButton_5">
    <property name="geometry">
     <rect>
-     <x>560</x>
+     <x>540</x>
      <y>610</y>
-     <width>89</width>
+     <width>101</width>
      <height>25</height>
     </rect>
    </property>
