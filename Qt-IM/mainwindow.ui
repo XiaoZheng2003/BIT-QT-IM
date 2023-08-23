@@ -35,7 +35,7 @@
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="res.qrc">
+         <iconset>
           <normaloff>:/res/avatar.jpg</normaloff>:/res/avatar.jpg</iconset>
         </property>
         <property name="iconSize">
@@ -75,7 +75,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="person">
       <attribute name="title">
@@ -118,8 +118,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="res.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
