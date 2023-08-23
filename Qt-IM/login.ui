@@ -81,7 +81,7 @@ font: 10pt &quot;Candara&quot;;</string>
       <enum>QLineEdit::Normal</enum>
      </property>
      <property name="placeholderText">
-      <string>username</string>
+      <string>用户名</string>
      </property>
     </widget>
    </item>
@@ -97,7 +97,7 @@ font: 10pt &quot;Candara&quot;;</string>
       <enum>QLineEdit::Password</enum>
      </property>
      <property name="placeholderText">
-      <string>password</string>
+      <string>密码</string>
      </property>
     </widget>
    </item>
@@ -125,7 +125,7 @@ font: 10pt &quot;Candara&quot;;</string>
     font: 14pt &quot;Candara&quot;;</string>
      </property>
      <property name="text">
-      <string>Sign in</string>
+      <string>登  录</string>
      </property>
     </widget>
    </item>

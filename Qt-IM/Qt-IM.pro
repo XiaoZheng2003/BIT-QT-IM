@@ -22,7 +22,6 @@ SOURCES += \
     file.cpp \
     login.cpp \
     main.cpp \
-    im.cpp \
     mainwindow.cpp \
     networktool.cpp
 
@@ -30,7 +29,6 @@ HEADERS += \
     add.h \
     chat.h \
     file.h \
-    im.h \
     login.h \
     mainwindow.h \
     networktool.h
@@ -39,7 +37,6 @@ FORMS += \
     add.ui \
     chat.ui \
     file.ui \
-    im.ui \
     login.ui \
     mainwindow.ui
 
