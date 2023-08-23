@@ -1,122 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>file</class>
- <widget class="QWidget" name="file">
+ <class>File</class>
+ <widget class="QWidget" name="File">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>344</width>
-    <height>398</height>
+    <width>400</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QScrollBar" name="verticalScrollBar">
-   <property name="geometry">
-    <rect>
-     <x>640</x>
-     <y>0</y>
-     <width>16</width>
-     <height>401</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Vertical</enum>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>220</x>
-     <y>360</y>
-     <width>111</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>选择文件</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>141</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>文件传输</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_2">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>70</y>
-     <width>191</width>
-     <height>111</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>文件1</string>
-   </property>
-  </widget>
-  <widget class="QProgressBar" name="progressBar">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>180</y>
-     <width>191</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="value">
-    <number>24</number>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_3">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>220</y>
-     <width>151</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>暂停传输</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_4">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>260</y>
-     <width>151</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>取消传输</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_5">
-   <property name="geometry">
-    <rect>
-     <x>540</x>
-     <y>610</y>
-     <width>101</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>发送文件</string>
-   </property>
-  </widget>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="file">
+     <property name="text">
+      <string>                                                    文件</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QProgressBar" name="progressBar">
+     <property name="value">
+      <number>24</number>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="Button_suspend">
+     <property name="text">
+      <string>暂停传输</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="Button_cancle">
+     <property name="text">
+      <string>取消传输</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="Button_choose">
+     <property name="text">
+      <string>选择文件</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>
