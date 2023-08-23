@@ -72,12 +72,18 @@ bool Add::testGroupIPFormat(QString ips)
 {
     //测试群聊IP地址格式是否正确
     QStringList ls=ips.split("\n");
+    bool isEmpty=true;  //当前IP列表为空
     for(QString ip:ls){
         if(ip=="") continue;    //忽略空行
+        isEmpty=false;
         if(!NetworkTool::isIP(ip)){
             QMessageBox::critical(this,tr("错误"),tr("IP地址不合法！"));
             return false;
         }
+    }
+    if(isEmpty){
+        QMessageBox::critical(this,tr("错误"),tr("IP列表为空！"));
+        return false;
     }
     return true;
 }
