@@ -18,4 +18,5 @@ void Login::on_regist_clicked()
 {
     this->close();
 
+
 }
