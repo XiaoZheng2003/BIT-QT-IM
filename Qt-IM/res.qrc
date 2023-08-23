@@ -2,5 +2,9 @@
     <qresource prefix="/">
         <file>res/avatar.jpg</file>
         <file>res/group.png</file>
+        <file>res/chat_1.png</file>
+        <file>res/chat_2.png</file>
+        <file>res/chat_3.png</file>
+        <file>res/chat_4.png</file>
     </qresource>
 </RCC>
