@@ -10,6 +10,7 @@ class NetworkTool
 {
 public:
     static QString GetLocalIP();
+    static bool isIP(QString ip);
 
 };
 

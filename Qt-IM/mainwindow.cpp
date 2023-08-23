@@ -35,3 +35,11 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_add_clicked()
+{
+    //创建添加好友/群窗口
+    Add *a=new Add(this);
+    a->setAttribute(Qt::WA_DeleteOnClose);
+    a->exec();
+}
