@@ -29,8 +29,12 @@ private slots:
 
     void on_personConfirm_clicked();
 
+    void on_groupConfirm_clicked();
+
 private:
     Ui::Add *ui;
+    bool testPersonIPFormat(QString ip);
+    bool testGroupIPFormat(QString ips);
 };
 
 #endif // ADD_H

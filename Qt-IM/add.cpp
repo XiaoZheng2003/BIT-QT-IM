@@ -27,34 +27,57 @@ void Add::on_groupCancel_clicked()
 void Add::on_personTest_clicked()
 {
     //添加好友测试连通性
-    QString ip=ui->personIP->text();
-    if(!NetworkTool::isIP(ip)){
-        QMessageBox::critical(this,tr("错误"),tr("IP地址不合法！"));
-        return;
+    if(testPersonIPFormat(ui->personIP->text())){  //IP格式正确
+        QMessageBox::information(this,tr("信息"),tr("IP地址格式正确，连通性待测试"));
+        //TODO: 测试连通性
     }
-    QMessageBox::information(this,tr("信息"),tr("IP地址格式正确，连通性待测试"));
 }
 
 void Add::on_groupTest_clicked()
 {
     //添加群聊测试连通性
-    QStringList ips=ui->GroupIP->toPlainText().split("\n");
-    for(QString ip:ips){
-        if(!NetworkTool::isIP(ip)){
-            QMessageBox::critical(this,tr("错误"),tr("IP地址不合法！"));
-            return;
-        }
+    if(testGroupIPFormat(ui->groupIP->toPlainText())){  //IP格式正确
+        QMessageBox::information(this,tr("信息"),tr("IP地址格式正确，连通性待测试"));
+        //TODO: 测试连通性
     }
-    QMessageBox::information(this,tr("信息"),tr("IP地址格式正确，连通性待测试"));
 }
 
 void Add::on_personConfirm_clicked()
 {
     //添加好友
-    QString ip=ui->personIP->text();
+    if(!testPersonIPFormat(ui->personIP->text()))   //IP格式错误
+        return;
+    //TODO: 添加好友（数据库）
+}
+
+void Add::on_groupConfirm_clicked()
+{
+    //添加群聊
+    if(!testGroupIPFormat(ui->groupIP->toPlainText()))  //IP格式错误
+        return;
+    //TODO: 添加群聊（数据库）
+}
+
+bool Add::testPersonIPFormat(QString ip)
+{
+    //测试好友IP地址格式是否正确
     if(!NetworkTool::isIP(ip)){
         QMessageBox::critical(this,tr("错误"),tr("IP地址不合法！"));
-        return;
+        return false;
     }
-    //TODO: 添加好友（数据库）
+    return true;
+}
+
+bool Add::testGroupIPFormat(QString ips)
+{
+    //测试群聊IP地址格式是否正确
+    QStringList ls=ips.split("\n");
+    for(QString ip:ls){
+        if(ip=="") continue;    //忽略空行
+        if(!NetworkTool::isIP(ip)){
+            QMessageBox::critical(this,tr("错误"),tr("IP地址不合法！"));
+            return false;
+        }
+    }
+    return true;
 }

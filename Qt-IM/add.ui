@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="person">
       <attribute name="title">
@@ -78,7 +78,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPlainTextEdit" name="GroupIP"/>
+        <widget class="QPlainTextEdit" name="groupIP"/>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
