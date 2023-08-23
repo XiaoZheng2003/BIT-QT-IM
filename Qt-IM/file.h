@@ -2,21 +2,26 @@
 #define FILE_H
 
 #include <QWidget>
-
+#include <QString>
 namespace Ui {
-class file;
+class File;
 }
 
-class file : public QWidget
+class File : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit file(QWidget *parent = nullptr);
-    ~file();
+    explicit File(QWidget *parent = nullptr);
+    ~File();
+
+private slots:
+    void on_Button_choose_clicked();
 
 private:
-    Ui::file *ui;
+    Ui::File *ui;
+    QString fname;
+
 };
 
 #endif // FILE_H
