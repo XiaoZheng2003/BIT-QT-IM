@@ -27,7 +27,7 @@ void File::on_Button_choose_clicked()
             tr("打开文件失败:\n%1").arg(path));
             return;
         }
-        QTextStream in(&file);
+        //QTextStream in(&file);
         fname=path;
         if(!fname.isEmpty())
         {
