@@ -4,22 +4,22 @@
 #include <QDialog>
 
 namespace Ui {
-class regist;
+class Regist;
 }
 
-class regist : public QDialog
+class Regist : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit regist(QWidget *parent = nullptr);
-    ~regist();
+    explicit Regist(QWidget *parent = nullptr);
+    ~Regist();
 
 private slots:
     void on_in_btn_clicked();
 
 private:
-    Ui::regist *ui;
+    Ui::Regist *ui;
 };
 
 #endif // REGIST_H

@@ -2,22 +2,22 @@
 #include "ui_login.h"
 #include "regist.h"
 
-login::login(QWidget *parent) :
+Login::Login(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::login)
+    ui(new Ui::Login)
 {
     ui->setupUi(this);
 }
 
-login::~login()
+Login::~Login()
 {
     delete ui;
 }
 
-void login::on_regist_clicked()
+void Login::on_regist_clicked()
 {
     this->close();
-    regist *r=new regist;
+    Regist *r=new Regist;
     r->show();
 
 }
