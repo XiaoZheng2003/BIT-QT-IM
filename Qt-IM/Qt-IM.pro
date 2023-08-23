@@ -17,19 +17,34 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    add.cpp \
+    chat.cpp \
+    file.cpp \
+    login.cpp \
     main.cpp \
     im.cpp \
     mainwindow.cpp \
-    networktool.cpp
+    networktool.cpp \
+    regist.cpp
 
 HEADERS += \
+    add.h \
+    chat.h \
+    file.h \
     im.h \
+    login.h \
     mainwindow.h \
-    networktool.h
+    networktool.h \
+    regist.h
 
 FORMS += \
+    add.ui \
+    chat.ui \
+    file.ui \
     im.ui \
-    mainwindow.ui
+    login.ui \
+    mainwindow.ui \
+    regist.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
