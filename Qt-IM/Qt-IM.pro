@@ -18,11 +18,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     chat.cpp \
-<<<<<<< HEAD
     file.cpp \
-=======
     login.cpp \
->>>>>>> upstream/master
     main.cpp \
     im.cpp \
     mainwindow.cpp \
