@@ -20,6 +20,7 @@ SOURCES += \
     add.cpp \
     chat.cpp \
     file.cpp \
+    filerec.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -29,6 +30,7 @@ HEADERS += \
     add.h \
     chat.h \
     file.h \
+    filerec.h \
     login.h \
     mainwindow.h \
     networktool.h
@@ -37,6 +39,7 @@ FORMS += \
     add.ui \
     chat.ui \
     file.ui \
+    filerec.ui \
     login.ui \
     mainwindow.ui
 
