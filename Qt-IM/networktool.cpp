@@ -9,7 +9,11 @@ QString NetworkTool::GetLocalIP()
     {
         QNetworkInterface::InterfaceFlags t_interFlags =  interface.flags();
         if(t_interFlags & QNetworkInterface::IsUp &&
-           t_interFlags & QNetworkInterface::IsRunning)
+            t_interFlags & QNetworkInterface::IsRunning &&
+            !interface.hardwareAddress().startsWith("00:50:56")
+            && !interface.hardwareAddress().startsWith("0A:00:27")
+            && !interface.humanReadableName().contains("Virtual")
+            && !interface.humanReadableName().contains("VM"))
         {
             foreach (QNetworkAddressEntry entry, interface.addressEntries())
             {
