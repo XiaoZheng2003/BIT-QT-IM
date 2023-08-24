@@ -6,6 +6,7 @@
 #include <QTreeWidgetItem>
 
 #include "add.h"
+#include "dbmanager.h"
 #include "networktool.h"
 
 namespace Ui {
@@ -25,6 +26,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    void refresh();
 };
 
 #endif // MAINWINDOW_H

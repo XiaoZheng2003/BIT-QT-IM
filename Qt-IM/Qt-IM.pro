@@ -1,5 +1,6 @@
 QT       += core gui \
-            network
+            network  \
+            sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,6 +20,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     add.cpp \
     chat.cpp \
+    dbmanager.cpp \
     file.cpp \
     login.cpp \
     main.cpp \
@@ -28,6 +30,7 @@ SOURCES += \
 HEADERS += \
     add.h \
     chat.h \
+    dbmanager.h \
     file.h \
     login.h \
     mainwindow.h \
