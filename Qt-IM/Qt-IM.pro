@@ -22,6 +22,7 @@ SOURCES += \
     chat.cpp \
     dbmanager.cpp \
     file.cpp \
+    filerec.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     chat.h \
     dbmanager.h \
     file.h \
+    filerec.h \
     login.h \
     mainwindow.h \
     networktool.h
@@ -40,6 +42,7 @@ FORMS += \
     add.ui \
     chat.ui \
     file.ui \
+    filerec.ui \
     login.ui \
     mainwindow.ui
 
