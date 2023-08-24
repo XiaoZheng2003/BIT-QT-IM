@@ -19,6 +19,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     chat.cpp \
     file.cpp \
+    filerec.cpp \
     login.cpp \
     main.cpp \
     im.cpp \
@@ -29,6 +30,7 @@ SOURCES += \
 HEADERS += \
     chat.h \
     file.h \
+    filerec.h \
     im.h \
     login.h \
     mainwindow.h \
@@ -38,6 +40,7 @@ HEADERS += \
 FORMS += \
     chat.ui \
     file.ui \
+    filerec.ui \
     im.ui \
     login.ui \
     mainwindow.ui \

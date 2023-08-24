@@ -18,6 +18,8 @@ public:
 private slots:
     void on_Button_choose_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::File *ui;
     QString fname;
