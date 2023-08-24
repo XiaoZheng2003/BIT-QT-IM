@@ -24,3 +24,17 @@ QString NetworkTool::GetLocalIP()
     }
     return ips.join("|");
 }
+
+bool NetworkTool::isIP(QString ip)
+{
+    if(ip.isEmpty()) return false;
+    QStringList ls=ip.split('.');
+    if(ls.size()!=4) return false;
+    for(const auto &num:ls){
+        bool ok=false;
+        int tmp=num.toInt(&ok);
+        if(!ok||tmp<0||tmp>255)
+            return false;
+    }
+    return true;
+}

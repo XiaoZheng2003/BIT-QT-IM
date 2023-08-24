@@ -14,124 +14,130 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 255);</string>
+   <string notr="true">background-color: rgb(239, 239, 239);</string>
   </property>
-  <widget class="QLabel" name="login_title">
-   <property name="geometry">
-    <rect>
-     <x>16</x>
-     <y>80</y>
-     <width>101</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 57 11pt &quot;Ubuntu&quot;;</string>
-   </property>
-   <property name="text">
-    <string>LOGIN NOW</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="title">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>30</y>
-     <width>161</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 75 31pt &quot;Dyuthi&quot;;</string>
-   </property>
-   <property name="text">
-    <string>Linpop</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="regist">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>220</y>
-     <width>89</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"> background-color: transparent;
-    color: blue;
-    border: none;
-    text-decoration: underline;</string>
-   </property>
-   <property name="text">
-    <string>regist</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="password">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>180</y>
-     <width>161</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(247, 247, 247);
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>50</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QLabel" name="title">
+     <property name="minimumSize">
+      <size>
+       <width>186</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 31pt &quot;Dyuthi&quot;;
+qproperty-alignment: AlignCenter; </string>
+     </property>
+     <property name="text">
+      <string>Linpop</string>
+     </property>
+    </widget>
+   </item>
+   <item alignment="Qt::AlignHCenter">
+    <widget class="QToolButton" name="pic">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>res/avatar.jpg</normaloff>res/avatar.jpg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>48</width>
+       <height>48</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="username">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(247, 247, 247);
 border:1px groove gray;border-radius:
 7px;padding:2px 4px;
 font: 10pt &quot;Candara&quot;;</string>
-   </property>
-   <property name="echoMode">
-    <enum>QLineEdit::NoEcho</enum>
-   </property>
-   <property name="placeholderText">
-    <string>password</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="in_btn">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>260</y>
-     <width>101</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"> background-color: black;
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Normal</enum>
+     </property>
+     <property name="placeholderText">
+      <string>用户名</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_4">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>65</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QPushButton" name="in_btn">
+     <property name="styleSheet">
+      <string notr="true"> background-color: black;
     color: white;
     border: 0px groove gray;
     border-radius: 7px;
     padding: 2px 4px;
     font: 14pt &quot;Candara&quot;;</string>
-   </property>
-   <property name="text">
-    <string>Sign in</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="username">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>120</y>
-     <width>161</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(247, 247, 247);
-border:1px groove gray;border-radius:
-7px;padding:2px 4px;
-font: 10pt &quot;Candara&quot;;</string>
-   </property>
-   <property name="echoMode">
-    <enum>QLineEdit::Normal</enum>
-   </property>
-   <property name="placeholderText">
-    <string>username</string>
-   </property>
-  </widget>
+     </property>
+     <property name="text">
+      <string>登  录</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>55</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>
