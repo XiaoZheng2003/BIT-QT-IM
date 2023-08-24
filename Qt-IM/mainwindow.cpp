@@ -27,6 +27,11 @@ void MainWindow::on_add_clicked()
     refresh();
 }
 
+void MainWindow::getUsername(QString un)
+{
+    ui->nickname->setText(un);
+}
+
 void MainWindow::refresh()
 {
     //单聊页面

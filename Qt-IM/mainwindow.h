@@ -24,6 +24,9 @@ public:
 private slots:
     void on_add_clicked();
 
+public slots:
+    void getUsername(QString);
+
 private:
     Ui::MainWindow *ui;
 

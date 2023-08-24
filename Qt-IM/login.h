@@ -23,6 +23,9 @@ private slots:
 private:
     Ui::Login *ui;
     MainWindow mw;
+
+signals:
+    void sendUsername(QString);
 };
 
 #endif // LOGIN_H
