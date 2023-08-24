@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainWindow)
 {
+    m_personEditWindow=new PersonEdit(this);
+
     ui->setupUi(this);
     this->setWindowTitle("Linpop");
 
@@ -22,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent) :
         //打开群聊界面
         qDebug()<<item->text(0)<<item->text(2); //群名 IP
     });
+
+    connect(m_personEditWindow,SIGNAL(commitSignal()),this,SLOT(refresh()));
 }
 
 MainWindow::~MainWindow()
@@ -96,6 +100,8 @@ void MainWindow::initMenu()
         QAction* select=popMenu->exec(QCursor::pos());
         if(select==editNode){
             //编辑
+            m_personEditWindow->init(curItem->text(2).toInt(),false);
+            m_personEditWindow->exec();
             qDebug()<<"编辑序号"<<curItem->text(2);
             //TODO: 弹出编辑框
             refresh();
@@ -120,6 +126,8 @@ void MainWindow::initMenu()
         QAction* select=popMenu->exec(QCursor::pos());
         if(select==editNode){
             //编辑
+            m_personEditWindow->init(curItem->text(3).toInt(),true);
+            m_personEditWindow->exec();
             qDebug()<<"编辑序号"<<curItem->text(3);
             //TODO: 弹出编辑框
             refresh();

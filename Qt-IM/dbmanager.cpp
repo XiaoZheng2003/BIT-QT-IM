@@ -36,3 +36,33 @@ bool DBManager::runSql(QString sql) {
         return true;
     }
 }
+
+bool DBManager::runSql(QString sql, std::vector<std::vector<QString>>& result)
+{
+    QSqlQuery query;
+    std::vector<std::vector<QString>> temp;
+    if(query.exec(sql) == false) {
+        qCritical()<<"Fail to run sql: "<<sql<<" | "<<m_gDBMangaer->m_database.lastError().text();
+        return false;
+    } else {
+
+        QSqlRecord rec=query.record();
+        temp.resize(rec.count(),std::vector<QString>(rec.count(),QString("")));
+        for(int i=0;i<query.size();i++)
+        {
+            temp[i].resize(rec.count());
+        }
+        int row=0;
+        while(query.next())
+        {
+            for(int col=0;col<rec.count();col++)
+            {
+                temp[row][col]=query.value(col).toString();
+            }
+            row++;
+        }
+        qDebug()<<"run sql successfully. "<<sql;
+        result=temp;
+        return true;
+    }
+}
