@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QMenu>
+#include <QAction>
 #include <QWidget>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
@@ -31,6 +33,7 @@ private:
     Ui::MainWindow *ui;
 
     void refresh();
+    void initMenu();
 };
 
 #endif // MAINWINDOW_H

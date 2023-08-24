@@ -49,7 +49,7 @@ void Add::on_personConfirm_clicked()
     QString ip=ui->personIP->text();
     if(!testPersonIPFormat(ip))   //IP格式错误
         return;
-    //TODO: 添加好友（数据库）
+    //添加好友（数据库）
     DBManager::runSql(QString("insert into person (nickname,ip) values('%1', '%2')").arg(nickname).arg(ip));
     this->close();
 }
@@ -62,7 +62,7 @@ void Add::on_groupConfirm_clicked()
     ips.removeAll(QString(""));
     if(!testGroupIPFormat(ips))  //IP格式错误
         return;
-    //TODO: 添加群聊（数据库）
+    //添加群聊（数据库）
     DBManager::runSql(QString("insert into groups (groupname,ips,num) values('%1', '%2', %3)").arg(groupname).arg(ips.join(';')).arg(ips.count()));
     this->close();
 }
