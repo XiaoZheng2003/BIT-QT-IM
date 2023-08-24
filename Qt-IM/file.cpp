@@ -42,7 +42,3 @@ void File::on_Button_choose_clicked()
         QMessageBox::warning(this,tr("Path"),tr("未选择文件."));
     }
 }
-
-
-
-

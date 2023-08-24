@@ -1,10 +1,10 @@
 #include "filerec.h"
 #include "ui_filerec.h"
-#include    <QDir>
-#include    <QMessageBox>
-#include    <QDesktopServices>
+#include <QDir>
+#include <QMessageBox>
+#include <QDesktopServices>
 #include <QDebug>
-#include<QFileDialog>
+#include <QFileDialog>
 
 
 Filerec::Filerec(QWidget *parent) :
