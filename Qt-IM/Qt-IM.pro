@@ -26,7 +26,8 @@ SOURCES += \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
-    networktool.cpp
+    networktool.cpp \
+    personedit.cpp
 
 HEADERS += \
     add.h \
@@ -36,7 +37,8 @@ HEADERS += \
     filerec.h \
     login.h \
     mainwindow.h \
-    networktool.h
+    networktool.h \
+    personedit.h
 
 FORMS += \
     add.ui \
@@ -44,7 +46,8 @@ FORMS += \
     file.ui \
     filerec.ui \
     login.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    personedit.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

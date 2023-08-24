@@ -6,5 +6,6 @@
         <file>res/chat_2.png</file>
         <file>res/chat_3.png</file>
         <file>res/chat_4.png</file>
+        <file>res/personEdit.png</file>
     </qresource>
 </RCC>
