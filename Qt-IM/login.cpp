@@ -8,6 +8,7 @@ Login::Login(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("登录");
+    connect(this,&Login::sendUsername,&mw,&MainWindow::getUsername);
 
     QIcon icon(":/res/avatar.jpg");
     ui->pic->setIcon(icon);//登录页面设置图片
@@ -28,6 +29,7 @@ void Login::on_in_btn_clicked()
         QMessageBox::critical(this,"提示","用户名不能为空");
     else{
         QMessageBox::information(this,"提示","登录成功");
+        emit sendUsername(user);
         mw.show();
         this->close();
     }

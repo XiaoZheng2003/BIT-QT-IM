@@ -94,6 +94,11 @@
            <string>IP地址</string>
           </property>
          </column>
+         <column>
+          <property name="text">
+           <string>id</string>
+          </property>
+         </column>
         </widget>
        </item>
       </layout>
@@ -113,6 +118,16 @@
          <column>
           <property name="text">
            <string>人数</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>IP地址</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>id</string>
           </property>
          </column>
         </widget>
