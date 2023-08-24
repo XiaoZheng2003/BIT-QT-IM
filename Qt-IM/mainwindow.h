@@ -5,6 +5,7 @@
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 
+#include "add.h"
 #include "networktool.h"
 
 namespace Ui {
@@ -18,6 +19,9 @@ class MainWindow : public QWidget
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+private slots:
+    void on_add_clicked();
 
 private:
     Ui::MainWindow *ui;
