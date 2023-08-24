@@ -1,9 +1,11 @@
 #ifndef ADD_H
 #define ADD_H
 
+#include <QtSql>
 #include <QDialog>
 #include <QMessageBox>
 
+#include "dbmanager.h"
 #include "networktool.h"
 
 namespace Ui {
@@ -33,8 +35,9 @@ private slots:
 
 private:
     Ui::Add *ui;
+
     bool testPersonIPFormat(QString ip);
-    bool testGroupIPFormat(QString ips);
+    bool testGroupIPFormat(QStringList ips);
 };
 
 #endif // ADD_H

@@ -27,7 +27,7 @@ void Login::on_in_btn_clicked()
     if(user=="")
         QMessageBox::critical(this,"提示","用户名不能为空");
     else{
-        QMessageBox::information(this,"提示","登陆成功");
+        QMessageBox::information(this,"提示","登录成功");
         mw.show();
         this->close();
     }

@@ -36,7 +36,7 @@ void Add::on_personTest_clicked()
 void Add::on_groupTest_clicked()
 {
     //添加群聊测试连通性
-    if(testGroupIPFormat(ui->groupIP->toPlainText())){  //IP格式正确
+    if(testGroupIPFormat(ui->groupIP->toPlainText().split("\n"))){  //IP格式正确
         QMessageBox::information(this,tr("信息"),tr("IP地址格式正确，连通性待测试"));
         //TODO: 测试连通性
     }
@@ -45,17 +45,26 @@ void Add::on_groupTest_clicked()
 void Add::on_personConfirm_clicked()
 {
     //添加好友
-    if(!testPersonIPFormat(ui->personIP->text()))   //IP格式错误
+    QString nickname=ui->nickname->text();
+    QString ip=ui->personIP->text();
+    if(!testPersonIPFormat(ip))   //IP格式错误
         return;
     //TODO: 添加好友（数据库）
+    DBManager::runSql(QString("insert into person (nickname,ip) values('%1', '%2')").arg(nickname).arg(ip));
+    this->close();
 }
 
 void Add::on_groupConfirm_clicked()
 {
     //添加群聊
-    if(!testGroupIPFormat(ui->groupIP->toPlainText()))  //IP格式错误
+    QString groupname=ui->groupName->text();
+    QStringList ips=ui->groupIP->toPlainText().split("\n");
+    ips.removeAll(QString(""));
+    if(!testGroupIPFormat(ips))  //IP格式错误
         return;
     //TODO: 添加群聊（数据库）
+    DBManager::runSql(QString("insert into groups (groupname,ips,num) values('%1', '%2', %3)").arg(groupname).arg(ips.join(';')).arg(ips.count()));
+    this->close();
 }
 
 bool Add::testPersonIPFormat(QString ip)
@@ -68,12 +77,11 @@ bool Add::testPersonIPFormat(QString ip)
     return true;
 }
 
-bool Add::testGroupIPFormat(QString ips)
+bool Add::testGroupIPFormat(QStringList ips)
 {
     //测试群聊IP地址格式是否正确
-    QStringList ls=ips.split("\n");
     bool isEmpty=true;  //当前IP列表为空
-    for(QString ip:ls){
+    for(QString ip:ips){
         if(ip=="") continue;    //忽略空行
         isEmpty=false;
         if(!NetworkTool::isIP(ip)){
