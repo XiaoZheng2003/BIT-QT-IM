@@ -15,12 +15,12 @@ Edit::~Edit()
 
 void Edit::init(int id, bool isGroup)
 {
-    std::vector<std::vector<QString>> result;
+    QList<QList<QString>> result;
     m_isGroup=isGroup;
     if(!isGroup)
-        DBManager::runSql(QString("select nickname,ip from person where id=%1").arg(id),result);
+        result=DBManager::runSelect(QString("select nickname,ip from person where id=%1").arg(id));
     else{
-        DBManager::runSql(QString("select groupname,ips from groups where id=%1").arg(id),result);
+        result=DBManager::runSelect(QString("select groupname,ips from groups where id=%1").arg(id));
         ui->label_name->setText("群聊名称");
     }
     m_nicknameBefore=result[0][0];
