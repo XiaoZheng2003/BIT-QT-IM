@@ -47,21 +47,18 @@ bool DBManager::runSql(QString sql, std::vector<std::vector<QString>>& result)
     } else {
 
         QSqlRecord rec=query.record();
-        temp.resize(rec.count(),std::vector<QString>(rec.count(),QString("")));
-        for(int i=0;i<query.size();i++)
-        {
-            temp[i].resize(rec.count());
-        }
         int row=0;
         while(query.next())
         {
+            std::vector<QString> tempRow(rec.count(),QString(""));
+            temp.push_back(tempRow);
             for(int col=0;col<rec.count();col++)
             {
                 temp[row][col]=query.value(col).toString();
             }
             row++;
         }
-        qDebug()<<"run sql successfully. "<<sql;
+        qDebug()<<"run sql successfully."<<sql;
         result=temp;
         return true;
     }

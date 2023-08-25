@@ -21,33 +21,33 @@ SOURCES += \
     add.cpp \
     chat.cpp \
     dbmanager.cpp \
+    edit.cpp \
     file.cpp \
     filerec.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
-    networktool.cpp \
-    personedit.cpp
+    networktool.cpp
 
 HEADERS += \
     add.h \
     chat.h \
     dbmanager.h \
+    edit.h \
     file.h \
     filerec.h \
     login.h \
     mainwindow.h \
-    networktool.h \
-    personedit.h
+    networktool.h
 
 FORMS += \
     add.ui \
     chat.ui \
+    edit.ui \
     file.ui \
     filerec.ui \
     login.ui \
-    mainwindow.ui \
-    personedit.ui
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
