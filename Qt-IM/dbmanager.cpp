@@ -37,23 +37,27 @@ bool DBManager::runSql(QString sql) {
     }
 }
 
-QList<QList<QString>> DBManager::runSelect(QString sql)
+//返回按列主序储存的查询结果
+QList<QStringList> DBManager::runSelect(QString sql)
 {
     QSqlQuery query;
-    QList<QList<QString>> result;
+    QList<QStringList> result;
     if(query.exec(sql) == false) {
         qCritical()<<"Fail to run sql: "<<sql<<" | "<<m_gDBMangaer->m_database.lastError().text();
     } else {
 
         QSqlRecord rec=query.record();
+        for(int col=0;col<rec.count();col++)
+        {
+            QStringList temp;
+            result.append(temp);
+        }
         while(query.next())
         {
-            QList<QString> row;
             for(int col=0;col<rec.count();col++)
             {
-                row.append(query.value(col).toString());
+                result[col].append(query.value(col).toString());
             }
-            result.append(row);
         }
         qDebug()<<"run sql successfully."<<sql;
         return result;

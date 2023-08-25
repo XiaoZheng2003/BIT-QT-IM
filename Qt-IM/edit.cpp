@@ -15,7 +15,7 @@ Edit::~Edit()
 
 void Edit::init(int id, bool isGroup)
 {
-    QList<QList<QString>> result;
+    QList<QStringList> result;
     m_isGroup=isGroup;
     if(!isGroup)
         result=DBManager::runSelect(QString("select nickname,ip from person where id=%1").arg(id));
@@ -24,7 +24,7 @@ void Edit::init(int id, bool isGroup)
         ui->label_name->setText("群聊名称");
     }
     m_nicknameBefore=result[0][0];
-    m_ipBefore=result[0][1];
+    m_ipBefore=result[1][0];
     m_id=id;
     ui->remark->setText(m_nicknameBefore);
     ui->IP->setText(m_ipBefore);
