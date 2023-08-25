@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QMessageBox>
+#include <QList>
 #include "dbmanager.h"
 #include "networktool.h"
 
