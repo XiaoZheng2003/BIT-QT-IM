@@ -1,6 +1,5 @@
 #include "login.h"
 #include "dbmanager.h"
-#include <vector>
 
 #include <QApplication>
 
@@ -17,12 +16,4 @@ int main(int argc, char *argv[])
 
     Login lw;
     lw.show();
-    std::vector<std::vector<QString>> result;
-    DBManager::runSql(QString("select * from person"),result);
-    for(int i=0;i<result.size();i++)
-    {
-        for(int j=0;j<result[i].size();j++)
-            qDebug()<<result[i][j];
-    }
-    return a.exec();
 }
