@@ -10,6 +10,7 @@
 
 #include "add.h"
 #include "chat.h"
+#include "edit.h"
 #include "dbmanager.h"
 #include "networktool.h"
 
@@ -42,6 +43,7 @@ private:
     QString localIp;
     Chat chat;
 
+    Edit *m_editWindow;
     void refresh();
     void initMenu();
 };

@@ -36,3 +36,30 @@ bool DBManager::runSql(QString sql) {
         return true;
     }
 }
+
+//返回按列主序储存的查询结果
+QList<QStringList> DBManager::runSelect(QString sql)
+{
+    QSqlQuery query;
+    QList<QStringList> result;
+    if(query.exec(sql) == false) {
+        qCritical()<<"Fail to run sql: "<<sql<<" | "<<m_gDBMangaer->m_database.lastError().text();
+    } else {
+
+        QSqlRecord rec=query.record();
+        for(int col=0;col<rec.count();col++)
+        {
+            QStringList temp;
+            result.append(temp);
+        }
+        while(query.next())
+        {
+            for(int col=0;col<rec.count();col++)
+            {
+                result[col].append(query.value(col).toString());
+            }
+        }
+        qDebug()<<"run sql successfully."<<sql;
+        return result;
+    }
+}
