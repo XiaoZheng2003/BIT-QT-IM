@@ -6,9 +6,79 @@ Chat::Chat(QWidget *parent) :
     ui(new Ui::Chat)
 {
     ui->setupUi(this);
+
+    localIp=NetworkTool::GetLocalIP();
 }
 
 Chat::~Chat()
 {
     delete ui;
+}
+
+void Chat::init(bool isGroup,int tid,QString tname, QString tip,QUdpSocket *xchat,qint32 xport)
+{
+    this->isGroup=isGroup;
+    targetId=tid;
+    targetName=tname;
+    targetIp=tip;
+    this->xchat=xchat;
+    this->xport=xport;
+}
+
+QString Chat::getMessage()
+{
+    QString msg = ui->messageTextEdit->toPlainText();
+    ui->messageTextEdit->clear();
+    ui->messageTextEdit->setFocus();
+    return msg;
+}
+
+void Chat::sendMessage(messageType type,QString serverAddress){
+    QByteArray data;
+    QDataStream out(&data,QIODevice::WriteOnly);
+    out << type << localIp;
+    switch (type) {
+        case PersonMessage:
+        {
+            if(ui->messageTextEdit->toPlainText() =="")
+            {
+                QMessageBox::warning(0,tr("警告"),tr("发送内容不能为空"),QMessageBox::Ok);
+                return ;
+            }
+            else
+            {
+                //ui->label->setText(tr("与%1私聊中 对方的IP：%2").arg(targetName).arg(targetIp));
+                message = getMessage();
+                out << message;
+                QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+                DBManager::runSql("insert into msg (type,id,msg,time,islocal) values (0,"+QString::number(targetId)+",'"+message+"','"+time+"',1)");
+                qDebug()<<"send msg:"+data;
+            }
+            break;
+        }
+    }
+    xchat->writeDatagram(data,data.length(),QHostAddress(localIp),xport);
+}
+
+void Chat::refresh()
+{
+    QSqlQuery query;
+    QTextBrowser *tb=ui->messageTextBrowser;
+    tb->clear();
+    query.exec("select * from msg where id="+QString::number(targetId));
+    while(query.next()){
+        if(query.value(4).toInt())
+            tb->setTextColor(Qt::blue);
+        else
+            tb->setTextColor(Qt::green);
+        tb->setCurrentFont(QFont("黑体",8));
+        tb->append("["+localIp+"]"+query.value(3).toString());
+        tb->append(query.value(2).toString());
+    }
+}
+
+void Chat::on_sendMsg_clicked()
+{
+    sendMessage(PersonMessage);
+    refresh();
 }

@@ -18,7 +18,7 @@ public:
 
 private slots:
 
-    void on_in_btn_clicked();
+    void on_login_clicked();
 
 private:
     Ui::Login *ui;

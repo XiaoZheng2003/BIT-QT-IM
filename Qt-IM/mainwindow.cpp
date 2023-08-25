@@ -4,19 +4,25 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    xport(23333)
 {
     m_editWindow=new Edit(this);
 
     ui->setupUi(this);
     this->setWindowTitle("Linpop");
 
-    ui->ipAddress->setText("IP地址："+NetworkTool::GetLocalIP());
+    localIp=NetworkTool::GetLocalIP();
+    ui->ipAddress->setText("IP地址："+localIp);
     refresh();
     initMenu();
 
+    connect(this,&MainWindow::receiveMsg,&chat,&Chat::refresh);
     connect(ui->personList,&QTreeWidget::itemDoubleClicked,[=](QTreeWidgetItem *item){
         //打开个人聊天界面
+        chat.init(0,item->text(2).toInt(),item->text(0),item->text(1),xchat,xport);
+        chat.show();
+        emit receiveMsg();
         qDebug()<<item->text(0)<<item->text(1); //昵称 IP
     });
 
@@ -24,6 +30,11 @@ MainWindow::MainWindow(QWidget *parent) :
         //打开群聊界面
         qDebug()<<item->text(0)<<item->text(2); //群名 IP
     });
+
+    xchat = new QUdpSocket(this);
+    xchat->bind(QHostAddress(localIp),xport);
+
+    connect(xchat,&QUdpSocket::readyRead,this,&MainWindow::processPendinDatagrams);
 }
 
 MainWindow::~MainWindow()
@@ -38,6 +49,45 @@ void MainWindow::on_add_clicked()
     a->setAttribute(Qt::WA_DeleteOnClose);
     a->exec();
     refresh();
+}
+
+void MainWindow::processPendinDatagrams()
+{
+    while (xchat->hasPendingDatagrams()) {
+        QByteArray datagram;
+        datagram.resize(xchat->pendingDatagramSize());
+        xchat->readDatagram(datagram.data(),datagram.size());
+
+        QDataStream in(&datagram,QIODevice::ReadOnly);
+        int msgType;
+        in >> msgType;
+        QString ip,msgStr;
+
+        QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+        switch (msgType) {
+            case PersonMessage:
+            {
+                emit receiveMsg();
+                qDebug()<<"receive msg.";
+                in >> ip >> msgStr;
+                QSqlQuery query;
+                query.exec("select id from person where ip='"+ip+"'");
+                QString id="";
+                while(query.next()){
+                    id=query.value(0).toString();
+                }
+                if(id==""){
+                    DBManager::runSql("insert into person (nickname,ip) values ('好友','"+ip+"')");
+                    query.exec("select id from person where ip='"+ip+"'");
+                    while(query.next()){
+                        id=query.value(0).toString();
+                    }
+                }
+                DBManager::runSql("insert into msg (type,id,msg,time,islocal) values (0,"+id+",'"+msgStr+"','"+time+"',0)");
+                refresh();
+            }
+        }
+    }
 }
 
 void MainWindow::getUsername(QString un)
