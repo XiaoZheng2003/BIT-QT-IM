@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainWindow)
 {
+    m_editWindow=new Edit(this);
+
     ui->setupUi(this);
     this->setWindowTitle("Linpop");
 
@@ -96,6 +98,8 @@ void MainWindow::initMenu()
         QAction* select=popMenu->exec(QCursor::pos());
         if(select==editNode){
             //编辑
+            m_editWindow->init(curItem->text(2).toInt(),false);
+            m_editWindow->exec();
             qDebug()<<"编辑序号"<<curItem->text(2);
             //TODO: 弹出编辑框
             refresh();
@@ -120,6 +124,8 @@ void MainWindow::initMenu()
         QAction* select=popMenu->exec(QCursor::pos());
         if(select==editNode){
             //编辑
+            m_editWindow->init(curItem->text(3).toInt(),true);
+            m_editWindow->exec();
             qDebug()<<"编辑序号"<<curItem->text(3);
             //TODO: 弹出编辑框
             refresh();

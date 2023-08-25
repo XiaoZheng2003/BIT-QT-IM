@@ -8,6 +8,7 @@
 #include <QTreeWidgetItem>
 
 #include "add.h"
+#include "edit.h"
 #include "dbmanager.h"
 #include "networktool.h"
 
@@ -31,7 +32,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-
+    Edit *m_editWindow;
     void refresh();
     void initMenu();
 };
