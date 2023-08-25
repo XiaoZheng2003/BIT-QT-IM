@@ -6,7 +6,7 @@ Chat::Chat(bool isGroup,int tid,QString tname,QString tip,QUdpSocket *xchat,qint
     ui(new Ui::Chat)
 {
     ui->setupUi(this);
-    ui->title->setText("与"+tname+"["+tip+"]私聊中");
+    this->setWindowTitle("与"+tname+"["+tip+"]私聊中");
 
     localIp=NetworkTool::GetLocalIP();
     this->isGroup=isGroup;
