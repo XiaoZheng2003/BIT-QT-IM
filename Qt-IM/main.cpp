@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
     // 创建表格
     DBManager::runSql("create table if not exists person (id integer primary key, nickname varchar(50), ip varchar(20))");
     DBManager::runSql("create table if not exists groups (id integer primary key, groupname varchar(50), ips varchar(200), num int)");
+    DBManager::runSql("create table if not exists msg(type boolean, id integer, msg varchar(200), time timestamp, islocal boolean);");
 
     Login lw;
     lw.show();

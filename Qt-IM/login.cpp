@@ -10,9 +10,10 @@ Login::Login(QWidget *parent) :
     this->setWindowTitle("登录");
     connect(this,&Login::sendUsername,&mw,&MainWindow::getUsername);
 
-    QIcon icon(":/res/avatar.jpg");
-    ui->pic->setIcon(icon);//登录页面设置图片
-
+    QPixmap *pixmap=new QPixmap(":/res/banner.jpg");
+    pixmap->scaled(ui->banner->size(),Qt::KeepAspectRatio);
+    ui->banner->setScaledContents(true);
+    ui->banner->setPixmap(*pixmap);
 }
 
 Login::~Login()
@@ -21,7 +22,7 @@ Login::~Login()
 }
 
 
-void Login::on_in_btn_clicked()
+void Login::on_login_clicked()
 {
     QString user;
     user = ui->username->text();//获取用户名
