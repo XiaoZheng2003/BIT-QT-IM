@@ -40,8 +40,9 @@ private:
     Ui::MainWindow *ui;
     QUdpSocket *xchat;
     qint32 xport;
+    QString localName;
     QString localIp;
-    Chat chat;
+    Chat *chat;
 
     Edit *m_editWindow;
     void refresh();
