@@ -67,7 +67,6 @@ void MainWindow::processPendinDatagrams()
         switch (msgType) {
             case PersonMessage:
             {
-                emit receiveMsg();
                 qDebug()<<"receive msg.";
                 in >> ip >> msgStr;
                 QSqlQuery query;
@@ -85,6 +84,7 @@ void MainWindow::processPendinDatagrams()
                 }
                 DBManager::runSql("insert into msg (type,id,msg,time,islocal) values (0,"+id+",'"+msgStr+"','"+time+"',0)");
                 refresh();
+                emit receiveMsg();
             }
         }
     }
