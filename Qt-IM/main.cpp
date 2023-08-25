@@ -16,4 +16,5 @@ int main(int argc, char *argv[])
 
     Login lw;
     lw.show();
+    return a.exec();
 }
