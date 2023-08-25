@@ -17,11 +17,12 @@ MainWindow::MainWindow(QWidget *parent) :
     refresh();
     initMenu();
 
-    connect(this,&MainWindow::receiveMsg,&chat,&Chat::refresh);
     connect(ui->personList,&QTreeWidget::itemDoubleClicked,[=](QTreeWidgetItem *item){
         //打开个人聊天界面
-        chat.init(0,item->text(2).toInt(),item->text(0),item->text(1),xchat,xport);
-        chat.show();
+        chat=new Chat(0,item->text(2).toInt(),item->text(0),item->text(1),xchat,xport,localName);
+        connect(this,&MainWindow::receiveMsg,chat,&Chat::refresh);
+        chat->setAttribute(Qt::WA_DeleteOnClose);
+        chat->show();
         emit receiveMsg();
         qDebug()<<item->text(0)<<item->text(1); //昵称 IP
     });
@@ -92,6 +93,7 @@ void MainWindow::processPendinDatagrams()
 
 void MainWindow::getUsername(QString un)
 {
+    localName=un;
     ui->nickname->setText(un);
 }
 

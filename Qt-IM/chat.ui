@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>ID:61026512</string>
+   <string>聊天界面</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_5">
    <item>
@@ -52,7 +52,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label">
+          <widget class="QLabel" name="title">
            <property name="text">
             <string>连接让世界更美好</string>
            </property>
