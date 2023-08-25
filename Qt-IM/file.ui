@@ -59,7 +59,10 @@ QProgressBar::chunk{border-radius:11px; background:qlineargradient(spread:pad, x
                padding: 5px;
                border: none;
                border-radius: 10px;
- }</string>
+ }
+QPushButton:hover {
+              background-color:  #9cd3fa;
+}</string>
          </property>
          <property name="text">
           <string>选择文件</string>
@@ -75,7 +78,10 @@ QProgressBar::chunk{border-radius:11px; background:qlineargradient(spread:pad, x
                padding: 5px;
                border: none;
                border-radius: 10px;
- }</string>
+ }
+QPushButton:hover {
+              background-color:  #9cd3fa;
+}</string>
          </property>
          <property name="text">
           <string>传输文件</string>
@@ -86,12 +92,15 @@ QProgressBar::chunk{border-radius:11px; background:qlineargradient(spread:pad, x
         <widget class="QPushButton" name="Button_cancle">
          <property name="styleSheet">
           <string notr="true">QPushButton {
-               background-color:#007BFF;
+               background-color:rgb(136, 138, 133);
                color: white;
                padding: 5px;
                border: none;
                border-radius: 10px;
- }</string>
+ }
+QPushButton:hover {
+              background-color:  rgb(211, 215, 207);
+}</string>
          </property>
          <property name="text">
           <string>取消传输</string>

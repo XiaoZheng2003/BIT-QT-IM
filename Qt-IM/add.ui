@@ -91,7 +91,12 @@
                padding: 5px;
                border: none;
                border-radius: 10px;
- }</string>
+ }
+
+
+QPushButton:hover {
+              background-color:  #9cd3fa;
+}</string>
            </property>
            <property name="text">
             <string>测试</string>
@@ -107,7 +112,12 @@
                padding: 5px;
                border: none;
                border-radius: 10px;
- }</string>
+ }
+
+
+QPushButton:hover {
+              background-color:  #9cd3fa;
+}</string>
            </property>
            <property name="text">
             <string>确认</string>
@@ -118,12 +128,17 @@
           <widget class="QPushButton" name="personCancel">
            <property name="styleSheet">
             <string notr="true">QPushButton {
-               background-color:#007BFF;
+               background-color:rgb(136, 138, 133);
                color: white;
                padding: 5px;
                border: none;
                border-radius: 10px;
- }</string>
+ }
+
+
+QPushButton:hover {
+              background-color:  rgb(211, 215, 207);
+}</string>
            </property>
            <property name="text">
             <string>取消</string>
@@ -178,7 +193,10 @@
                padding: 5px;
                border: none;
                border-radius: 10px;
- }</string>
+ }
+QPushButton:hover {
+              background-color:  #9cd3fa;
+}</string>
            </property>
            <property name="text">
             <string>测试</string>
@@ -194,7 +212,10 @@
                padding: 5px;
                border: none;
                border-radius: 10px;
- }</string>
+ }
+QPushButton:hover {
+              background-color:  #9cd3fa;
+}</string>
            </property>
            <property name="text">
             <string>确认</string>
@@ -205,12 +226,15 @@
           <widget class="QPushButton" name="groupCancel">
            <property name="styleSheet">
             <string notr="true">QPushButton {
-               background-color:#007BFF;
+               background-color:rgb(136, 138, 133);
                color: white;
                padding: 5px;
                border: none;
                border-radius: 10px;
- }</string>
+ }
+QPushButton:hover {
+              background-color:  rgb(211, 215, 207);
+}</string>
            </property>
            <property name="text">
             <string>取消</string>

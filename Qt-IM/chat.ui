@@ -118,20 +118,29 @@ border: none;
          <item>
           <widget class="QPushButton" name="pushButton_4">
            <property name="styleSheet">
-            <string notr="true">QPushButton {background-color: #007BFF; border-radius: 15px; padding: 7px 20px; color: white; border: none;}</string>
+            <string notr="true">QPushButton {background-color:rgb(136, 138, 133); border-radius: 15px; padding: 7px 20px; color: white; border: none;}
+
+
+QPushButton:hover {
+              background-color:  rgb(211, 215, 207);
+}</string>
            </property>
            <property name="text">
-            <string>close</string>
+            <string>关闭</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="sendMsg">
            <property name="styleSheet">
-            <string notr="true">QPushButton {background-color: #007BFF; border-radius: 15px; padding: 7px 20px; color: white; border: none;}</string>
+            <string notr="true">QPushButton {background-color: #007BFF; border-radius: 15px; padding: 7px 20px; color: white; border: none;}
+
+QPushButton:hover {
+              background-color:  #9cd3fa;
+}</string>
            </property>
            <property name="text">
-            <string>send</string>
+            <string>发送</string>
            </property>
           </widget>
          </item>
