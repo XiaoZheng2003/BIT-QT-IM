@@ -35,7 +35,7 @@
             <enum>Qt::AutoText</enum>
            </property>
            <property name="pixmap">
-            <pixmap resource="res.qrc">:/res/chat_4.png</pixmap>
+            <pixmap resource="res.qrc">:/res/chatIM.png</pixmap>
            </property>
            <property name="scaledContents">
             <bool>true</bool>
@@ -72,7 +72,7 @@
            </property>
            <property name="icon">
             <iconset resource="res.qrc">
-             <normaloff>:/res/chat_1.png</normaloff>:/res/chat_1.png</iconset>
+             <normaloff>:/res/chatExpression.png</normaloff>:/res/chatExpression.png</iconset>
            </property>
           </widget>
          </item>
@@ -83,7 +83,7 @@
            </property>
            <property name="icon">
             <iconset resource="res.qrc">
-             <normaloff>:/res/chat_2.png</normaloff>:/res/chat_2.png</iconset>
+             <normaloff>:/res/chatFont.png</normaloff>:/res/chatFont.png</iconset>
            </property>
           </widget>
          </item>
@@ -94,7 +94,7 @@
            </property>
            <property name="icon">
             <iconset resource="res.qrc">
-             <normaloff>:/res/chat_3.png</normaloff>:/res/chat_3.png</iconset>
+             <normaloff>:/res/chatFile.png</normaloff>:/res/chatFile.png</iconset>
            </property>
           </widget>
          </item>

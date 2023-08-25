@@ -2,11 +2,11 @@
     <qresource prefix="/">
         <file>res/avatar.jpg</file>
         <file>res/group.png</file>
-        <file>res/chat_1.png</file>
-        <file>res/chat_2.png</file>
-        <file>res/chat_3.png</file>
-        <file>res/chat_4.png</file>
         <file>res/personEdit.png</file>
         <file>res/banner.jpg</file>
+        <file>res/chatExpression.png</file>
+        <file>res/chatFile.png</file>
+        <file>res/chatFont.png</file>
+        <file>res/chatIM.png</file>
     </qresource>
 </RCC>

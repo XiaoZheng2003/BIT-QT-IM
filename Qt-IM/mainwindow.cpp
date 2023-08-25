@@ -86,10 +86,49 @@ void MainWindow::processPendinDatagrams()
                 DBManager::runSql("insert into msg (type,id,msg,time,islocal) values (0,"+id+",'"+msgStr+"','"+time+"',0)");
                 refresh();
             }
+            case SendFileName:
+            {
+                QString localIp, clientAddress, fileName;
+
+                in >> localIp >> clientAddress >> fileName ;
+                qDebug() << "localIp: " << localIp;
+                qDebug() << "clientAddress: " << clientAddress;
+                qDebug() << "fileName: " << fileName;
+                hasPendinFile(localIp,clientAddress,fileName);
+                /*this->show();
+                setWindowTitle("私聊");*/
+                break;
+            }
         }
     }
 }
 
+void MainWindow::hasPendinFile(QString serverAddress, QString clientAddress, QString fileName)
+{
+    // 每个客户端都检查，可优化
+    if(clientAddress == localIp)
+    {
+        int btn = QMessageBox::information(this,tr("接收文件"),
+                                           tr("来自 %1 的文件:%2","是否接受")
+                                           .arg(serverAddress).arg(fileName),
+                                           QMessageBox::Yes,QMessageBox::No);
+        if(btn == QMessageBox::Yes)
+        {
+            QString name = QFileDialog::getSaveFileName(0,tr("保存文件"),fileName);
+            if(!name.isEmpty())
+            {
+                Filerec *client = new Filerec(this);
+                client->setFileName(name);
+                client->setHostAddress(QHostAddress(serverAddress));
+                client->show();
+            }
+        }
+        else if(btn == QMessageBox::No)
+        {
+            //sendMessage(RefuseFile,serverAddress);
+        }
+    }
+}
 void MainWindow::getUsername(QString un)
 {
     ui->nickname->setText(un);

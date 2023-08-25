@@ -6,8 +6,8 @@ Chat::Chat(QWidget *parent) :
     ui(new Ui::Chat)
 {
     ui->setupUi(this);
-
     localIp=NetworkTool::GetLocalIP();
+    connect(&server, SIGNAL(sendFileName(QString)),this,SLOT(getSendFileName(QString)));
 }
 
 Chat::~Chat()
@@ -56,6 +56,13 @@ void Chat::sendMessage(messageType type,QString serverAddress){
             }
             break;
         }
+
+        case SendFileName:
+        {
+            QString clientAddresss = targetIp;
+            out << clientAddresss << fileName;
+            break;
+        }
     }
     xchat->writeDatagram(data,data.length(),QHostAddress(localIp),xport);
 }
@@ -82,3 +89,18 @@ void Chat::on_sendMsg_clicked()
     sendMessage(PersonMessage);
     refresh();
 }
+
+// 传输文件按钮槽函数
+void Chat::on_pushButton_3_clicked()
+{
+    server.show();
+    server.init();
+}
+
+// 接收传输文件信息槽函数
+void Chat::getSendFileName(QString name)
+{
+    fileName = name;
+    sendMessage(SendFileName);
+}
+
