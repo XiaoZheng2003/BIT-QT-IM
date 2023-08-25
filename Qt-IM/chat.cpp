@@ -1,28 +1,26 @@
 #include "chat.h"
 #include "ui_chat.h"
 
-Chat::Chat(QWidget *parent) :
+Chat::Chat(bool isGroup,int tid,QString tname,QString tip,QUdpSocket *xchat,qint32 xport,QString lname,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Chat)
 {
     ui->setupUi(this);
+    ui->title->setText("与"+tname+"["+tip+"]私聊中");
 
     localIp=NetworkTool::GetLocalIP();
-}
-
-Chat::~Chat()
-{
-    delete ui;
-}
-
-void Chat::init(bool isGroup,int tid,QString tname, QString tip,QUdpSocket *xchat,qint32 xport)
-{
     this->isGroup=isGroup;
     targetId=tid;
     targetName=tname;
     targetIp=tip;
     this->xchat=xchat;
     this->xport=xport;
+    localName=lname;
+}
+
+Chat::~Chat()
+{
+    delete ui;
 }
 
 QString Chat::getMessage()
@@ -67,12 +65,17 @@ void Chat::refresh()
     tb->clear();
     query.exec("select * from msg where id="+QString::number(targetId));
     while(query.next()){
-        if(query.value(4).toInt())
-            tb->setTextColor(Qt::blue);
-        else
-            tb->setTextColor(Qt::green);
         tb->setCurrentFont(QFont("黑体",8));
-        tb->append("["+localIp+"]"+query.value(3).toString());
+        if(query.value(4).toInt()){
+            tb->setTextColor(Qt::blue);
+            tb->append(localName+"["+localIp+"]"+query.value(3).toString());
+        }
+        else{
+            tb->setTextColor(Qt::green);
+            tb->append(targetName+"["+targetIp+"]"+query.value(3).toString());
+        }
+
+
         tb->append(query.value(2).toString());
     }
 }
