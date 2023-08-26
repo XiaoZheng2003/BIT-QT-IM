@@ -135,3 +135,10 @@ void Chat::on_history_clicked()
     history->setAttribute(Qt::WA_DeleteOnClose);
     history->show();
 }
+
+void Chat::on_emote_clicked()
+{
+    emoji=new Emoji();
+    emoji->setAttribute(Qt::WA_DeleteOnClose);
+    emoji->show();
+}
