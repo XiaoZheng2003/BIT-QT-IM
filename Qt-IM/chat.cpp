@@ -6,6 +6,17 @@ Chat::Chat(bool isGroup,int tid,QString tname,QString tip,QUdpSocket *xchat,qint
     ui(new Ui::Chat)
 {
     ui->setupUi(this);
+    localIp=NetworkTool::GetLocalIP();
+    connect(&server, SIGNAL(sendFileName(QString)),this,SLOT(getSendFileName(QString)));
+}
+
+Chat::~Chat()
+{
+    delete ui;
+}
+
+void Chat::init(bool isGroup,int tid,QString tname, QString tip,QUdpSocket *xchat,qint32 xport)
+{
     this->setWindowTitle("与"+tname+"["+tip+"]私聊中");
 
     localIp=NetworkTool::GetLocalIP();
@@ -54,8 +65,15 @@ void Chat::sendMessage(messageType type,QString serverAddress){
             }
             break;
         }
+
+        case SendFileName:
+        {
+            QString clientAddresss = targetIp;
+            out << clientAddresss << fileName;
+            break;
+        }
     }
-    xchat->writeDatagram(data,data.length(),QHostAddress(localIp),xport);
+    xchat->writeDatagram(data,data.length(),QHostAddress(targetIp),xport);
 }
 
 void Chat::refresh()
@@ -85,3 +103,18 @@ void Chat::on_sendMsg_clicked()
     sendMessage(PersonMessage);
     refresh();
 }
+
+// 传输文件按钮槽函数
+void Chat::on_pushButton_3_clicked()
+{
+    server.show();
+    server.init();
+}
+
+// 接收传输文件信息槽函数
+void Chat::getSendFileName(QString name)
+{
+    fileName = name;
+    sendMessage(SendFileName);
+}
+

@@ -47,6 +47,7 @@ private:
     Edit *m_editWindow;
     void refresh();
     void initMenu();
+    void hasPendinFile(QString serverAddress,QString clientAddress,QString filename);
 };
 
 #endif // MAINWINDOW_H
