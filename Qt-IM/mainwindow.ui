@@ -81,7 +81,8 @@
       <string notr="true">QTabBar::tab { min-width: 130px; max-width: 260px; }
 QTabWidget::tab-bar { 
 	alignment: center; 
-} </string>
+} 
+</string>
      </property>
      <property name="currentIndex">
       <number>0</number>
