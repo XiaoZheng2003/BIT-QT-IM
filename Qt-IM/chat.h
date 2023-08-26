@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QDialog>
 #include <QDateTime>
+#include <QKeyEvent>
 #include <QUdpSocket>
 #include <QMessageBox>
 #include <QFileDialog>
@@ -29,6 +30,9 @@ public:
     void refresh();
     File* getSever();
     void sendMessage(messageType type,QString serverAddress = "");
+
+protected:
+    void keyPressEvent(QKeyEvent *ev);
 
 private slots:
     void on_sendMsg_clicked();
