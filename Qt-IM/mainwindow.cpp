@@ -100,13 +100,23 @@ void MainWindow::processPendinDatagrams()
                 setWindowTitle("私聊");*/
                 break;
             }
+            case RefuseFile:
+            {
+                QString clinetIp, serverAddress;
+                in >> clinetIp >> serverAddress;
+                QString ipAddress = localIp;
+                if(ipAddress == serverAddress)
+                {
+                    chat->getSever()->refused();
+                }
+                break;
+            }
         }
     }
 }
 
 void MainWindow::hasPendinFile(QString serverAddress, QString clientAddress, QString fileName)
 {
-    // 每个客户端都检查，可优化
     if(clientAddress == localIp)
     {
         int btn = QMessageBox::information(this,tr("接收文件"),
@@ -123,10 +133,13 @@ void MainWindow::hasPendinFile(QString serverAddress, QString clientAddress, QSt
                 client->setHostAddress(QHostAddress(serverAddress));
                 client->show();
             }
+            else{
+                chat->sendMessage(RefuseFile,serverAddress);
+            }
         }
         else if(btn == QMessageBox::No)
         {
-            //sendMessage(RefuseFile,serverAddress);
+            chat->sendMessage(RefuseFile,serverAddress);
         }
     }
 }

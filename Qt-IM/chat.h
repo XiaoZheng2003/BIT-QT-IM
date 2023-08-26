@@ -27,6 +27,8 @@ public:
     ~Chat();
 
     void refresh();
+    File* getSever();
+    void sendMessage(messageType type,QString serverAddress = "");
 
 private slots:
     void on_sendMsg_clicked();
@@ -55,7 +57,6 @@ private:
     History *history;
 
     QString getMessage();
-    void sendMessage(messageType type,QString serverAddress = "");
 
 };
 
