@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>历史记录</string>
   </property>
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
@@ -24,7 +24,7 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QLineEdit" name="lineEdit">
+     <widget class="QLineEdit" name="keyword">
       <property name="styleSheet">
        <string notr="true">QLineEdit{
 	border:none;
@@ -38,7 +38,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="search">
       <property name="styleSheet">
        <string notr="true">
 QPushButton {
@@ -72,7 +72,7 @@ QPushButton:hover {
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QTextBrowser" name="textBrowser">
+     <widget class="QTextBrowser" name="messageTextBrowser">
       <property name="styleSheet">
        <string notr="true">QTextBrowser { background-color: white; border: none; border-radius: 20px; }</string>
       </property>
