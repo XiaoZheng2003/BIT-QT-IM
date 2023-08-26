@@ -31,7 +31,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="emote">
            <property name="styleSheet">
             <string notr="true">QPushButton { 
 border: none;
@@ -47,7 +47,7 @@ border: none;
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="file">
            <property name="styleSheet">
             <string notr="true">QPushButton { 
 border: none;
@@ -63,7 +63,7 @@ border: none;
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_3">
+          <widget class="QPushButton" name="image">
            <property name="styleSheet">
             <string notr="true">QPushButton { 
 border: none;
@@ -116,7 +116,7 @@ border: none;
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_4">
+          <widget class="QPushButton" name="closeBtn">
            <property name="styleSheet">
             <string notr="true">QPushButton {background-color:rgb(136, 138, 133); border-radius: 15px; padding: 7px 20px; color: white; border: none;}
 
@@ -157,4 +157,3 @@ QPushButton:hover {
  </resources>
  <connections/>
 </ui>
-

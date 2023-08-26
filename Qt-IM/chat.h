@@ -30,9 +30,11 @@ public:
 private slots:
     void on_sendMsg_clicked();
 
-    void on_pushButton_3_clicked();
+    void on_file_clicked();
 
     void getSendFileName(QString);
+
+    void on_closeBtn_clicked();
 
 private:
     Ui::Chat *ui;

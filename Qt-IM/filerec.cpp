@@ -126,7 +126,7 @@ void Filerec::closeEvent(QCloseEvent *)
 }*/
 
 
-void Filerec::on_concelButton_clicked()
+void Filerec::on_cancelButton_clicked()
 {
     tcpClient->abort();
     if(localFile->isOpen())
@@ -139,6 +139,6 @@ void Filerec::on_concelButton_clicked()
 
 void Filerec::on_finishButton_clicked()
 {
-    on_concelButton_clicked();
+    on_cancelButton_clicked();
 }
 
