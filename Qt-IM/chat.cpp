@@ -15,25 +15,6 @@ Chat::~Chat()
     delete ui;
 }
 
-void Chat::init(bool isGroup,int tid,QString tname, QString tip,QUdpSocket *xchat,qint32 xport)
-{
-    this->setWindowTitle("与"+tname+"["+tip+"]私聊中");
-
-    localIp=NetworkTool::GetLocalIP();
-    this->isGroup=isGroup;
-    targetId=tid;
-    targetName=tname;
-    targetIp=tip;
-    this->xchat=xchat;
-    this->xport=xport;
-    localName=lname;
-}
-
-Chat::~Chat()
-{
-    delete ui;
-}
-
 QString Chat::getMessage()
 {
     QString msg = ui->messageTextEdit->toPlainText();
