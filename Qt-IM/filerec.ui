@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -30,6 +33,18 @@
        </item>
        <item>
         <widget class="QPushButton" name="button_normal">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+               background-color:#007BFF;
+               color: white;
+               padding: 5px;
+               border: none;
+               border-radius: 10px;
+ }
+QPushButton:hover {
+              background-color:  #9cd3fa;
+}</string>
+         </property>
          <property name="text">
           <string>选择文件夹</string>
          </property>
@@ -46,6 +61,11 @@
      </item>
      <item>
       <widget class="QProgressBar" name="progressBar">
+       <property name="styleSheet">
+        <string notr="true">QProgressBar{height:22px; text-align:center; font-size:14px; color:black; border-radius:11px; background:white;
+border: 1px solid  rgba(0, 128, 255, 100);}
+QProgressBar::chunk{border-radius:11px; background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 128, 255, 100), stop:1 rgba(0, 191, 255, 100));}</string>
+       </property>
        <property name="value">
         <number>24</number>
        </property>
@@ -55,6 +75,18 @@
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QPushButton" name="concelButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+               background-color:rgb(136, 138, 133);
+               color: white;
+               padding: 5px;
+               border: none;
+               border-radius: 10px;
+ }
+QPushButton:hover {
+              background-color:  rgb(211, 215, 207);
+}</string>
+         </property>
          <property name="text">
           <string>取消</string>
          </property>
@@ -62,6 +94,18 @@
        </item>
        <item>
         <widget class="QPushButton" name="finishButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+               background-color:#007BFF;
+               color: white;
+               padding: 5px;
+               border: none;
+               border-radius: 10px;
+ }
+QPushButton:hover {
+              background-color:  #9cd3fa;
+}</string>
+         </property>
          <property name="text">
           <string>完成</string>
          </property>
