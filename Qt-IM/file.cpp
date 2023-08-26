@@ -149,6 +149,8 @@ void File::refused()
 {
     tcpServer->close();
     ui->serverStatusLabel->setText(tr("对方拒绝接受文件"));
+    ui->Button_choose->setText(tr("重新选择"));
+    ui->Button_choose->setEnabled(true);
 }
 
 void File::closeEvent(QCloseEvent *)
@@ -183,4 +185,5 @@ void File::on_Button_cancle_clicked()
     }
     close();
 }
+
 

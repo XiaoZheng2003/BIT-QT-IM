@@ -26,6 +26,8 @@ public:
     ~Chat();
 
     void refresh();
+    File* getSever();
+    void sendMessage(messageType type,QString serverAddress = "");
 
 private slots:
     void on_sendMsg_clicked();
@@ -35,6 +37,7 @@ private slots:
     void getSendFileName(QString);
 
     void on_closeBtn_clicked();
+
 
 private:
     Ui::Chat *ui;
@@ -51,7 +54,6 @@ private:
     bool isGroup;
 
     QString getMessage();
-    void sendMessage(messageType type,QString serverAddress = "");
 
 };
 

@@ -63,6 +63,12 @@ void Chat::sendMessage(messageType type,QString serverAddress){
             out << clientAddresss << fileName;
             break;
         }
+
+        case RefuseFile:
+        {
+            out << serverAddress;
+            break;
+        }
     }
     xchat->writeDatagram(data,data.length(),QHostAddress(targetIp),xport);
 }
@@ -113,4 +119,8 @@ void Chat::getSendFileName(QString name)
 void Chat::on_closeBtn_clicked()
 {
     this->close();
+}
+
+File* Chat::getSever() {
+    return &server;
 }
