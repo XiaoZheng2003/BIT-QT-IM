@@ -8,5 +8,6 @@
         <file>res/s1.png</file>
         <file>res/s2.png</file>
         <file>res/s3.png</file>
+        <file>res/s4.png</file>
     </qresource>
 </RCC>

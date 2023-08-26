@@ -35,7 +35,12 @@
            <property name="styleSheet">
             <string notr="true">QPushButton { 
 border: none;
- }</string>
+ }
+QPushButton:pressed {
+    border: 2px solid rgb(136, 138, 133);
+    border-style: inset;
+    padding: 3px; 
+}</string>
            </property>
            <property name="text">
             <string/>
@@ -51,7 +56,12 @@ border: none;
            <property name="styleSheet">
             <string notr="true">QPushButton { 
 border: none;
- }</string>
+ }
+QPushButton:pressed {
+    border: 2px solid rgb(136, 138, 133);
+    border-style: inset;
+    padding: 3px; 
+}</string>
            </property>
            <property name="text">
             <string/>
@@ -67,7 +77,12 @@ border: none;
            <property name="styleSheet">
             <string notr="true">QPushButton { 
 border: none;
- }</string>
+ }
+QPushButton:pressed {
+    border: 2px solid rgb(136, 138, 133);
+    border-style: inset;
+    padding: 3px; 
+}</string>
            </property>
            <property name="text">
             <string/>
@@ -75,6 +90,27 @@ border: none;
            <property name="icon">
             <iconset resource="res.qrc">
              <normaloff>:/res/s1.png</normaloff>:/res/s1.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="history">
+           <property name="styleSheet">
+            <string notr="true">QPushButton { 
+border: none;
+ }
+QPushButton:pressed {
+    border: 2px solid rgb(136, 138, 133);
+    border-style: inset;
+    padding: 3px; 
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="res.qrc">
+             <normaloff>:/res/s4.png</normaloff>:/res/s4.png</iconset>
            </property>
           </widget>
          </item>
