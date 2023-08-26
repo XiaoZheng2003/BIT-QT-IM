@@ -118,7 +118,7 @@ void MainWindow::hasPendinFile(QString serverAddress, QString clientAddress, QSt
             QString name = QFileDialog::getSaveFileName(0,tr("保存文件"),fileName);
             if(!name.isEmpty())
             {
-                Filerec *client = new Filerec(this);
+                Filerec *client = new Filerec();
                 client->setFileName(name);
                 client->setHostAddress(QHostAddress(serverAddress));
                 client->show();
