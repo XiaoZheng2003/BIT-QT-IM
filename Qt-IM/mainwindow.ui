@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <widget class="QWidget" name="top" native="true">
@@ -74,6 +77,11 @@
    </item>
    <item>
     <widget class="QTabWidget" name="tabWidget">
+     <property name="styleSheet">
+      <string notr="true">QTabBar::tab { min-width: 130px; max-width: 260px; }
+
+</string>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -153,6 +161,20 @@
      </item>
      <item>
       <widget class="QPushButton" name="add">
+       <property name="styleSheet">
+        <string notr="true">
+QPushButton {
+               background-color:#007BFF;
+               color: white;
+               padding: 5px;
+               border: none;
+               border-radius: 10px;
+ }
+
+QPushButton:hover {
+              background-color:  #9cd3fa;
+}</string>
+       </property>
        <property name="text">
         <string>添加好友/群</string>
        </property>

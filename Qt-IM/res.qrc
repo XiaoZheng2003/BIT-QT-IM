@@ -8,5 +8,8 @@
         <file>res/chatFile.png</file>
         <file>res/chatFont.png</file>
         <file>res/chatIM.png</file>
+        <file>res/s1.png</file>
+        <file>res/s2.png</file>
+        <file>res/s3.png</file>
     </qresource>
 </RCC>

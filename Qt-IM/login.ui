@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>304</width>
-    <height>381</height>
+    <height>499</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(239, 239, 239);</string>
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -25,7 +25,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>50</height>
+       <height>30</height>
       </size>
      </property>
     </spacer>
@@ -39,7 +39,7 @@
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 75 31pt &quot;Dyuthi&quot;;
+      <string notr="true">font: 75 50pt &quot;Dyuthi&quot;;
 qproperty-alignment: AlignCenter; </string>
      </property>
      <property name="text">
@@ -50,7 +50,7 @@ qproperty-alignment: AlignCenter; </string>
    <item>
     <widget class="QLabel" name="slogan">
      <property name="text">
-      <string>即 时 通 讯 软 件</string>
+      <string>即   时   通   讯   软   件</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -203,7 +203,7 @@ QLineEdit:hover {
        <property name="styleSheet">
         <string notr="true">
 QPushButton {
-               background-color: #9cd3fa;
+               background-color:#007BFF;
                color: white;
                padding: 5px;
                border: none;
@@ -211,7 +211,7 @@ QPushButton {
  }
 
 QPushButton:hover {
-              background-color: #00a2e8;
+              background-color:  #9cd3fa;
 }</string>
        </property>
        <property name="text">

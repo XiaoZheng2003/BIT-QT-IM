@@ -22,10 +22,9 @@ class Chat : public QWidget
     Q_OBJECT
 
 public:
-    explicit Chat(QWidget *parent = nullptr);
+    explicit Chat(bool isGroup,int tid,QString tname,QString tip,QUdpSocket *xchat,qint32 xport,QString lname,QWidget *parent = nullptr);
     ~Chat();
 
-    void init(bool isGroup,int tid,QString tname,QString tip,QUdpSocket *xchat,qint32 xport);
     void refresh();
 
 private slots:
@@ -38,6 +37,7 @@ private slots:
 private:
     Ui::Chat *ui;
     int targetId;
+    QString localName;
     QString localIp;
     QString targetName;
     QString targetIp;
