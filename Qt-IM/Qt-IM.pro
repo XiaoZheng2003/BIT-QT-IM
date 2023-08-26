@@ -24,6 +24,7 @@ SOURCES += \
     edit.cpp \
     file.cpp \
     filerec.cpp \
+    history.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -36,6 +37,7 @@ HEADERS += \
     edit.h \
     file.h \
     filerec.h \
+    history.h \
     login.h \
     mainwindow.h \
     networktool.h
@@ -46,6 +48,7 @@ FORMS += \
     edit.ui \
     file.ui \
     filerec.ui \
+    history.ui \
     login.ui \
     mainwindow.ui
 
