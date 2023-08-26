@@ -38,7 +38,7 @@
          <string/>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="res.qrc">
           <normaloff>:/res/avatar.jpg</normaloff>:/res/avatar.jpg</iconset>
         </property>
         <property name="iconSize">
@@ -78,16 +78,10 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="styleSheet">
-      <string notr="true">QTabBar::tab { min-width: 132px; max-width: 264px; }
-QWidget{
-background-color: rgb(255, 255, 255);
-}
+      <string notr="true">QTabBar::tab { min-width: 130px; max-width: 260px; }
 QTabWidget::tab-bar { 
 	alignment: center; 
-} 
-
-
-</string>
+} </string>
      </property>
      <property name="currentIndex">
       <number>0</number>
@@ -99,9 +93,6 @@ QTabWidget::tab-bar {
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <widget class="QTreeWidget" name="personList">
-         <property name="styleSheet">
-          <string notr="true">gridline-color: rgb(32, 74, 135);</string>
-         </property>
          <column>
           <property name="text">
            <string>昵称</string>
@@ -207,6 +198,8 @@ QPushButton:hover {
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>
