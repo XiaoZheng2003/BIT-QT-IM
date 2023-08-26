@@ -12,6 +12,7 @@
 #include "networktool.h"
 #include "file.h"
 #include "filerec.h"
+#include "history.h"
 
 namespace Ui {
 class Chat;
@@ -38,6 +39,7 @@ private slots:
 
     void on_closeBtn_clicked();
 
+    void on_history_clicked();
 
 private:
     Ui::Chat *ui;
@@ -52,6 +54,7 @@ private:
     File server;
     QString fileName;
     bool isGroup;
+    History *history;
 
     QString getMessage();
 

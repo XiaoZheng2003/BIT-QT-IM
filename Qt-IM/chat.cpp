@@ -89,8 +89,6 @@ void Chat::refresh()
             tb->setTextColor(Qt::green);
             tb->append(targetName+"["+targetIp+"]"+query.value(3).toString());
         }
-
-
         tb->append(query.value(2).toString());
     }
 }
@@ -123,4 +121,11 @@ void Chat::on_closeBtn_clicked()
 
 File* Chat::getSever() {
     return &server;
+}
+
+void Chat::on_history_clicked()
+{
+    history=new History(targetId,localName,localIp,targetName,targetIp);
+    history->setAttribute(Qt::WA_DeleteOnClose);
+    history->show();
 }

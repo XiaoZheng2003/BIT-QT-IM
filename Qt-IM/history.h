@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+#include "dbmanager.h"
+
 namespace Ui {
 class History;
 }
@@ -12,11 +14,20 @@ class History : public QDialog
     Q_OBJECT
 
 public:
-    explicit History(QWidget *parent = nullptr);
+    explicit History(int id, QString lname, QString lip, QString tname, QString tip, QWidget *parent = nullptr);
     ~History();
+
+private slots:
+    void on_search_clicked();
 
 private:
     Ui::History *ui;
+
+    int id;
+    QString localName;
+    QString localIp;
+    QString targetName;
+    QString targetIp;
 };
 
 #endif // HISTORY_H
