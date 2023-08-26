@@ -74,7 +74,7 @@ QProgressBar::chunk{border-radius:11px; background:qlineargradient(spread:pad, x
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QPushButton" name="concelButton">
+        <widget class="QPushButton" name="cancelButton">
          <property name="styleSheet">
           <string notr="true">QPushButton {
                background-color:rgb(136, 138, 133);

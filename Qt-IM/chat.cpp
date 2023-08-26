@@ -8,6 +8,16 @@ Chat::Chat(bool isGroup,int tid,QString tname,QString tip,QUdpSocket *xchat,qint
     ui->setupUi(this);
     localIp=NetworkTool::GetLocalIP();
     connect(&server, SIGNAL(sendFileName(QString)),this,SLOT(getSendFileName(QString)));
+    this->setWindowTitle("与"+tname+"["+tip+"]私聊中");
+
+    localIp=NetworkTool::GetLocalIP();
+    this->isGroup=isGroup;
+    targetId=tid;
+    targetName=tname;
+    targetIp=tip;
+    this->xchat=xchat;
+    this->xport=xport;
+    localName=lname;
 }
 
 Chat::~Chat()
@@ -86,7 +96,7 @@ void Chat::on_sendMsg_clicked()
 }
 
 // 传输文件按钮槽函数
-void Chat::on_pushButton_3_clicked()
+void Chat::on_file_clicked()
 {
     server.show();
     server.init();
@@ -99,3 +109,8 @@ void Chat::getSendFileName(QString name)
     sendMessage(SendFileName);
 }
 
+
+void Chat::on_closeBtn_clicked()
+{
+    this->close();
+}

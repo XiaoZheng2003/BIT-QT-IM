@@ -30,7 +30,7 @@ private slots:
     void newConnect();
 
     void readMessage();
-    void on_concelButton_clicked();
+    void on_cancelButton_clicked();
     void on_finishButton_clicked();
 
 private:
