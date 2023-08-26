@@ -64,7 +64,7 @@ void Chat::sendMessage(messageType type,QString serverAddress){
             break;
         }
     }
-    xchat->writeDatagram(data,data.length(),QHostAddress(localIp),xport);
+    xchat->writeDatagram(data,data.length(),QHostAddress(targetIp),xport);
 }
 
 void Chat::refresh()
