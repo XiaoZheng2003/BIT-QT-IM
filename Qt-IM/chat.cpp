@@ -87,6 +87,12 @@ void Chat::refresh()
     }
 }
 
+void Chat::keyPressEvent(QKeyEvent *ev)
+{
+    if(ev->modifiers()==Qt::ControlModifier && (ev->key()==Qt::Key_Return||ev->key()==Qt::Key_Enter))
+        on_sendMsg_clicked();
+}
+
 void Chat::on_sendMsg_clicked()
 {
     sendMessage(PersonMessage);

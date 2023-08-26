@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QDialog>
 #include <QDateTime>
+#include <QKeyEvent>
 #include <QUdpSocket>
 #include <QMessageBox>
 #include <QFileDialog>
@@ -27,6 +28,9 @@ public:
     ~Chat();
 
     void refresh();
+
+protected:
+    void keyPressEvent(QKeyEvent *ev);
 
 private slots:
     void on_sendMsg_clicked();
