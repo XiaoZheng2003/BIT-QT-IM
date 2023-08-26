@@ -13,6 +13,7 @@
 #include "file.h"
 #include "filerec.h"
 #include "history.h"
+#include "emoji.h"
 
 namespace Ui {
 class Chat;
@@ -41,6 +42,8 @@ private slots:
 
     void on_history_clicked();
 
+    void on_emote_clicked();
+
 private:
     Ui::Chat *ui;
     int targetId;
@@ -55,6 +58,7 @@ private:
     QString fileName;
     bool isGroup;
     History *history;
+    Emoji *emoji;
 
     QString getMessage();
 

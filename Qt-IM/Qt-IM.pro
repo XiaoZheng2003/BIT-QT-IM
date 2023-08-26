@@ -22,6 +22,7 @@ SOURCES += \
     chat.cpp \
     dbmanager.cpp \
     edit.cpp \
+    emoji.cpp \
     file.cpp \
     filerec.cpp \
     history.cpp \
@@ -35,6 +36,7 @@ HEADERS += \
     chat.h \
     dbmanager.h \
     edit.h \
+    emoji.h \
     file.h \
     filerec.h \
     history.h \
@@ -46,6 +48,7 @@ FORMS += \
     add.ui \
     chat.ui \
     edit.ui \
+    emoji.ui \
     file.ui \
     filerec.ui \
     history.ui \
