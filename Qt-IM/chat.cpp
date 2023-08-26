@@ -138,7 +138,11 @@ void Chat::on_history_clicked()
 
 void Chat::on_emote_clicked()
 {
-    emoji=new Emoji();
+    emoji=new Emoji(ui->messageTextBrowser->x()+this->x(),
+                    ui->messageTextBrowser->y()+ui->messageTextBrowser->height()+this->y()+frameGeometry().height()-geometry().height());
     emoji->setAttribute(Qt::WA_DeleteOnClose);
+    connect(emoji,&Emoji::addEmoji,[=](QString emoji){
+       ui->messageTextEdit->insertPlainText(emoji);
+    });
     emoji->show();
 }
