@@ -8,6 +8,12 @@
 #include <QUdpSocket>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QNetworkRequest>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 
 #include "dbmanager.h"
 #include "networktool.h"
@@ -47,6 +53,8 @@ private slots:
     void on_history_clicked();
 
     void on_emote_clicked();
+
+    void chatRobot();
 
 private:
     Ui::Chat *ui;

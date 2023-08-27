@@ -9,5 +9,6 @@
         <file>res/s2.png</file>
         <file>res/s3.png</file>
         <file>res/s4.png</file>
+        <file>res/robot.png</file>
     </qresource>
 </RCC>
