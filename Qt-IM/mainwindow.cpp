@@ -159,8 +159,12 @@ void MainWindow::refresh()
     personList->setIconSize(QSize(25,25));
     QSqlQuery query;
     query.exec("select * from person");
+    QTreeWidgetItem *person=new QTreeWidgetItem(personList);
+    person->setText(0,"智能聊天机器人");
+    person->setIcon(0,QIcon(":/res/robot.png"));
+    person->setText(2,"-1");
     while(query.next()){
-        QTreeWidgetItem *person=new QTreeWidgetItem(personList);
+        person=new QTreeWidgetItem(personList);
         person->setText(0,query.value(1).toString());
         person->setIcon(0,QIcon(":/res/avatar.jpg"));
         person->setText(1,query.value(2).toString());
