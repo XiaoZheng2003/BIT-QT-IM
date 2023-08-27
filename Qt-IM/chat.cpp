@@ -8,7 +8,7 @@ Chat::Chat(bool isGroup,int tid,QString tname,QString tip,QUdpSocket *xchat,qint
     ui->setupUi(this);
     localIp=NetworkTool::GetLocalIP();
     connect(&server, SIGNAL(sendFileName(QString)),this,SLOT(getSendFileName(QString)));
-    this->setWindowTitle("与"+tname+tip==""?"":("["+tip+"]")+"私聊中");
+    this->setWindowTitle("与"+tname+(tip==""?"":("["+tip+"]"))+"私聊中");
 
     localIp=NetworkTool::GetLocalIP();
     this->isGroup=isGroup;
@@ -93,7 +93,7 @@ void Chat::refresh()
         }
         else{
             tb->setTextColor(Qt::green);
-            tb->append(targetName+targetIp==""?"":("["+targetIp+"]")+" "+query.value(3).toString());
+            tb->append(targetName+(targetIp==""?"":("["+targetIp+"]"))+" "+query.value(3).toString());
         }
         tb->append(query.value(2).toString());
     }
