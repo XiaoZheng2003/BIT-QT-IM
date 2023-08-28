@@ -14,7 +14,7 @@ Filerec::Filerec(QWidget *parent) :
     TotalBytes(0),
     bytesReceived(0),
     fileNameSize(0),
-    tcpPort(8719),
+    tcpPort(12689),
     ui(new Ui::Filerec)
 {
     ui->setupUi(this);
