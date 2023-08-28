@@ -49,7 +49,12 @@ void Add::on_personConfirm_clicked()
     QString ip=ui->personIP->text();
     if(!testPersonIPFormat(ip))   //IP格式错误
         return;
-    //添加好友（数据库）
+
+    //检测重复ip
+    if(NetworkTool::isIpExist(ip)){
+        QMessageBox::critical(this,tr("错误"),tr("同IP好友禁止重复添加！"));
+        return;
+    }
     DBManager::runSql(QString("insert into person (nickname,ip) values('%1', '%2')").arg(nickname).arg(ip));
     this->close();
 }

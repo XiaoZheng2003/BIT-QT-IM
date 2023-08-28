@@ -70,3 +70,11 @@ bool NetworkTool::testGroupIPFormat(QStringList ips, QWidget *target)
     }
     return true;
 }
+
+bool NetworkTool::isIpExist(QString ip)
+{
+    QSqlQuery query;
+    query.exec(QString("select count(*) from person where ip='%1'").arg(ip));
+    query.next();
+    return query.value(0).toInt()>=1;
+}

@@ -11,6 +11,7 @@
 #include "add.h"
 #include "chat.h"
 #include "edit.h"
+#include "avatar.h"
 #include "dbmanager.h"
 #include "networktool.h"
 
@@ -33,6 +34,8 @@ private slots:
     void on_add_clicked();
     void processPendinDatagrams();
 
+    void on_avatar_clicked();
+
 public slots:
     void getUsername(QString);
 
@@ -46,8 +49,9 @@ private:
     QString localName;
     QString localIp;
     Chat *chat;
-
     Edit *m_editWindow;
+    int avatarId;
+
     void refresh();
     void initMenu();
     void hasPendinFile(QString serverAddress,QString clientAddress,QString filename);

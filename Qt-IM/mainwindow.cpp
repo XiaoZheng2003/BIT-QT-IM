@@ -17,11 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     refresh();
     initMenu();
 
-    ui->personList->setHeaderHidden(true);
-    ui->groupList->setHeaderHidden(true);
-
-
-
+    //ui->personList->setHeaderHidden(true);
+    //ui->groupList->setHeaderHidden(true);
 
     connect(ui->personList,&QTreeWidget::itemDoubleClicked,[=](QTreeWidgetItem *item){
         //打开个人聊天界面
@@ -89,7 +86,7 @@ void MainWindow::processPendinDatagrams()
                         id=query.value(0).toString();
                     }
                 }
-                DBManager::runSql("insert into msg (type,id,msg,time,islocal) values (0,"+id+",'"+msgStr+"','"+time+"',0)");
+                DBManager::runSql("insert into person_msg (id,msg,time,islocal) values ("+id+",'"+msgStr+"','"+time+"',0)");
                 refresh();
                 emit receiveMsg();
             }
@@ -184,14 +181,10 @@ void MainWindow::refresh()
     personList->setIconSize(QSize(25,25));
     QSqlQuery query;
     query.exec("select * from person");
-    QTreeWidgetItem *person=new QTreeWidgetItem(personList);
-    person->setText(0,"智能聊天机器人");
-    person->setIcon(0,QIcon(":/res/robot.png"));
-    person->setText(2,"-1");
     while(query.next()){
-        person=new QTreeWidgetItem(personList);
+        QTreeWidgetItem *person=new QTreeWidgetItem(personList);
         person->setText(0,query.value(1).toString());
-        person->setIcon(0,QIcon(":/res/avatar_c.png"));
+        person->setIcon(0,QIcon(QString(":/res/avatar%1.png").arg(query.value(3).toInt())));
         person->setText(1,query.value(2).toString());
         person->setText(2,query.value(0).toString());
     }
@@ -247,7 +240,8 @@ void MainWindow::initMenu()
         }
         else if(select==deleteNode){
             //删除
-            if(QMessageBox::question(this,"提示","确认删除该好友吗？",QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes){
+            if(QMessageBox::question(this,"提示","确认删除该好友吗？（同时会删除该好友的聊天记录）",
+                                     QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes){
                 DBManager::runSql("delete from person where id="+curItem->text(2));
                 refresh();
             }
@@ -286,4 +280,14 @@ void MainWindow::closeEvent(QCloseEvent *) // 关闭窗口，向所有玩家发�
     Chat* refusechat = new Chat(0,-999,"", "255.255.255.255", xchat, xport, localName); // 发送拒绝消息的临时chat
     refusechat->sendMessage(RefuseFile,"255.255.255.255"); // 广播
     delete refusechat;
+}
+void MainWindow::on_avatar_clicked()
+{
+    Avatar *a=new Avatar(avatarId);
+    a->setAttribute(Qt::WA_DeleteOnClose);
+    a->show();
+    connect(a,&Avatar::changeAvatarId,[=](int aid){
+        avatarId=aid;
+        ui->avatar->setIcon(QIcon(QPixmap(QString(":/res/avatar%1.png").arg(aid))));
+    });
 }
