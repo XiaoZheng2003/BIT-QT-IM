@@ -167,7 +167,7 @@ void Chat::chatRobot()
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     // 发起GET请求
     QNetworkReply *reply = manager->get(QNetworkRequest(
-                    QUrl("https://apis.tianapi.com/robot/index?key=0fbd4f91455c68e8fdb30b914d44b79c&question="+message)));
+                    QUrl("https://apis.tianapi.com/robot/index?key=0fbd4f91455c68e8fdb30b914d44b79c&question="+message.replace("+","%2B"))));
     // 连接请求完成信号
     connect(reply, &QNetworkReply::finished, [=]() {
         // 读取响应数据

@@ -200,6 +200,14 @@ void MainWindow::initMenu()
     connect(ui->personList,&QTreeWidget::customContextMenuRequested,[=](QPoint pos){
         QTreeWidgetItem *curItem=ui->personList->itemAt(pos);
         if(curItem==nullptr) return ;
+        if(curItem->text(2)=="-1"){
+            editNode->setDisabled(true);
+            deleteNode->setDisabled(true);
+        }
+        else{
+            editNode->setEnabled(true);
+            deleteNode->setEnabled(true);
+        }
         popMenu->clear();
         popMenu->addAction(editNode);
         popMenu->addAction(deleteNode);
