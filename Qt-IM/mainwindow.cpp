@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     refresh();
     initMenu();
 
+
     connect(ui->personList,&QTreeWidget::itemDoubleClicked,[=](QTreeWidgetItem *item){
         //打开个人聊天界面
         chat=new Chat(0,item->text(2).toInt(),item->text(0),item->text(1),xchat,xport,localName);
