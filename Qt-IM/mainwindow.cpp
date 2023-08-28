@@ -165,8 +165,12 @@ void MainWindow::refresh()
     personList->setIconSize(QSize(25,25));
     QSqlQuery query;
     query.exec("select * from person");
+    QTreeWidgetItem *person=new QTreeWidgetItem(personList);
+    person->setText(0,"智能聊天机器人");
+    person->setIcon(0,QIcon(":/res/robot.png"));
+    person->setText(2,"-1");
     while(query.next()){
-        QTreeWidgetItem *person=new QTreeWidgetItem(personList);
+        person=new QTreeWidgetItem(personList);
         person->setText(0,query.value(1).toString());
         person->setIcon(0,QIcon(":/res/avatar_c.png"));
         person->setText(1,query.value(2).toString());
@@ -202,6 +206,14 @@ void MainWindow::initMenu()
     connect(ui->personList,&QTreeWidget::customContextMenuRequested,[=](QPoint pos){
         QTreeWidgetItem *curItem=ui->personList->itemAt(pos);
         if(curItem==nullptr) return ;
+        if(curItem->text(2)=="-1"){
+            editNode->setDisabled(true);
+            deleteNode->setDisabled(true);
+        }
+        else{
+            editNode->setEnabled(true);
+            deleteNode->setEnabled(true);
+        }
         popMenu->clear();
         popMenu->addAction(editNode);
         popMenu->addAction(deleteNode);

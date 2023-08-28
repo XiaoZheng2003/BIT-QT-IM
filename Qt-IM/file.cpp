@@ -9,7 +9,7 @@ File::File(QWidget *parent) :
     localFile(nullptr),
     tcpServer(nullptr),
     clientConnection(nullptr),
-    tcpPort(8719)
+    tcpPort(12689)
 {
     ui->setupUi(this);
     tcpServer = new QTcpServer(this);
@@ -177,13 +177,19 @@ void File::on_Button_cancle_clicked()
     if(tcpServer->isListening())
     {
         tcpServer->close();
-        if(localFile->isOpen())
-        {
-            localFile->close();
+        if(localFile!=nullptr){
+            if(localFile->isOpen())
+            {
+                localFile->close();
+            }
         }
-        clientConnection->abort();
+        if(clientConnection!=nullptr){
+            clientConnection->abort();
+        }
+
     }
     close();
 }
+
 
 

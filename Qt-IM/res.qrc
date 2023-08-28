@@ -11,5 +11,6 @@
         <file>res/avatar_c.png</file>
         <file>res/add.png</file>
         <file>res/s3.png</file>
+        <file>res/robot.png</file>
     </qresource>
 </RCC>
