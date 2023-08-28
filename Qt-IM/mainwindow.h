@@ -39,8 +39,8 @@ private slots:
 public slots:
     void getUsername(QString);
 
-protected:
-    void closeEvent(QCloseEvent *);
+//protected:
+//    void closeEvent(QCloseEvent *);
 
 private:
     Ui::MainWindow *ui;
