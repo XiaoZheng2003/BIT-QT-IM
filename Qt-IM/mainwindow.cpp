@@ -112,10 +112,10 @@ void MainWindow::processPendinDatagrams()
                 {
                     chat->getSever()->refused();
                 }
-                else if(ipAddress == "255.255.255.255"){
-                    if(chat->getSever()->get_Client_Connection()->localAddress().toString()==clinetIp) // 找到对应关闭窗口客户端的服务端
-                    chat->getSever()->refused();
-                }
+//                else if(ipAddress == "255.255.255.255"){
+//                    if(chat->getSever()->get_Client_Connection()->localAddress().toString()==clinetIp) // 找到对应关闭窗口客户端的服务端
+//                    chat->getSever()->refused();
+//                }
 
                 break;
             }
@@ -275,12 +275,13 @@ void MainWindow::initMenu()
     });
 }
 
-void MainWindow::closeEvent(QCloseEvent *) // 关闭窗口，向所有玩家发送拒绝信号
-{
-    Chat* refusechat = new Chat(0,-999,"", "255.255.255.255", xchat, xport, localName); // 发送拒绝消息的临时chat
-    refusechat->sendMessage(RefuseFile,"255.255.255.255"); // 广播
-    delete refusechat;
-}
+//void MainWindow::closeEvent(QCloseEvent *) // 关闭窗口，向所有玩家发送拒绝信号
+//{
+//    Chat* refusechat = new Chat(0,-999,"", "255.255.255.255", xchat, xport, localName); // 发送拒绝消息的临时chat
+//    refusechat->sendMessage(RefuseFile,"255.255.255.255"); // 广播
+//    delete refusechat;
+//}
+
 void MainWindow::on_avatar_clicked()
 {
     Avatar *a=new Avatar(avatarId);
