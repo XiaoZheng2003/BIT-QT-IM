@@ -135,14 +135,14 @@ qproperty-alignment: AlignCenter; </string>
       <widget class="QLineEdit" name="username">
        <property name="styleSheet">
         <string notr="true">QLineEdit{
-	border:1px groove gray;
+	border:1px solid black;
 	border-radius:7px;
 	padding:2px 4px;
 	font: 10pt &quot;Candara&quot;;
  }
 
 QLineEdit:hover {
-	border: 2px solid black;
+	border:1px groove grey;
 }</string>
        </property>
        <property name="echoMode">

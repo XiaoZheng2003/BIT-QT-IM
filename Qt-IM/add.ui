@@ -14,17 +14,58 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 255);</string>
+   <string notr="true"/>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_4">
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="styleSheet">
-      <string notr="true">QTabBar::tab { min-width: 132px; max-width: 264px; }
+      <string notr="true">
+
 QTabWidget::tab-bar { 
 	alignment: center; 
 } 
-</string>
+
+#tab_1.QWidget{
+	background-color: white;
+}
+ 
+
+#tab_2.QWidget{
+	background-color: white;
+}
+ 
+QTabBar::tab{
+    background-color:rgb(108, 117, 125, 65);
+	font-size:11pt;
+	color:black;   
+	border-top-left-radius: 5px;    
+	border-top-right-radius: 5px;   
+	 min-width: 120px; max-width: 240px;
+	padding: 5px;
+}
+ 
+QTabBar::tab:selected{
+    background-color: white;
+
+}
+
+QTabBar::tab:hover:!selected {
+    background-color: white;
+
+}
+
+QTabWidget::pane {
+	background-color: white;
+border-radius: 10px;
+
+
+
+}
+
+QTabWidget::tab-bar {
+    alignment: center;
+}</string>
      </property>
      <property name="currentIndex">
       <number>0</number>
