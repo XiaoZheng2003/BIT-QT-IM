@@ -8,7 +8,6 @@ Login::Login(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("登录");
-    connect(this,&Login::sendUsername,&mw,&MainWindow::getUsername);
 
     QPixmap *pixmap=new QPixmap(":/res/banner.jpg");
     pixmap->scaled(ui->banner->size(),Qt::KeepAspectRatio);
@@ -31,7 +30,9 @@ void Login::on_login_clicked()
     else{
         QMessageBox::information(this,"提示","登录成功");
         emit sendUsername(user);
-        mw.show();
+        mw = new MainWindow;
+        connect(this,&Login::sendUsername,mw,&MainWindow::getUsername);
+        mw->show();
         this->close();
     }
 

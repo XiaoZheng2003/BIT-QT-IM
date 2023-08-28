@@ -191,5 +191,9 @@ void File::on_Button_cancle_clicked()
     close();
 }
 
+QTcpSocket* File::get_Client_Connection(){
+    return clientConnection;
+}
+
 
 

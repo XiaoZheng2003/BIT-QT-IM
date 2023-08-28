@@ -22,7 +22,7 @@ private slots:
 
 private:
     Ui::Login *ui;
-    MainWindow mw;
+    MainWindow *mw;
 
 signals:
     void sendUsername(QString);

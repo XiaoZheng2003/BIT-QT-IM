@@ -21,6 +21,7 @@ public:
     ~File();
     void init();
     void refused();
+    QTcpSocket* get_Client_Connection();
 
 protected:
     void closeEvent(QCloseEvent *);
