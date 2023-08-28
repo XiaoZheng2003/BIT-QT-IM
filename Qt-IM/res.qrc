@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>res/avatar.jpg</file>
         <file>res/group.png</file>
         <file>res/personEdit.png</file>
         <file>res/banner.jpg</file>
@@ -8,9 +7,14 @@
         <file>res/s1.png</file>
         <file>res/s2.png</file>
         <file>res/s4.png</file>
-        <file>res/avatar_c.png</file>
+        <file>res/avatar0.png</file>
         <file>res/add.png</file>
         <file>res/s3.png</file>
-        <file>res/robot.png</file>
+        <file>res/avatar-1.png</file>
+        <file>res/avatar1.png</file>
+        <file>res/avatar2.png</file>
+        <file>res/avatar3.png</file>
+        <file>res/avatar5.png</file>
+        <file>res/avatar4.png</file>
     </qresource>
 </RCC>

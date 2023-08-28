@@ -36,6 +36,10 @@ void Edit::on_buttonBox_accepted()
     QString IP=ui->IP->text();
     if(!m_isGroup)
     {
+        if(NetworkTool::isIpExist(IP)){
+            QMessageBox::critical(this,tr("错误"),tr("该IP已存在！"));
+            return;
+        }
         if(NetworkTool::testPersonIPFormat(IP,this))
         {
             DBManager::runSql(QString("update person set nickname='%1', ip='%2' where id=%3").arg(nickname).arg(IP).arg(m_id));
