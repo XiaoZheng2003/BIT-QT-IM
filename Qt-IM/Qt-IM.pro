@@ -19,6 +19,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     add.cpp \
+    avatar.cpp \
     chat.cpp \
     dbmanager.cpp \
     edit.cpp \
@@ -33,6 +34,7 @@ SOURCES += \
 
 HEADERS += \
     add.h \
+    avatar.h \
     chat.h \
     dbmanager.h \
     edit.h \
@@ -46,6 +48,7 @@ HEADERS += \
 
 FORMS += \
     add.ui \
+    avatar.ui \
     chat.ui \
     edit.ui \
     emoji.ui \

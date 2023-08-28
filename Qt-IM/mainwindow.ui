@@ -45,7 +45,7 @@
         </property>
         <property name="icon">
          <iconset resource="res.qrc">
-          <normaloff>:/res/avatar_c.png</normaloff>:/res/avatar_c.png</iconset>
+          <normaloff>:/res/avatar0.png</normaloff>:/res/avatar0.png</iconset>
         </property>
         <property name="iconSize">
          <size>

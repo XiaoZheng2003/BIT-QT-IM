@@ -1,6 +1,7 @@
 #ifndef NETWORKTOOL_H
 #define NETWORKTOOL_H
 
+#include <QtSql>
 #include <QString>
 #include <QStringList>
 #include <QHostAddress>
@@ -25,6 +26,7 @@ public:
     static bool isIP(QString ip);
     static bool testPersonIPFormat(QString ip, QWidget *target);
     static bool testGroupIPFormat(QStringList ips, QWidget *target);
+    static bool isIpExist(QString ip);
 };
 
 #endif // NETWORKTOOL_H

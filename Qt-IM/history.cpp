@@ -25,17 +25,17 @@ void History::on_search_clicked()
     QSqlQuery query;
     QTextBrowser *tb=ui->messageTextBrowser;
     tb->clear();
-    query.exec("select * from msg where id="+QString::number(id)+" and msg like '%"+keyword+"%'");
+    query.exec("select * from person_msg where id="+QString::number(id)+" and person_msg like '%"+keyword+"%'");
     while(query.next()){
         tb->setCurrentFont(QFont("黑体",8));
-        if(query.value(4).toInt()){
+        if(query.value(3).toInt()){
             tb->setTextColor(Qt::blue);
-            tb->append(localName+"["+localIp+"]"+query.value(3).toString());
+            tb->append(localName+"["+localIp+"]"+query.value(2).toString());
         }
         else{
             tb->setTextColor(Qt::green);
-            tb->append(targetName+"["+targetIp+"]"+query.value(3).toString());
+            tb->append(targetName+"["+targetIp+"]"+query.value(2).toString());
         }
-        tb->append(query.value(2).toString());
+        tb->append(query.value(1).toString());
     }
 }

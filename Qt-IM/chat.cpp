@@ -52,7 +52,7 @@ void Chat::sendMessage(messageType type,QString serverAddress){
                     message = getMessage();
                     out << message;
                     QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-                    DBManager::runSql("insert into msg (type,id,msg,time,islocal) values (0,"+QString::number(targetId)+",'"+message+"','"+time+"',1)");
+                    DBManager::runSql("insert into person_msg (id,msg,time,islocal) values ("+QString::number(targetId)+",'"+message+"','"+time+"',1)");
                     qDebug()<<"send msg:"+data;
                 }
                 break;
@@ -84,18 +84,18 @@ void Chat::refresh()
     QSqlQuery query;
     QTextBrowser *tb=ui->messageTextBrowser;
     tb->clear();
-    query.exec("select * from msg where id="+QString::number(targetId));
+    query.exec("select * from person_msg where id="+QString::number(targetId));
     while(query.next()){
         tb->setCurrentFont(QFont("黑体",8));
-        if(query.value(4).toInt()){
+        if(query.value(3).toInt()){
             tb->setTextColor(Qt::blue);
-            tb->append(localName+"["+localIp+"] "+query.value(3).toString());
+            tb->append(localName+"["+localIp+"] "+query.value(2).toString());
         }
         else{
             tb->setTextColor(Qt::green);
-            tb->append(targetName+(targetIp==""?"":("["+targetIp+"]"))+" "+query.value(3).toString());
+            tb->append(targetName+(targetIp==""?"":("["+targetIp+"]"))+" "+query.value(2).toString());
         }
-        tb->append(query.value(2).toString());
+        tb->append(query.value(1).toString());
     }
 }
 
@@ -162,7 +162,7 @@ void Chat::chatRobot()
     }
     message=getMessage();
     QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-    DBManager::runSql("insert into msg (type,id,msg,time,islocal) values (0,"+QString::number(targetId)+",'"+message+"','"+time+"',1)");
+    DBManager::runSql("insert into person_msg (id,msg,time,islocal) values ("+QString::number(targetId)+",'"+message+"','"+time+"',1)");
     // 创建网络访问管理器
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     // 发起GET请求
@@ -189,7 +189,7 @@ void Chat::chatRobot()
                         // 在这里使用 reply 变量，可以打印它或进行其他操作
                         qDebug() << "Reply: " << reply;
                         QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-                        DBManager::runSql("insert into msg (type,id,msg,time,islocal) values (0,"+QString::number(targetId)+",'"+reply+"','"+time+"',0)");
+                        DBManager::runSql("insert into person_msg (id,msg,time,islocal) values ("+QString::number(targetId)+",'"+reply+"','"+time+"',0)");
                         refresh();
                     }
                 }
