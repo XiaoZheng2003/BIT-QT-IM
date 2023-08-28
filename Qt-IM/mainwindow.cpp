@@ -17,6 +17,11 @@ MainWindow::MainWindow(QWidget *parent) :
     refresh();
     initMenu();
 
+    ui->personList->setHeaderHidden(true);
+    ui->groupList->setHeaderHidden(true);
+
+
+
 
     connect(ui->personList,&QTreeWidget::itemDoubleClicked,[=](QTreeWidgetItem *item){
         //打开个人聊天界面
@@ -167,7 +172,7 @@ void MainWindow::refresh()
     while(query.next()){
         person=new QTreeWidgetItem(personList);
         person->setText(0,query.value(1).toString());
-        person->setIcon(0,QIcon(":/res/avatar.jpg"));
+        person->setIcon(0,QIcon(":/res/avatar_c.png"));
         person->setText(1,query.value(2).toString());
         person->setText(2,query.value(0).toString());
     }

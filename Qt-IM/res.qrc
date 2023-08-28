@@ -7,8 +7,10 @@
         <file>res/chatIM.png</file>
         <file>res/s1.png</file>
         <file>res/s2.png</file>
-        <file>res/s3.png</file>
         <file>res/s4.png</file>
+        <file>res/avatar_c.png</file>
+        <file>res/add.png</file>
+        <file>res/s3.png</file>
         <file>res/robot.png</file>
     </qresource>
 </RCC>

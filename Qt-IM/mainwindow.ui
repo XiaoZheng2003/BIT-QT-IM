@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>288</width>
-    <height>517</height>
+    <width>362</width>
+    <height>625</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,12 +37,15 @@
           <height>64</height>
          </size>
         </property>
+        <property name="styleSheet">
+         <string notr="true">border:none;</string>
+        </property>
         <property name="text">
          <string/>
         </property>
         <property name="icon">
          <iconset resource="res.qrc">
-          <normaloff>:/res/avatar.jpg</normaloff>:/res/avatar.jpg</iconset>
+          <normaloff>:/res/avatar_c.png</normaloff>:/res/avatar_c.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -86,7 +89,6 @@
     <widget class="QTabWidget" name="tabWidget">
      <property name="styleSheet">
       <string notr="true">
-
 QTabWidget::tab-bar { 
 	alignment: center; 
 } 
@@ -101,13 +103,14 @@ QTabWidget::tab-bar {
 }
  
 QTabBar::tab{
-    background-color:rgb(108, 117, 125, 65);
-	font-size:11pt;
+
+	font-size:13pt;
 	color:black;   
 	border-top-left-radius: 5px;    
 	border-top-right-radius: 5px;   
-	 min-width: 120px; max-width: 240px;
+	 min-width: 130px; max-width: 260px;
 	padding: 5px;
+  height:25px;
 }
  
 QTabBar::tab:selected{
@@ -124,8 +127,10 @@ QTabWidget::pane {
 	background-color: white;
 border-radius: 10px;
 
+}
 
-
+QTabBar::tab:first{
+  margin-right: 22px; /* 设置tab之间的右边距 */
 }
 
 QTabWidget::tab-bar {
@@ -134,6 +139,12 @@ QTabWidget::tab-bar {
      </property>
      <property name="currentIndex">
       <number>0</number>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>40</width>
+       <height>30</height>
+      </size>
      </property>
      <widget class="QWidget" name="person">
       <attribute name="title">
@@ -254,7 +265,17 @@ QPushButton:hover {
 }</string>
        </property>
        <property name="text">
-        <string>添加好友/群</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/res/add.png</normaloff>:/res/add.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>40</width>
+         <height>25</height>
+        </size>
        </property>
       </widget>
      </item>

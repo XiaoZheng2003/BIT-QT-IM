@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>304</width>
-    <height>499</height>
+    <width>340</width>
+    <height>602</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,7 +39,7 @@
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 75 50pt &quot;Dyuthi&quot;;
+      <string notr="true">font: 75 60pt &quot;Dyuthi&quot;;
 qproperty-alignment: AlignCenter; </string>
      </property>
      <property name="text">
@@ -108,7 +108,7 @@ qproperty-alignment: AlignCenter; </string>
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>40</height>
+       <height>20</height>
       </size>
      </property>
     </spacer>
@@ -126,7 +126,7 @@ qproperty-alignment: AlignCenter; </string>
        <property name="sizeHint" stdset="0">
         <size>
          <width>40</width>
-         <height>20</height>
+         <height>30</height>
         </size>
        </property>
       </spacer>
@@ -167,7 +167,7 @@ QLineEdit:hover {
        <property name="sizeHint" stdset="0">
         <size>
          <width>40</width>
-         <height>20</height>
+         <height>30</height>
         </size>
        </property>
       </spacer>
@@ -187,7 +187,7 @@ QLineEdit:hover {
        <property name="sizeHint" stdset="0">
         <size>
          <width>40</width>
-         <height>20</height>
+         <height>30</height>
         </size>
        </property>
       </spacer>
@@ -208,6 +208,7 @@ QPushButton {
                padding: 5px;
                border: none;
                border-radius: 10px;
+               height:30px;
  }
 
 QPushButton:hover {
@@ -230,7 +231,7 @@ QPushButton:hover {
        <property name="sizeHint" stdset="0">
         <size>
          <width>40</width>
-         <height>20</height>
+         <height>30</height>
         </size>
        </property>
       </spacer>
@@ -245,7 +246,7 @@ QPushButton:hover {
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>55</height>
+       <height>70</height>
       </size>
      </property>
     </spacer>

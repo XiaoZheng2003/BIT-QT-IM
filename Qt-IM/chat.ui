@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>445</width>
-    <height>600</height>
+    <width>509</width>
+    <height>662</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,6 +32,9 @@
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <widget class="QPushButton" name="emote">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
            <property name="styleSheet">
             <string notr="true">QPushButton { 
 border: none;
@@ -48,6 +51,12 @@ QPushButton:pressed {
            <property name="icon">
             <iconset resource="res.qrc">
              <normaloff>:/res/s2.png</normaloff>:/res/s2.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>25</width>
+             <height>25</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -70,6 +79,12 @@ QPushButton:pressed {
             <iconset resource="res.qrc">
              <normaloff>:/res/s3.png</normaloff>:/res/s3.png</iconset>
            </property>
+           <property name="iconSize">
+            <size>
+             <width>25</width>
+             <height>25</height>
+            </size>
+           </property>
           </widget>
          </item>
          <item>
@@ -90,6 +105,12 @@ QPushButton:pressed {
            <property name="icon">
             <iconset resource="res.qrc">
              <normaloff>:/res/s1.png</normaloff>:/res/s1.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>25</width>
+             <height>25</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -112,6 +133,12 @@ QPushButton:pressed {
             <iconset resource="res.qrc">
              <normaloff>:/res/s4.png</normaloff>:/res/s4.png</iconset>
            </property>
+           <property name="iconSize">
+            <size>
+             <width>25</width>
+             <height>25</height>
+            </size>
+           </property>
           </widget>
          </item>
          <item>
@@ -122,7 +149,7 @@ QPushButton:pressed {
            <property name="sizeHint" stdset="0">
             <size>
              <width>40</width>
-             <height>20</height>
+             <height>30</height>
             </size>
            </property>
           </spacer>
