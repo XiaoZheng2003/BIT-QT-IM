@@ -8,7 +8,7 @@ HeartbeatBroadcaster::HeartbeatBroadcaster(QObject *parent)
     sendHeartbeat();
     heartbeatTimer = new QTimer(this);
     connect(heartbeatTimer, &QTimer::timeout, this, &HeartbeatBroadcaster::sendHeartbeat);
-    heartbeatTimer->start(20000); // 每20秒发送一次心跳包
+    heartbeatTimer->start(5000); // 每5秒发送一次心跳包
 
     connect(socket, &QUdpSocket::readyRead, this, &HeartbeatBroadcaster::readPendingDatagrams);
 }

@@ -28,8 +28,8 @@ class MainWindow : public QWidget
 public:
     explicit MainWindow(QString ip, QString username, QWidget *parent = nullptr);
     ~MainWindow();
-    HeartbeatBroadcaster broadcaster;
-    HeartbeatReceiver receiver;
+    HeartbeatBroadcaster* broadcaster;
+    HeartbeatReceiver* receiver;
 
 signals:
     void receiveMsg();
