@@ -30,7 +30,7 @@ void HeartbeatReceiver::readPendingDatagrams()
             socket->writeDatagram(response, response.size(), senderAddress, senderPort);
 
             QString senderIP = senderAddress.toString();
-            qDebug() << "Online IPs:" << lIP;
+//            qDebug() << "Online IPs:" << lIP;
 
         }
     }

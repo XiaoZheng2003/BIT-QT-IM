@@ -47,6 +47,9 @@ MainWindow::MainWindow(QString ip, QString username, QWidget *parent) :
 
     connect(xchat,&QUdpSocket::readyRead,this,&MainWindow::processPendinDatagrams);
     connect(broadcaster,&HeartbeatBroadcaster::personListChanged,this,&MainWindow::updateOnline);
+
+//    Group *gr = new Group(broadcaster);
+//    gr->show();
 }
 
 MainWindow::~MainWindow()
