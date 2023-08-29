@@ -14,6 +14,8 @@
 #include "avatar.h"
 #include "dbmanager.h"
 #include "networktool.h"
+#include "heartbeatbroadcaster.h"
+#include "heartbeatreceiver.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,6 +28,8 @@ class MainWindow : public QWidget
 public:
     explicit MainWindow(QString ip, QString username, QWidget *parent = nullptr);
     ~MainWindow();
+    HeartbeatBroadcaster broadcaster;
+    HeartbeatReceiver receiver;
 
 signals:
     void receiveMsg();

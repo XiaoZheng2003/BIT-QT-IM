@@ -37,8 +37,23 @@
           <height>64</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>更换头像</string>
+        </property>
+        <property name="statusTip">
+         <string/>
+        </property>
         <property name="styleSheet">
-         <string notr="true">border:none;</string>
+         <string notr="true">        QToolButton {
+            border: none;
+        }
+        
+        QToolButton:hover {
+            border: 2px solid rgb(239, 239, 239);
+            border-radius:10px;
+        }
+        
+</string>
         </property>
         <property name="text">
          <string/>
@@ -108,7 +123,7 @@ QTabBar::tab{
 	color:black;   
 	border-top-left-radius: 5px;    
 	border-top-right-radius: 5px;   
-	 min-width: 130px; max-width: 260px;
+	 min-width: 150px; max-width: 300px;
 	padding: 5px;
   height:25px;
 }
@@ -129,9 +144,7 @@ border-radius: 10px;
 
 }
 
-QTabBar::tab:first{
-  margin-right: 22px; /* 设置tab之间的右边距 */
-}
+
 
 QTabWidget::tab-bar {
     alignment: center;
@@ -250,6 +263,9 @@ QTreeWidget {
      </item>
      <item>
       <widget class="QPushButton" name="add">
+       <property name="toolTip">
+        <string>添加好友/群</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">
 QPushButton {
