@@ -64,6 +64,7 @@ void MainWindow::on_add_clicked()
     a->setAttribute(Qt::WA_DeleteOnClose);
     a->exec();
     refresh();
+    updateOnline();
 }
 
 void MainWindow::processPendinDatagrams()
@@ -99,6 +100,7 @@ void MainWindow::processPendinDatagrams()
                 }
                 DBManager::runSql("insert into person_msg (id,msg,time,islocal) values ("+id+",'"+msgStr+"','"+time+"',0)");
                 refresh();
+                updateOnline();
                 emit receiveMsg();
             }
             case SendFileName:
@@ -247,8 +249,8 @@ void MainWindow::initMenu()
             m_editWindow->init(curItem->text(2).toInt(),false);
             m_editWindow->exec();
             qDebug()<<"编辑序号"<<curItem->text(2);
-            //TODO: 弹出编辑框
             refresh();
+            updateOnline();
         }
         else if(select==deleteNode){
             //删除
@@ -256,6 +258,7 @@ void MainWindow::initMenu()
                                      QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes){
                 DBManager::runSql("delete from person where id="+curItem->text(2));
                 refresh();
+                updateOnline();
             }
         }
     });
@@ -294,7 +297,7 @@ void MainWindow::updateOnline()
     QTreeWidgetItemIterator it(personList);
     QList<QString> onlineIps=broadcaster->getReceivedIPs();
     while(*it){
-        if(onlineIps.contains((*it)->text(1)))
+        if(onlineIps.contains((*it)->text(1))||(*it)->text(1)=="")
             (*it)->setDisabled(false);
         else
             (*it)->setDisabled(true);
