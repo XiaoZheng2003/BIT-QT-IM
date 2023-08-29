@@ -12,6 +12,7 @@ History::History(int id, QString lname, QString lip, QString tname, QString tip,
     localIp=lip;
     targetName=tname;
     targetIp=tip;
+    on_search_clicked();
 }
 
 History::~History()
@@ -25,7 +26,7 @@ void History::on_search_clicked()
     QSqlQuery query;
     QTextBrowser *tb=ui->messageTextBrowser;
     tb->clear();
-    query.exec("select * from person_msg where id="+QString::number(id)+" and person_msg like '%"+keyword+"%'");
+    query.exec("select * from person_msg where id="+QString::number(id)+" and msg like '%"+keyword+"%'");
     while(query.next()){
         tb->setCurrentFont(QFont("黑体",8));
         if(query.value(3).toInt()){
