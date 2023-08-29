@@ -13,6 +13,16 @@ Login::Login(QWidget *parent) :
     pixmap->scaled(ui->banner->size(),Qt::KeepAspectRatio);
     ui->banner->setScaledContents(true);
     ui->banner->setPixmap(*pixmap);
+
+    ip=NetworkTool::GetLocalIP();
+    if(ip.contains("|")){
+        IpSelect *is=new IpSelect();
+        is->setAttribute(Qt::WA_DeleteOnClose);
+        connect(is,&IpSelect::selectedIp,[=](QString ip){
+            this->ip=ip;
+        });
+        is->exec();
+    }
 }
 
 Login::~Login()
@@ -29,9 +39,7 @@ void Login::on_login_clicked()
         QMessageBox::critical(this,"提示","用户名不能为空");
     else{
         QMessageBox::information(this,"提示","登录成功");
-        emit sendUsername(user);
-        mw = new MainWindow;
-        connect(this,&Login::sendUsername,mw,&MainWindow::getUsername);
+        mw = new MainWindow(ip, user);
         mw->show();
         this->close();
     }

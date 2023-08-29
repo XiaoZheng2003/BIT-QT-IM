@@ -30,6 +30,7 @@ SOURCES += \
     heartbeatbroadcaster.cpp \
     heartbeatreceiver.cpp \
     history.cpp \
+    ipselect.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -48,6 +49,7 @@ HEADERS += \
     heartbeatbroadcaster.h \
     heartbeatreceiver.h \
     history.h \
+    ipselect.h \
     login.h \
     mainwindow.h \
     networktool.h
@@ -62,6 +64,7 @@ FORMS += \
     filerec.ui \
     group.ui \
     history.ui \
+    ipselect.ui \
     login.ui \
     mainwindow.ui
 
