@@ -53,6 +53,7 @@ private:
     Chat *chat;
     Edit *m_editWindow;
     int avatarId;
+    Avatar a;
 
     void refresh();
     void initMenu();

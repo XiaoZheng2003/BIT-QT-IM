@@ -12,8 +12,10 @@ class Avatar : public QDialog
     Q_OBJECT
 
 public:
-    explicit Avatar(int aid, QWidget *parent = nullptr);
+    explicit Avatar(QWidget *parent = nullptr);
     ~Avatar();
+
+    void init(int aid);
 
 private slots:
     void on_avatar0_clicked();
