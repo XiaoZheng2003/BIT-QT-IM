@@ -1,23 +1,21 @@
 #include "chat.h"
 #include "ui_chat.h"
 
-Chat::Chat(bool isGroup,int tid,QString tname,QString tip,QUdpSocket *xchat,qint32 xport,QString lname,QWidget *parent) :
+Chat::Chat(QString ip,int tid,QString tname,QString tip,QUdpSocket *xchat,qint32 xport,QString lname,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Chat)
 {
     ui->setupUi(this);
-    localIp=NetworkTool::GetLocalIP();
-    connect(&server, SIGNAL(sendFileName(QString)),this,SLOT(getSendFileName(QString)));
-    this->setWindowTitle("与"+tname+(tip==""?"":("["+tip+"]"))+"私聊中");
-
-    localIp=NetworkTool::GetLocalIP();
-    this->isGroup=isGroup;
+    localIp=ip;
     targetId=tid;
     targetName=tname;
     targetIp=tip;
     this->xchat=xchat;
     this->xport=xport;
     localName=lname;
+
+    connect(&server, SIGNAL(sendFileName(QString)),this,SLOT(getSendFileName(QString)));
+    this->setWindowTitle("与"+tname+(tip==""?"":("["+tip+"]"))+"私聊中");
 }
 
 Chat::~Chat()

@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "mainwindow.h"
+#include "ipselect.h"
 
 namespace Ui {
 class Login;
@@ -23,9 +24,8 @@ private slots:
 private:
     Ui::Login *ui;
     MainWindow *mw;
+    QString ip;
 
-signals:
-    void sendUsername(QString);
 };
 
 #endif // LOGIN_H
