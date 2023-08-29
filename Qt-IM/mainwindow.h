@@ -12,6 +12,7 @@
 #include "chat.h"
 #include "edit.h"
 #include "avatar.h"
+#include "file.h"
 #include "dbmanager.h"
 #include "networktool.h"
 #include "heartbeatbroadcaster.h"

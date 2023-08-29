@@ -1,6 +1,7 @@
 #include "login.h"
 #include "dbmanager.h"
 #include "threadmanager.h"
+#include "file.h"
 
 #include <QApplication>
 
@@ -9,6 +10,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     ThreadManager::init();
+
+    MyTcpServer::init(nullptr,12689);
 
     // 打开数据库(如果不存在则创建后再打开)
     DBManager::init();
