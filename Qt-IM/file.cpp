@@ -140,6 +140,7 @@ void MyTcpServer::incomingConnection(qintptr socketDescriptor)
     temp->setSocketDescriptor(socketDescriptor);
     FileSender *fileSender=new FileSender(socketDescriptor);
     QString connectIp=temp->peerAddress().toString();
+    connectIp=connectIp.mid(7);
     temp->deleteLater();
     m_gMyTcpServer->m_fileSenderList.insert(connectIp,fileSender);
     ThreadManager::addObject(QString("fileConnectWith")+connectIp,fileSender);
@@ -150,6 +151,7 @@ void MyTcpServer::incomingConnection(qintptr socketDescriptor)
     connect(fileSender,&FileSender::sendTotalBytes,m_gMyTcpServer->m_targetList.value(connectIp),&File::setTotalBytes);
     connect(m_gMyTcpServer->m_targetList.value(connectIp),&File::quit,fileSender,&FileSender::quit);
     connect(m_gMyTcpServer->m_targetList.value(connectIp),&File::quit,this,&MyTcpServer::deleteResourse);
+    emit prepared();
 }
 
 void MyTcpServer::addSendTarget(QString targetIp,Chat *chatWindow)
