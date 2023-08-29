@@ -1,14 +1,22 @@
 #include "avatar.h"
 #include "ui_avatar.h"
 
-Avatar::Avatar(int aid, QWidget *parent) :
+Avatar::Avatar(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Avatar)
 {
     ui->setupUi(this);
+}
 
+Avatar::~Avatar()
+{
+    delete ui;
+}
+
+void Avatar::init(int aid)
+{
     avatarId=aid;
-    QToolButton *cur;
+    QToolButton *cur=ui->avatar0;
     switch(avatarId){
     case 0:cur=ui->avatar0;break;
     case 1:cur=ui->avatar1;break;
@@ -18,11 +26,6 @@ Avatar::Avatar(int aid, QWidget *parent) :
     case 5:cur=ui->avatar5;break;
     }
     cur->setChecked(true);
-}
-
-Avatar::~Avatar()
-{
-    delete ui;
 }
 
 void Avatar::on_avatar0_clicked()
