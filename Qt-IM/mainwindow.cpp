@@ -25,17 +25,23 @@ MainWindow::MainWindow(QString ip, QString username, QWidget *parent) :
      ui->groupList->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
     connect(ui->personList,&QTreeWidget::itemDoubleClicked,[=](QTreeWidgetItem *item){
+        if(item->isDisabled()){
+            QMessageBox::critical(this,"错误","该用户为离线状态！");
+            return;
+        }
         //打开个人聊天界面
         chat=new Chat(ip,item->text(2).toInt(),item->text(0),item->text(1),xchat,xport,localName);
         connect(this,&MainWindow::receiveMsg,chat,&Chat::refresh);
         chat->setAttribute(Qt::WA_DeleteOnClose);
         chat->show();
         emit receiveMsg();
-        qDebug()<<item->text(0)<<item->text(1); //昵称 IP
     });
 
     connect(ui->groupList,&QTreeWidget::itemDoubleClicked,[=](QTreeWidgetItem *item){
         //打开群聊界面
+        group=new Group(broadcaster);
+        group->setAttribute(Qt::WA_DeleteOnClose);
+        group->show();
         qDebug()<<item->text(0)<<item->text(2); //群名 IP
     });
 
@@ -205,20 +211,21 @@ void MainWindow::refresh()
 
     //群聊页面
     QTreeWidget *groupList=ui->groupList;
-    groupList->clear();
+//    groupList->clear();
     groupList->setColumnWidth(0,150);
+    groupList->setColumnHidden(1,true);
     groupList->setColumnHidden(2,true);
     groupList->setColumnHidden(3,true);
     groupList->setIconSize(QSize(25,25));
-    query.exec("select * from groups");
-    while(query.next()){
-        QTreeWidgetItem *group=new QTreeWidgetItem(groupList);
-        group->setText(0,query.value(1).toString());
-        group->setIcon(0,QIcon(":/res/group.png"));
-        group->setText(1,query.value(3).toString());
-        group->setText(2,query.value(2).toString());
-        group->setText(3,query.value(0).toString());
-    }
+//    query.exec("select * from groups");
+//    while(query.next()){
+//        QTreeWidgetItem *group=new QTreeWidgetItem(groupList);
+//        group->setText(0,query.value(1).toString());
+//        group->setIcon(0,QIcon(":/res/group.png"));
+//        group->setText(1,query.value(3).toString());
+//        group->setText(2,query.value(2).toString());
+//        group->setText(3,query.value(0).toString());
+//    }
 }
 
 void MainWindow::initMenu()
@@ -314,10 +321,9 @@ void MainWindow::updateOnline()
 
 void MainWindow::on_avatar_clicked()
 {
-    Avatar *a=new Avatar(avatarId);
-    a->setAttribute(Qt::WA_DeleteOnClose);
-    a->show();
-    connect(a,&Avatar::changeAvatarId,[=](int aid){
+    a.init(avatarId);
+    a.show();
+    connect(&a,&Avatar::changeAvatarId,[=](int aid){
         avatarId=aid;
         ui->avatar->setIcon(QIcon(QPixmap(QString(":/res/avatar%1.png").arg(aid))));
     });
