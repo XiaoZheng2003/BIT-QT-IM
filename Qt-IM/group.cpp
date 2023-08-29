@@ -7,6 +7,7 @@ Group::Group(HeartbeatBroadcaster * reci, QWidget *parent) :
 {
     ui->setupUi(this);
     receiver = reci;
+    refresh();
     // 将信号 personListChanged() 与槽函数 refresh() 连接起来
     connect(receiver, SIGNAL(personListChanged()), this, SLOT(refresh()));
 }
