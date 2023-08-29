@@ -1,11 +1,14 @@
 #include "login.h"
 #include "dbmanager.h"
+#include "threadmanager.h"
 
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    ThreadManager::init();
 
     // 打开数据库(如果不存在则创建后再打开)
     DBManager::init();

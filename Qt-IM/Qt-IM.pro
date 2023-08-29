@@ -33,7 +33,8 @@ SOURCES += \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
-    networktool.cpp
+    networktool.cpp \
+    threadmanager.cpp
 
 HEADERS += \
     add.h \
@@ -50,7 +51,8 @@ HEADERS += \
     history.h \
     login.h \
     mainwindow.h \
-    networktool.h
+    networktool.h \
+    threadmanager.h
 
 FORMS += \
     add.ui \
