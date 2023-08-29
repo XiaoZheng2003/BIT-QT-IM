@@ -240,15 +240,6 @@ QTreeWidget {
            <string>id</string>
           </property>
          </column>
-         <item>
-          <property name="text">
-           <string>公共聊天室</string>
-          </property>
-          <property name="icon">
-           <iconset resource="res.qrc">
-            <normaloff>:/res/group.png</normaloff>:/res/group.png</iconset>
-          </property>
-         </item>
         </widget>
        </item>
       </layout>
