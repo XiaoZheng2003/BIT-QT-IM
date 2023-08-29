@@ -26,6 +26,7 @@ SOURCES += \
     emoji.cpp \
     file.cpp \
     filerec.cpp \
+    group.cpp \
     history.cpp \
     login.cpp \
     main.cpp \
@@ -41,6 +42,7 @@ HEADERS += \
     emoji.h \
     file.h \
     filerec.h \
+    group.h \
     history.h \
     login.h \
     mainwindow.h \
@@ -54,6 +56,7 @@ FORMS += \
     emoji.ui \
     file.ui \
     filerec.ui \
+    group.ui \
     history.ui \
     login.ui \
     mainwindow.ui
