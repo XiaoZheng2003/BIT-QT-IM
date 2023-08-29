@@ -14,6 +14,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QListWidgetItem>
 
 #include "dbmanager.h"
 #include "networktool.h"
@@ -21,6 +22,7 @@
 #include "filerec.h"
 #include "history.h"
 #include "emoji.h"
+#include "chatmessage.h"
 
 namespace Ui {
 class Chat;
@@ -37,9 +39,13 @@ public:
     void refresh();
     File* getSever();
     void sendMessage(messageType type,QString serverAddress = "");
+    void dealMessage(QNChatMessage *messageW, QListWidgetItem *item, QString text, QString time, QNChatMessage::User_Type type);
+    void dealMessageTime(QString curMsgTime);
+
 
 protected:
     void keyPressEvent(QKeyEvent *ev);
+    void resizeEvent(QResizeEvent *event);
 
 private slots:
     void on_sendMsg_clicked();

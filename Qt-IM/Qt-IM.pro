@@ -21,6 +21,7 @@ SOURCES += \
     add.cpp \
     avatar.cpp \
     chat.cpp \
+    chatmessage.cpp \
     dbmanager.cpp \
     edit.cpp \
     emoji.cpp \
@@ -41,6 +42,7 @@ HEADERS += \
     add.h \
     avatar.h \
     chat.h \
+    chatmessage.h \
     dbmanager.h \
     edit.h \
     emoji.h \
