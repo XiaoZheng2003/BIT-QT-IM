@@ -36,12 +36,16 @@
         }
         
         QToolButton:hover {
-            border: 1px solid  rgb(136, 138, 133);
+
+            border: 2px solid  rgb(239, 239, 239);
             border-radius:10px;
         }
         
-        QToolButton:pressed {
-            background-color: rgb(255, 255, 255);
+        QToolButton:checked{
+            border: 1px solid  rgb(136, 138, 133);
+
+            border-radius:1px;
+          
         }</string>
        </property>
        <property name="text">
@@ -85,12 +89,16 @@
         }
         
         QToolButton:hover {
-            border: 1px solid  rgb(136, 138, 133);
+
+            border: 2px solid  rgb(239, 239, 239);
             border-radius:10px;
         }
         
-        QToolButton:pressed {
-            background-color: rgb(255, 255, 255);
+        QToolButton:checked{
+            border: 1px solid  rgb(136, 138, 133);
+
+            border-radius:1px;
+          
         }</string>
        </property>
        <property name="text">
@@ -134,12 +142,16 @@
         }
         
         QToolButton:hover {
-            border: 1px solid  rgb(136, 138, 133);
+
+            border: 2px solid  rgb(239, 239, 239);
             border-radius:10px;
         }
         
-        QToolButton:pressed {
-            background-color: rgb(255, 255, 255);
+        QToolButton:checked{
+            border: 1px solid  rgb(136, 138, 133);
+
+            border-radius:1px;
+          
         }</string>
        </property>
        <property name="text">
@@ -183,12 +195,16 @@
         }
         
         QToolButton:hover {
-            border: 1px solid  rgb(136, 138, 133);
+
+            border: 2px solid  rgb(239, 239, 239);
             border-radius:10px;
         }
         
-        QToolButton:pressed {
-            background-color: rgb(255, 255, 255);
+        QToolButton:checked{
+            border: 1px solid  rgb(136, 138, 133);
+
+            border-radius:1px;
+          
         }</string>
        </property>
        <property name="text">
@@ -232,12 +248,16 @@
         }
         
         QToolButton:hover {
-            border: 1px solid  rgb(136, 138, 133);
+
+            border: 2px solid  rgb(239, 239, 239);
             border-radius:10px;
         }
         
-        QToolButton:pressed {
-            background-color: rgb(255, 255, 255);
+        QToolButton:checked{
+            border: 1px solid  rgb(136, 138, 133);
+
+            border-radius:1px;
+          
         }</string>
        </property>
        <property name="text">
@@ -282,12 +302,14 @@
         
         QToolButton:hover {
 
-            border: 1px solid  rgb(136, 138, 133);
+            border: 2px solid  rgb(239, 239, 239);
             border-radius:10px;
         }
         
-        QToolButton:pressed {
-            background-color: rgb(255, 255, 255);
+        QToolButton:checked{
+            border: 1px solid  rgb(136, 138, 133);
+
+            border-radius:1px;
           
         }</string>
        </property>

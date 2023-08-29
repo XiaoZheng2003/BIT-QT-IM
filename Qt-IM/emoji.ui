@@ -6,201 +6,230 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>320</width>
+    <width>318</width>
     <height>250</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QTableWidget" name="emojiTable">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>320</width>
-     <height>250</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <row>
-    <property name="text">
-     <string>新建行</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>新建行</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>新建行</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>新建行</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>新建行</string>
-    </property>
-   </row>
-   <column>
-    <property name="text">
-     <string>新建列</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>新建列</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>新建列</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>新建列</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>新建列</string>
-    </property>
-   </column>
-   <item row="0" column="0">
-    <property name="text">
-     <string>😀</string>
-    </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTableWidget" name="emojiTable">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <row>
+      <property name="text">
+       <string>新建行</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>新建行</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>新建行</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>新建行</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>新建行</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>新建行</string>
+      </property>
+     </row>
+     <column>
+      <property name="text">
+       <string>新建列</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>新建列</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>新建列</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>新建列</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>新建列</string>
+      </property>
+     </column>
+     <item row="0" column="0">
+      <property name="text">
+       <string>😀</string>
+      </property>
+     </item>
+     <item row="0" column="1">
+      <property name="text">
+       <string>😘</string>
+      </property>
+     </item>
+     <item row="0" column="2">
+      <property name="text">
+       <string>😁</string>
+      </property>
+     </item>
+     <item row="0" column="3">
+      <property name="text">
+       <string>😂</string>
+      </property>
+     </item>
+     <item row="0" column="4">
+      <property name="text">
+       <string>😃</string>
+      </property>
+     </item>
+     <item row="1" column="0">
+      <property name="text">
+       <string>😧</string>
+      </property>
+     </item>
+     <item row="1" column="1">
+      <property name="text">
+       <string>😓</string>
+      </property>
+     </item>
+     <item row="1" column="2">
+      <property name="text">
+       <string>🙃</string>
+      </property>
+     </item>
+     <item row="1" column="3">
+      <property name="text">
+       <string>😶</string>
+      </property>
+     </item>
+     <item row="1" column="4">
+      <property name="text">
+       <string>😋</string>
+      </property>
+     </item>
+     <item row="2" column="0">
+      <property name="text">
+       <string>😆</string>
+      </property>
+     </item>
+     <item row="2" column="1">
+      <property name="text">
+       <string>😅</string>
+      </property>
+     </item>
+     <item row="2" column="2">
+      <property name="text">
+       <string>😚</string>
+      </property>
+     </item>
+     <item row="2" column="3">
+      <property name="text">
+       <string>😰</string>
+      </property>
+     </item>
+     <item row="2" column="4">
+      <property name="text">
+       <string>😥</string>
+      </property>
+     </item>
+     <item row="3" column="0">
+      <property name="text">
+       <string>😇</string>
+      </property>
+     </item>
+     <item row="3" column="1">
+      <property name="text">
+       <string>😋</string>
+      </property>
+     </item>
+     <item row="3" column="2">
+      <property name="text">
+       <string>😡</string>
+      </property>
+     </item>
+     <item row="3" column="3">
+      <property name="text">
+       <string>😭</string>
+      </property>
+     </item>
+     <item row="3" column="4">
+      <property name="text">
+       <string>😷</string>
+      </property>
+     </item>
+     <item row="4" column="0">
+      <property name="text">
+       <string>😑 </string>
+      </property>
+     </item>
+     <item row="4" column="1">
+      <property name="text">
+       <string>😍</string>
+      </property>
+     </item>
+     <item row="4" column="2">
+      <property name="text">
+       <string>😢</string>
+      </property>
+     </item>
+     <item row="4" column="3">
+      <property name="text">
+       <string>😄</string>
+      </property>
+     </item>
+     <item row="4" column="4">
+      <property name="text">
+       <string>😅</string>
+      </property>
+     </item>
+     <item row="5" column="0">
+      <property name="text">
+       <string>😉</string>
+      </property>
+     </item>
+     <item row="5" column="1">
+      <property name="text">
+       <string>😝</string>
+      </property>
+     </item>
+     <item row="5" column="2">
+      <property name="text">
+       <string>😨</string>
+      </property>
+     </item>
+     <item row="5" column="3">
+      <property name="text">
+       <string>😢</string>
+      </property>
+     </item>
+     <item row="5" column="4">
+      <property name="text">
+       <string>😳</string>
+      </property>
+     </item>
+    </widget>
    </item>
-   <item row="0" column="1">
-    <property name="text">
-     <string>😘</string>
-    </property>
-   </item>
-   <item row="0" column="2">
-    <property name="text">
-     <string>😁</string>
-    </property>
-   </item>
-   <item row="0" column="3">
-    <property name="text">
-     <string>😂</string>
-    </property>
-   </item>
-   <item row="0" column="4">
-    <property name="text">
-     <string>😃</string>
-    </property>
-   </item>
-   <item row="1" column="0">
-    <property name="text">
-     <string>😆</string>
-    </property>
-   </item>
-   <item row="1" column="1">
-    <property name="text">
-     <string>😅</string>
-    </property>
-   </item>
-   <item row="1" column="2">
-    <property name="text">
-     <string>😚</string>
-    </property>
-   </item>
-   <item row="1" column="3">
-    <property name="text">
-     <string>😰</string>
-    </property>
-   </item>
-   <item row="1" column="4">
-    <property name="text">
-     <string>😥</string>
-    </property>
-   </item>
-   <item row="2" column="0">
-    <property name="text">
-     <string>😇</string>
-    </property>
-   </item>
-   <item row="2" column="1">
-    <property name="text">
-     <string>😋</string>
-    </property>
-   </item>
-   <item row="2" column="2">
-    <property name="text">
-     <string>😡</string>
-    </property>
-   </item>
-   <item row="2" column="3">
-    <property name="text">
-     <string>😭</string>
-    </property>
-   </item>
-   <item row="2" column="4">
-    <property name="text">
-     <string>😷</string>
-    </property>
-   </item>
-   <item row="3" column="0">
-    <property name="text">
-     <string>😑 </string>
-    </property>
-   </item>
-   <item row="3" column="1">
-    <property name="text">
-     <string>😍</string>
-    </property>
-   </item>
-   <item row="3" column="2">
-    <property name="text">
-     <string>😢</string>
-    </property>
-   </item>
-   <item row="3" column="3">
-    <property name="text">
-     <string>😄</string>
-    </property>
-   </item>
-   <item row="3" column="4">
-    <property name="text">
-     <string>😅</string>
-    </property>
-   </item>
-   <item row="4" column="0">
-    <property name="text">
-     <string>😉</string>
-    </property>
-   </item>
-   <item row="4" column="1">
-    <property name="text">
-     <string>😝</string>
-    </property>
-   </item>
-   <item row="4" column="2">
-    <property name="text">
-     <string>😨</string>
-    </property>
-   </item>
-   <item row="4" column="3">
-    <property name="text">
-     <string>😢</string>
-    </property>
-   </item>
-   <item row="4" column="4">
-    <property name="text">
-     <string>😳</string>
-    </property>
-   </item>
-  </widget>
+  </layout>
  </widget>
  <resources/>
  <connections/>
