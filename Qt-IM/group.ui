@@ -239,7 +239,12 @@ QTreeWidget {
        </property>
        <column>
         <property name="text">
-         <string notr="true">1</string>
+         <string notr="true">头像</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>IP</string>
         </property>
        </column>
       </widget>

@@ -16,6 +16,7 @@
 #include "networktool.h"
 #include "heartbeatbroadcaster.h"
 #include "heartbeatreceiver.h"
+#include "group.h"
 
 namespace Ui {
 class MainWindow;

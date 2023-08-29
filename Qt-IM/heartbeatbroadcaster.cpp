@@ -37,10 +37,11 @@ void HeartbeatBroadcaster::readPendingDatagrams()
             if (!receivedIPs.contains(senderIP))
             {
                 receivedIPs.append(senderIP);
-                qDebug() << "Received IPs:" << receivedIPs;
+//                qDebug() << "Received IPs:" << receivedIPs;
             }
         }
     }
+    emit personListChanged();
 }
 
 QList<QString> HeartbeatBroadcaster::getReceivedIPs(){
