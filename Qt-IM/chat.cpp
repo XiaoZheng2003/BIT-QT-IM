@@ -99,19 +99,15 @@ void Chat::sendMessage(messageType type,QString serverAddress){
 void Chat::refresh()
 {
     QSqlQuery query;
-
     query.exec("select * from person_msg where id="+QString::number(targetId));
     while(query.next()){
         QNChatMessage* messageW = new QNChatMessage(ui->listWidget->parentWidget());
         QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
-
         if(query.value(3).toInt()){
-
             dealMessage(messageW, item, query.value(1).toString(), query.value(2).toString(),  QNChatMessage::User_Me);
-
         }
         else{
-                  dealMessage(messageW, item, query.value(1).toString(), query.value(2).toString(),  QNChatMessage::User_She);
+            dealMessage(messageW, item, query.value(1).toString(), query.value(2).toString(),  QNChatMessage::User_She);
         }
         ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
     }
