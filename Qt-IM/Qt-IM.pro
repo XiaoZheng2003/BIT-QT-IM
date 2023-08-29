@@ -26,6 +26,8 @@ SOURCES += \
     emoji.cpp \
     file.cpp \
     filerec.cpp \
+    heartbeatbroadcaster.cpp \
+    heartbeatreceiver.cpp \
     history.cpp \
     login.cpp \
     main.cpp \
@@ -41,6 +43,8 @@ HEADERS += \
     emoji.h \
     file.h \
     filerec.h \
+    heartbeatbroadcaster.h \
+    heartbeatreceiver.h \
     history.h \
     login.h \
     mainwindow.h \
