@@ -1,26 +1,22 @@
 #include "filerec.h"
 #include "ui_filerec.h"
+#include "threadmanager.h"
 #include <QDir>
 #include <QMessageBox>
 #include <QDesktopServices>
 #include <QDebug>
 #include <QFileDialog>
+#include <QThread>
 
 
 Filerec::Filerec(QWidget *parent) :
     QWidget(parent),
-    tcpClient(nullptr),
-    localFile(nullptr),
-    TotalBytes(0),
-    bytesReceived(0),
-    fileNameSize(0),
     tcpPort(12689),
+    totalBytes(0),
+    bytesReceived(0),
     ui(new Ui::Filerec)
 {
     ui->setupUi(this);
-    tcpClient = new QTcpSocket(this);
-    connect(tcpClient,SIGNAL(readyRead()),this,SLOT(readMessage()));
-    connect(tcpClient,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(displayError(QAbstractSocket::SocketError)));
 }
 
 Filerec::~Filerec()
@@ -30,7 +26,7 @@ Filerec::~Filerec()
 
 void Filerec::setFileName(QString fileName)
 {
-    localFile = new QFile(fileName);
+    this->fileName=fileName;
 }
 
 void Filerec::setHostAddress(QHostAddress address)
@@ -41,66 +37,43 @@ void Filerec::setHostAddress(QHostAddress address)
 
 void Filerec::newConnect()
 {
-    blockSize = 0;
-    tcpClient->abort();
-    tcpClient->connectToHost(hostAddress,tcpPort);
-    time.start();
+    fileReceiver =new FileReceiver(hostAddress,tcpPort);
+    ThreadManager::addObject(QString("fileConnectWith")+hostAddress.toString(),fileReceiver);
+    ThreadManager::startThread(QString("fileConnectWith")+hostAddress.toString());
+    connect(fileReceiver,&FileReceiver::sendReceivedBytes,this,&Filerec::getReceivedBytes);
+    connect(fileReceiver,&FileReceiver::sendTotalBytes,this,&Filerec::setTotalBytes);
+    connect(this,&Filerec::startConnect,fileReceiver,&FileReceiver::startConnect);
+    connect(fileReceiver,&FileReceiver::endConnect,this,&Filerec::endConnect);
+    connect(this,&Filerec::quit,fileReceiver,&FileReceiver::end);
+    emit startConnect(fileName);
 }
 
-void Filerec::readMessage()
+void Filerec::endConnect()
 {
-    QDataStream in(tcpClient);
-    in.setVersion(QDataStream::Qt_4_0);
-    float useTime = time.elapsed();
-    if(bytesReceived <= sizeof(qint64)*2)
-    {
-        if((tcpClient->bytesAvailable() >= sizeof(qint64)*2) && (fileNameSize ==0))
-        {
-            in >> TotalBytes >> fileNameSize;
-            bytesReceived += sizeof(qint64)*2;
-        }
-        if((tcpClient->bytesAvailable() >= fileNameSize) && (fileNameSize!=0))
-        {
-            in >> fileName;
-            bytesReceived += fileNameSize;
-            if(! localFile->open(QFile::WriteOnly))
-            {
-                QMessageBox::warning(this,tr("警告"),tr("无法读取文件 %1:\n%2.").arg(fileName).arg(localFile->errorString()));
-                return ;
-            }
-            else return ;
-        }
-    }
-    if(bytesReceived < TotalBytes)
-    {
-        bytesReceived += tcpClient->bytesAvailable();
-        inBlock = tcpClient->readAll();
-        localFile->write(inBlock);
-        inBlock.resize(0);
-    }
+    ThreadManager::deleteThread(QString("fileConnectWith")+hostAddress.toString());
+    fileReceiver->deleteLater();
+    ui->statusLabel->setText(tr("接收文件: %1完毕").arg(fileName));
+}
 
-    ui->progressBar->setMaximum(TotalBytes);
+
+void Filerec::setTotalBytes(qint64 totalBytes)
+{
+    this->totalBytes=totalBytes;
+}
+void Filerec::getReceivedBytes(qint64 bytes,float timeUsed)
+{
+    bytesReceived=bytes;
+    ui->progressBar->setMaximum(totalBytes);
     ui->progressBar->setValue(bytesReceived);
 
-    double speed = bytesReceived / useTime;
+    double speed = bytesReceived / timeUsed;
     ui->statusLabel->setText(tr("已接收 %1MB( %2MB/s)"
                                          "\n共%3MB 已用时:%4秒\n估计剩余时间:%5秒")
                                       .arg(bytesReceived / (1024*1024))
                                       .arg(speed *1000/(1024*1024),0,'f',2)
-                                      .arg(TotalBytes / (1024*1024))
-                                      .arg(useTime/1000,0,'f',0)
-                                      .arg(TotalBytes/speed/1000 - useTime/1000,0,'f',0 ));
-    if(bytesReceived == TotalBytes)
-    {
-       localFile ->close();
-       tcpClient->close();
-       ui->statusLabel->setText(tr("接收文件: %1完毕").arg(fileName));
-    }
-}
-
-void Filerec::displayError(QAbstractSocket::SocketError sockError)
-{
-    qDebug() << tcpClient->errorString();
+                                      .arg(totalBytes / (1024*1024))
+                                      .arg(timeUsed/1000,0,'f',0)
+                                      .arg(totalBytes/speed/1000 - timeUsed/1000,0,'f',0 ));
 }
 
 void Filerec::closeEvent(QCloseEvent *)
@@ -128,11 +101,9 @@ void Filerec::closeEvent(QCloseEvent *)
 
 void Filerec::on_cancelButton_clicked()
 {
-    tcpClient->abort();
-    if(localFile->isOpen())
-    {
-       localFile->close();
-    }
+    emit quit();
+    ThreadManager::deleteThread(QString("fileConnectWith")+hostAddress.toString());
+    fileReceiver->deleteLater();
     close();
 }
 
@@ -142,3 +113,76 @@ void Filerec::on_finishButton_clicked()
     on_cancelButton_clicked();
 }
 
+FileReceiver::FileReceiver(QHostAddress address,qint16 port):
+    QObject(nullptr),
+    fileNameSize(0),
+    receivedBytes(0)
+{
+    hostAddress=address;
+    tcpPort=port;
+}
+
+void FileReceiver::startConnect(QString fileName)
+{
+    this->fileName=fileName;
+    localFile=new QFile(fileName);
+    tcpClient=new QTcpSocket(this);
+    tcpClient->abort();
+    tcpClient->connectToHost(hostAddress,tcpPort);
+    connect(tcpClient,&QTcpSocket::readyRead,this,&FileReceiver::readMessage);
+    time.start();
+}
+
+void FileReceiver::end()
+{
+    tcpClient->abort();
+    tcpClient->deleteLater();
+    localFile->deleteLater();
+}
+
+void FileReceiver::readMessage()
+{
+    QDataStream in(tcpClient);
+    in.setVersion(QDataStream::Qt_4_0);
+    float timeUsed = time.elapsed();
+    if(receivedBytes <= sizeof(qint64)*2)
+    {
+        if((tcpClient->bytesAvailable() >= sizeof(qint64)*2) && (fileNameSize ==0))
+        {
+            in >> totalBytes >> fileNameSize;
+            emit sendTotalBytes(totalBytes);
+            receivedBytes += sizeof(qint64)*2;
+        }
+        if((tcpClient->bytesAvailable() >= fileNameSize) && (fileNameSize!=0))
+        {
+            in >> fileName;
+            receivedBytes += fileNameSize;
+            if(! localFile->open(QFile::WriteOnly))
+            {
+                //QMessageBox::warning(this,tr("警告"),tr("无法读取文件 %1:\n%2.").arg(fileName).arg(localFile->errorString()));
+                return ;
+            }
+            else return ;
+        }
+    }
+    if(receivedBytes < totalBytes)
+    {
+        receivedBytes += tcpClient->bytesAvailable();
+        inBlock = tcpClient->readAll();
+        localFile->write(inBlock);
+        inBlock.resize(0);
+    }
+    emit sendReceivedBytes(receivedBytes,timeUsed);
+    if(receivedBytes == totalBytes)
+    {
+       localFile ->close();
+       tcpClient->close();
+       end();
+       emit endConnect();
+    }
+}
+
+void FileReceiver::displayError(QAbstractSocket::SocketError socktError)
+{
+    qDebug() << tcpClient->errorString();
+}
