@@ -10,7 +10,7 @@ class HeartbeatReceiver : public QObject
     Q_OBJECT
 
 public:
-    HeartbeatReceiver(QObject *parent = nullptr);
+    HeartbeatReceiver(QString localIP, QObject *parent = nullptr);
 
 private slots:
     void readPendingDatagrams();
@@ -18,6 +18,8 @@ private slots:
 private:
     QUdpSocket *socket;
     QList<QString> onlineIPs;
+    QString lIP;
+
 };
 
 #endif // HEARTBEATRECEIVER_H

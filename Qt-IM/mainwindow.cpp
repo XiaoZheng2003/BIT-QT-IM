@@ -39,7 +39,7 @@ MainWindow::MainWindow(QString ip, QString username, QWidget *parent) :
         qDebug()<<item->text(0)<<item->text(2); //群名 IP
     });
 
-    receiver = new HeartbeatReceiver;
+    receiver = new HeartbeatReceiver(localIp);
     broadcaster = new HeartbeatBroadcaster;
 
     xchat = new QUdpSocket(this);
