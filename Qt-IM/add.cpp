@@ -55,7 +55,10 @@ void Add::on_personConfirm_clicked()
         QMessageBox::critical(this,tr("错误"),tr("同IP好友禁止重复添加！"));
         return;
     }
-    DBManager::runSql(QString("insert into person (nickname,ip) values('%1', '%2')").arg(nickname).arg(ip));
+    //DBManager::runSql(QString("insert into person (nickname,ip) values('%1', '%2')").arg(nickname).arg(ip));
+    DBManager::runSql(
+                QString("insert into person (nickname,ip,avatar) values('%1', '%2', %3)").arg(nickname).arg(ip)
+                .arg(QRandomGenerator::global()->bounded(6)));
     this->close();
 }
 
