@@ -27,6 +27,8 @@ SOURCES += \
     file.cpp \
     filerec.cpp \
     group.cpp \
+    heartbeatbroadcaster.cpp \
+    heartbeatreceiver.cpp \
     history.cpp \
     login.cpp \
     main.cpp \
@@ -43,6 +45,8 @@ HEADERS += \
     file.h \
     filerec.h \
     group.h \
+    heartbeatbroadcaster.h \
+    heartbeatreceiver.h \
     history.h \
     login.h \
     mainwindow.h \
