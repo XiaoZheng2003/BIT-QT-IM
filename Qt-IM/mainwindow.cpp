@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //ui->personList->setHeaderHidden(true);
     //ui->groupList->setHeaderHidden(true);
+     ui->personList->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
+     ui->groupList->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
     connect(ui->personList,&QTreeWidget::itemDoubleClicked,[=](QTreeWidgetItem *item){
         //打开个人聊天界面
