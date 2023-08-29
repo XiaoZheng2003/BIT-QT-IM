@@ -26,7 +26,7 @@ MainWindow::MainWindow(QString ip, QString username, QWidget *parent) :
 
     connect(ui->personList,&QTreeWidget::itemDoubleClicked,[=](QTreeWidgetItem *item){
         //打开个人聊天界面
-        chat=new Chat(0,item->text(2).toInt(),item->text(0),item->text(1),xchat,xport,localName);
+        chat=new Chat(ip,item->text(2).toInt(),item->text(0),item->text(1),xchat,xport,localName);
         connect(this,&MainWindow::receiveMsg,chat,&Chat::refresh);
         chat->setAttribute(Qt::WA_DeleteOnClose);
         chat->show();
@@ -147,7 +147,7 @@ void MainWindow::hasPendinFile(QString serverAddress, QString clientAddress, QSt
             }
             else{
                 if(chat == nullptr){
-                    Chat* refusechat = new Chat(0,-999,"", serverAddress, xchat, xport, localName); // 发送拒绝消息的临时chat
+                    Chat* refusechat = new Chat(localIp,-999,"", serverAddress, xchat, xport, localName); // 发送拒绝消息的临时chat
                     refusechat->sendMessage(RefuseFile,serverAddress);
                     delete refusechat;
                 }
@@ -159,7 +159,7 @@ void MainWindow::hasPendinFile(QString serverAddress, QString clientAddress, QSt
         else if(btn == QMessageBox::No)
         {
             if(chat == nullptr){
-                Chat* refusechat = new Chat(0,-999,"", serverAddress, xchat, xport, localName); // 发送拒绝消息的临时chat
+                Chat* refusechat = new Chat(localIp,-999,"", serverAddress, xchat, xport, localName); // 发送拒绝消息的临时chat
                 refusechat->sendMessage(RefuseFile,serverAddress);
                 delete refusechat;
             }
@@ -276,7 +276,7 @@ void MainWindow::initMenu()
 
 //void MainWindow::closeEvent(QCloseEvent *) // 关闭窗口，向所有玩家发送拒绝信号
 //{
-//    Chat* refusechat = new Chat(0,-999,"", "255.255.255.255", xchat, xport, localName); // 发送拒绝消息的临时chat
+//    Chat* refusechat = new Chat(localIp,-999,"", "255.255.255.255", xchat, xport, localName); // 发送拒绝消息的临时chat
 //    refusechat->sendMessage(RefuseFile,"255.255.255.255"); // 广播
 //    delete refusechat;
 //}
