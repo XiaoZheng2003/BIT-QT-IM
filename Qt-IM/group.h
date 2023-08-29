@@ -23,6 +23,8 @@ public:
     explicit Group(HeartbeatBroadcaster * reci, QString ip, QUdpSocket *xchat, QWidget *parent = nullptr);
     ~Group();
 
+    void reloadMessage();
+
 protected:
     void keyPressEvent(QKeyEvent *ev);
 
@@ -37,7 +39,6 @@ private:
     void initMenu();
     void sendMessage(messageType type);
     QString getMessage();
-    void reloadMessage();
 
 signals:
     void addPerson();

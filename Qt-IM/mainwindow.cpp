@@ -31,10 +31,10 @@ MainWindow::MainWindow(QString ip, QString username, QWidget *parent) :
         }
         //打开个人聊天界面
         chat=new Chat(ip,item->text(2).toInt(),item->text(0),item->text(1),xchat,xport,localName);
-        connect(this,&MainWindow::receiveMsg,chat,&Chat::refresh);
+        connect(this,&MainWindow::receivePersonMsg,chat,&Chat::refresh);
         chat->setAttribute(Qt::WA_DeleteOnClose);
         chat->show();
-        emit receiveMsg();
+        emit receivePersonMsg();
     });
 
     connect(ui->groupList,&QTreeWidget::itemDoubleClicked,[=](QTreeWidgetItem *item){
@@ -43,9 +43,10 @@ MainWindow::MainWindow(QString ip, QString username, QWidget *parent) :
         connect(group,&Group::addPerson,[=](){
             refresh();updateOnline();
         });
+        connect(this,&MainWindow::receiveGroupMsg,group,&Group::reloadMessage);
         group->setAttribute(Qt::WA_DeleteOnClose);
         group->show();
-        qDebug()<<item->text(0)<<item->text(2); //群名 IP
+        emit receiveGroupMsg();
     });
 
     receiver = new HeartbeatReceiver(localIp);
@@ -110,18 +111,19 @@ void MainWindow::processPendinDatagrams()
                 DBManager::runSql("insert into person_msg (id,msg,time,islocal) values ("+id+",'"+msgStr+"','"+time+"',0)");
                 refresh();
                 updateOnline();
-                emit receiveMsg();
+                emit receivePersonMsg();
             }
             case GroupMessage:
             {
                 QString id;
                 qDebug()<<"receive msg.";
                 in >> ip >> id >> msgStr;
+                if(ip==localIp) break;
                 DBManager::runSql(QString("insert into group_msg (id,msg,time,islocal,ip)"
-                                          " values (%1,'%2','%3',1,'%4')").arg(id).arg(msgStr).arg(time).arg(ip));
+                                          " values (%1,'%2','%3',0,'%4')").arg(-1).arg(msgStr).arg(time).arg(ip));
                 refresh();
                 updateOnline();
-                emit receiveMsg();
+                emit receiveGroupMsg();
             }
             case SendFileName:
             {
