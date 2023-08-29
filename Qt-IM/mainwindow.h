@@ -56,6 +56,7 @@ private:
 
     void refresh();
     void initMenu();
+    void updateOnline();
     void hasPendinFile(QString serverAddress,QString clientAddress,QString filename);
 };
 

@@ -46,6 +46,7 @@ MainWindow::MainWindow(QString ip, QString username, QWidget *parent) :
     xchat->bind(QHostAddress(localIp),xport);
 
     connect(xchat,&QUdpSocket::readyRead,this,&MainWindow::processPendinDatagrams);
+    connect(broadcaster,&HeartbeatBroadcaster::personListChanged,this,&MainWindow::updateOnline);
 
 //    Group *gr = new Group(broadcaster);
 //    gr->show();
@@ -63,6 +64,7 @@ void MainWindow::on_add_clicked()
     a->setAttribute(Qt::WA_DeleteOnClose);
     a->exec();
     refresh();
+    updateOnline();
 }
 
 void MainWindow::processPendinDatagrams()
@@ -98,6 +100,7 @@ void MainWindow::processPendinDatagrams()
                 }
                 DBManager::runSql("insert into person_msg (id,msg,time,islocal) values ("+id+",'"+msgStr+"','"+time+"',0)");
                 refresh();
+                updateOnline();
                 emit receiveMsg();
             }
             case SendFileName:
@@ -179,6 +182,7 @@ void MainWindow::hasPendinFile(QString serverAddress, QString clientAddress, QSt
 void MainWindow::refresh()
 {
     //单聊页面
+    //receiver->onlineIPs
     QTreeWidget *personList=ui->personList;
     personList->clear();
     personList->setColumnWidth(0,150);
@@ -186,11 +190,16 @@ void MainWindow::refresh()
     personList->setIconSize(QSize(25,25));
     QSqlQuery query;
     query.exec("select * from person");
+    //QList<QString> onlineIPs=broadcaster->getReceivedIPs();
     while(query.next()){
         QTreeWidgetItem *person=new QTreeWidgetItem(personList);
+        QString ip=query.value(2).toString();
         person->setText(0,query.value(1).toString());
-        person->setIcon(0,QIcon(QString(":/res/avatar%1.png").arg(query.value(3).toInt())));
-        person->setText(1,query.value(2).toString());
+        person->setText(1,ip);
+        QImage image(QString(":/res/avatar%1.png").arg(query.value(3).toInt()));
+        //if(ip!="" && onlineIPs.contains(ip))
+            person->setDisabled(true);
+        person->setIcon(0, QIcon(QPixmap::fromImage(image)));
         person->setText(2,query.value(0).toString());
     }
 
@@ -240,8 +249,8 @@ void MainWindow::initMenu()
             m_editWindow->init(curItem->text(2).toInt(),false);
             m_editWindow->exec();
             qDebug()<<"编辑序号"<<curItem->text(2);
-            //TODO: 弹出编辑框
             refresh();
+            updateOnline();
         }
         else if(select==deleteNode){
             //删除
@@ -249,6 +258,7 @@ void MainWindow::initMenu()
                                      QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes){
                 DBManager::runSql("delete from person where id="+curItem->text(2));
                 refresh();
+                updateOnline();
             }
         }
     });
@@ -278,6 +288,21 @@ void MainWindow::initMenu()
             }
         }
     });
+}
+
+void MainWindow::updateOnline()
+{
+    //单聊页面在线状态显示
+    QTreeWidget *personList=ui->personList;
+    QTreeWidgetItemIterator it(personList);
+    QList<QString> onlineIps=broadcaster->getReceivedIPs();
+    while(*it){
+        if(onlineIps.contains((*it)->text(1))||(*it)->text(1)=="")
+            (*it)->setDisabled(false);
+        else
+            (*it)->setDisabled(true);
+        ++it;
+    }
 }
 
 //void MainWindow::closeEvent(QCloseEvent *) // 关闭窗口，向所有玩家发送拒绝信号

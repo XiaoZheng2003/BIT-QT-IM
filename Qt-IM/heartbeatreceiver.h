@@ -12,12 +12,13 @@ class HeartbeatReceiver : public QObject
 public:
     HeartbeatReceiver(QString localIP, QObject *parent = nullptr);
 
+    QStringList onlineIPs;
+
 private slots:
     void readPendingDatagrams();
 
 private:
     QUdpSocket *socket;
-    QList<QString> onlineIPs;
     QString lIP;
 
 };
