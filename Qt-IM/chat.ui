@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>509</width>
-    <height>662</height>
+    <width>557</width>
+    <height>702</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,9 +22,9 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0">
        <item>
-        <widget class="QTextBrowser" name="messageTextBrowser">
+        <widget class="QListWidget" name="listWidget">
          <property name="styleSheet">
-          <string notr="true">QTextBrowser { background-color: white; border: none; border-radius: 20px; }</string>
+          <string notr="true">background-color: white; border: none; border-radius: 20px;</string>
          </property>
         </widget>
        </item>
