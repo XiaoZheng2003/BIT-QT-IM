@@ -51,8 +51,10 @@ private:
     QString localName;
     QString localIp;
     Chat *chat;
+    Group *group;
     Edit *m_editWindow;
     int avatarId;
+    Avatar a;
 
     void refresh();
     void initMenu();
