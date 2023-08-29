@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(QString ip, QString username, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainWindow),
     xport(23333)
@@ -12,7 +12,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("Linpop");
 
-    localIp=NetworkTool::GetLocalIP();
+    localName=username;
+    ui->nickname->setText(username);
+    localIp=ip;
     ui->ipAddress->setText("IP地址："+localIp);
     refresh();
     initMenu();
@@ -164,11 +166,6 @@ void MainWindow::hasPendinFile(QString serverAddress, QString clientAddress, QSt
             }
         }
     }
-}
-void MainWindow::getUsername(QString un)
-{
-    localName=un;
-    ui->nickname->setText(un);
 }
 
 void MainWindow::refresh()

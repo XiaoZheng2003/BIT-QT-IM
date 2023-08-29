@@ -31,7 +31,7 @@ class Chat : public QWidget
     Q_OBJECT
 
 public:
-    explicit Chat(bool isGroup,int tid,QString tname,QString tip,QUdpSocket *xchat,qint32 xport,QString lname,QWidget *parent = nullptr);
+    explicit Chat(QString ip,int tid,QString tname,QString tip,QUdpSocket *xchat,qint32 xport,QString lname,QWidget *parent = nullptr);
     ~Chat();
 
     void refresh();
@@ -68,7 +68,6 @@ private:
     qint32 xport;
     File server;
     QString fileName;
-    bool isGroup;
     History *history;
     Emoji *emoji;
 

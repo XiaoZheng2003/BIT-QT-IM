@@ -27,6 +27,7 @@ SOURCES += \
     file.cpp \
     filerec.cpp \
     history.cpp \
+    ipselect.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     file.h \
     filerec.h \
     history.h \
+    ipselect.h \
     login.h \
     mainwindow.h \
     networktool.h
@@ -55,6 +57,7 @@ FORMS += \
     file.ui \
     filerec.ui \
     history.ui \
+    ipselect.ui \
     login.ui \
     mainwindow.ui
 

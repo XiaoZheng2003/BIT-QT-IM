@@ -24,7 +24,7 @@ class MainWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QString ip, QString username, QWidget *parent = nullptr);
     ~MainWindow();
 
 signals:
@@ -35,9 +35,6 @@ private slots:
     void processPendinDatagrams();
 
     void on_avatar_clicked();
-
-public slots:
-    void getUsername(QString);
 
 //protected:
 //    void closeEvent(QCloseEvent *);
