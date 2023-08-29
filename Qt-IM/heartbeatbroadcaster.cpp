@@ -8,16 +8,22 @@ HeartbeatBroadcaster::HeartbeatBroadcaster(QObject *parent)
     sendHeartbeat();
     heartbeatTimer = new QTimer(this);
     connect(heartbeatTimer, &QTimer::timeout, this, &HeartbeatBroadcaster::sendHeartbeat);
-    heartbeatTimer->start(5000); // 每5秒发送一次心跳包
+    heartbeatTimer->start(10000); // 每10秒发送一次心跳包
 
     connect(socket, &QUdpSocket::readyRead, this, &HeartbeatBroadcaster::readPendingDatagrams);
 }
 
 void HeartbeatBroadcaster::sendHeartbeat()
 {
+    QList<QString> preReceivedIPs = receivedIPs;
     receivedIPs.clear(); // 清空已收到的IP列表
     QByteArray datagram = "heartbeat"; // 心跳包内容
     socket->writeDatagram(datagram.data(), datagram.size(), QHostAddress::Broadcast, 12345); // 广播心跳包
+    // 在心跳包发送后等待一段时间以确保所有回复都已经收到
+    QTimer::singleShot(2000, this, [=]() {
+        if(preReceivedIPs!=receivedIPs)
+            emit personListChanged(); // 发送更新信号
+    });
 }
 
 void HeartbeatBroadcaster::readPendingDatagrams()
@@ -41,7 +47,6 @@ void HeartbeatBroadcaster::readPendingDatagrams()
             }
         }
     }
-    emit personListChanged();
 }
 
 QList<QString> HeartbeatBroadcaster::getReceivedIPs(){
