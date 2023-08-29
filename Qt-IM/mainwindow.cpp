@@ -46,6 +46,9 @@ MainWindow::MainWindow(QString ip, QString username, QWidget *parent) :
     xchat->bind(QHostAddress(localIp),xport);
 
     connect(xchat,&QUdpSocket::readyRead,this,&MainWindow::processPendinDatagrams);
+
+//    Group *gr = new Group(broadcaster);
+//    gr->show();
 }
 
 MainWindow::~MainWindow()
