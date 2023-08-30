@@ -24,9 +24,11 @@ void QNChatMessage::setTextSuccess()
     m_isSending = true;
 }
 
+//qt5
+/*void QNChatMessage::setText(QString text, QString time, QSize allSize, QNChatMessage::User_Type userType)
 
     //聊天信息设置
-void QNChatMessage::setText(QString text, QString time, QSize allSize, QNChatMessage::User_Type userType)
+
 {
     m_msg = text;
     m_userType = userType;
@@ -35,9 +37,29 @@ void QNChatMessage::setText(QString text, QString time, QSize allSize, QNChatMes
     m_allSize = allSize;
     //消息重绘操作
     this->update();
+}*/
+
+void QNChatMessage::setText(QString text, QString time, QSize allSize, QNChatMessage::User_Type userType)
+{
+    m_msg = text;
+    m_userType = userType;
+    m_time = time;
+
+    bool ok; // 指示字符串到数字的转换是否成功
+    qint64 timeInSeconds = time.toLongLong(&ok);
+    if (ok) {
+        QDateTime dateTime = QDateTime::fromSecsSinceEpoch(timeInSeconds);
+        m_curTime = dateTime.toString("hh:mm");
+    } else {
+        m_curTime = "";
+    }
+
+    m_allSize = allSize;
+    this->update();
 }
 
-    //计算消息文本控件大小
+//qt5
+/*    //计算消息文本控件大小
 QSize QNChatMessage::getRealString(QString src)
 {
     QFontMetricsF fm(this->font());
@@ -87,9 +109,9 @@ QSize QNChatMessage::getRealString(QString src)
         }
     }
     return QSize(nMaxWidth+m_spaceWid+1, (nCount + 1) * m_lineHeight+2*m_lineHeight+1);
-}
+}*/
 
-    //计算消息控件中各个元素的位置和大小
+//计算消息控件中各个元素的位置和大小
 QSize QNChatMessage::fontRect(QString str)
 {
     m_msg = str;
@@ -138,6 +160,97 @@ QSize QNChatMessage::fontRect(QString str)
 
     return QSize(size.width(), hei);
 }
+
+//qt5
+/*QSize QNChatMessage::getRealString(QString src)
+{
+    QFontMetricsF fm(this->font());
+    m_lineHeight = fm.lineSpacing();
+    int nCount = src.count("\n");
+    int nMaxWidth = 0;
+    if(nCount == 0) {
+        nMaxWidth = fm.width(src);
+        QString value = src;
+        if(nMaxWidth > m_textWidth) {
+            nMaxWidth = m_textWidth;
+            int size = m_textWidth / fm.width(" ");
+            int num = fm.width(value) / m_textWidth;
+            int ttmp = num*fm.width(" ");
+            num = ( fm.width(value) ) / m_textWidth;
+            nCount += num;
+            QString temp = "";
+            for(int i = 0; i < num; i++) {
+                temp += value.mid(i*size, (i+1)*size) + "\n";
+            }
+            src.replace(value, temp);
+        }
+    } else {
+        for(int i = 0; i < (nCount + 1); i++) {
+            QString value = src.split("\n").at(i);
+            nMaxWidth = fm.width(value) > nMaxWidth ? fm.width(value) : nMaxWidth;
+            if(fm.width(value) > m_textWidth) {
+                nMaxWidth = m_textWidth;
+                int size = m_textWidth / fm.width(" ");
+                int num = fm.width(value) / m_textWidth;
+                num = ((i+num)*fm.width(" ") + fm.width(value)) / m_textWidth;
+                nCount += num;
+                QString temp = "";
+                for(int i = 0; i < num; i++) {
+                    temp += value.mid(i*size, (i+1)*size) + "\n";
+                }
+                src.replace(value, temp);
+            }
+        }
+    }
+    return QSize(nMaxWidth+m_spaceWid+1, (nCount + 1) * m_lineHeight+2*m_lineHeight+1);
+}*/
+
+
+
+QSize QNChatMessage::getRealString(QString src)
+{
+    QFontMetricsF fm(this->font());
+    m_lineHeight = fm.lineSpacing();
+    int nCount = src.count("\n");
+    int nMaxWidth = 0;
+    if(nCount == 0) {
+        nMaxWidth = fm.horizontalAdvance(src);
+        QString value = src;
+        if(nMaxWidth > m_textWidth) {
+            nMaxWidth = m_textWidth;
+            int size = m_textWidth / fm.horizontalAdvance(" ");
+            int num = fm.horizontalAdvance(value) / m_textWidth;
+            int ttmp = num * fm.horizontalAdvance(" ");
+            num = (fm.horizontalAdvance(value)) / m_textWidth;
+            nCount += num;
+            QString temp = "";
+            for(int i = 0; i < num; i++) {
+                temp += value.mid(i * size, (i + 1) * size) + "\n";
+            }
+            src.replace(value, temp);
+        }
+    } else {
+        QStringList lines = src.split("\n");
+        for(int i = 0; i < (nCount + 1); i++) {
+            QString value = lines.at(i);
+            nMaxWidth = fm.horizontalAdvance(value) > nMaxWidth ? fm.horizontalAdvance(value) : nMaxWidth;
+            if(fm.horizontalAdvance(value) > m_textWidth) {
+                nMaxWidth = m_textWidth;
+                int size = m_textWidth / fm.horizontalAdvance(" ");
+                int num = fm.horizontalAdvance(value) / m_textWidth;
+                num = ((i + num) * fm.horizontalAdvance(" ") + fm.horizontalAdvance(value)) / m_textWidth;
+                nCount += num;
+                QString temp = "";
+                for(int i = 0; i < num; i++) {
+                    temp += value.mid(i * size, (i + 1) * size) + "\n";
+                }
+                src.replace(value, temp);
+            }
+        }
+    }
+    return QSize(nMaxWidth + m_spaceWid + 1, (nCount + 1) * m_lineHeight + 2 * m_lineHeight + 1);
+}
+
 
     //绘制消息控件的外观
 void QNChatMessage::paintEvent(QPaintEvent *event)
