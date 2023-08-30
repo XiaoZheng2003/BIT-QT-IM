@@ -7,6 +7,8 @@
 #include <QKeyEvent>
 #include <QMessageBox>
 
+#include "emoji.h"
+#include "history.h"
 #include "dbmanager.h"
 #include "networktool.h"
 #include "heartbeatbroadcaster.h"
@@ -35,6 +37,8 @@ private:
     QString localIp;
     qint32 xport;
     int groupId;
+    Emoji *emoji;
+    History *history;
 
     void initMenu();
     void sendMessage(messageType type);
@@ -47,6 +51,8 @@ private slots:
     void refresh();
     void on_closeBtn_clicked();
     void on_sendMsg_clicked();
+    void on_emote_clicked();
+    void on_history_clicked();
 };
 
 #endif // GROUP_H

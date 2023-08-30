@@ -15,6 +15,7 @@ class History : public QDialog
 
 public:
     explicit History(int id, QString lname, QString lip, QString tname, QString tip, QWidget *parent = nullptr);
+    explicit History(int id, QWidget *parent = nullptr);
     ~History();
 
 private slots:
@@ -28,6 +29,7 @@ private:
     QString localIp;
     QString targetName;
     QString targetIp;
+    bool isGroup;
 };
 
 #endif // HISTORY_H

@@ -61,66 +61,6 @@ QPushButton:pressed {
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="file">
-           <property name="toolTip">
-            <string>发送文件</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton { 
-border: none;
- }
-QPushButton:pressed {
-    border: 2px solid rgb(136, 138, 133);
-    border-style: inset;
-    padding: 3px; 
-}</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="res.qrc">
-             <normaloff>:/res/s3.png</normaloff>:/res/s3.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>25</width>
-             <height>25</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="image">
-           <property name="toolTip">
-            <string>发送图片</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton { 
-border: none;
- }
-QPushButton:pressed {
-    border: 2px solid rgb(136, 138, 133);
-    border-style: inset;
-    padding: 3px; 
-}</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="res.qrc">
-             <normaloff>:/res/s1.png</normaloff>:/res/s1.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>25</width>
-             <height>25</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QPushButton" name="history">
            <property name="toolTip">
             <string>历史消息</string>
