@@ -1,4 +1,5 @@
 #include "chat.h"
+#include "file.h"
 #include "ui_chat.h"
 
 Chat::Chat(QString ip,int tid,QString tname,QString tip,QUdpSocket *xchat,qint32 xport,QString lname,QWidget *parent) :
@@ -14,7 +15,6 @@ Chat::Chat(QString ip,int tid,QString tname,QString tip,QUdpSocket *xchat,qint32
     this->xport=xport;
     localName=lname;
 
-    connect(&server, SIGNAL(sendFileName(QString)),this,SLOT(getSendFileName(QString)));
     this->setWindowTitle("与"+tname+(tip==""?"":("["+tip+"]"))+"私聊中");
     ui->listWidget->setStyleSheet("QListWidget::item:selected { background-color: transparent; }");
 
@@ -87,7 +87,9 @@ void Chat::sendMessage(messageType type,QString serverAddress){
                 out << serverAddress;
                 break;
             }
-        }
+            case GroupMessage:
+                break;
+            }
         xchat->writeDatagram(data,data.length(),QHostAddress(targetIp),xport);
     }
     else
@@ -142,8 +144,7 @@ void Chat::on_sendMsg_clicked()
 // 传输文件按钮槽函数
 void Chat::on_file_clicked()
 {
-    server.show();
-    server.init();
+    MyTcpServer::addSendTarget(targetIp,this);
 }
 
 // 接收传输文件信息槽函数
@@ -159,9 +160,6 @@ void Chat::on_closeBtn_clicked()
     this->close();
 }
 
-File* Chat::getSever() {
-    return &server;
-}
 
 void Chat::on_history_clicked()
 {
