@@ -85,7 +85,7 @@ void File::refused()
     ui->Button_choose->setEnabled(true);
 }
 
-void File::setSocketDescriptor(qintptr socketDescriptor)
+void File::setSocketDescriptor(qint64 socketDescriptor)
 {
     m_socketDescriptor=socketDescriptor;
 }
@@ -125,7 +125,6 @@ MyTcpServer::~MyTcpServer()
 
 void MyTcpServer::init(QObject *parent,qint16 tcpPort)
 {
-
     if(m_gMyTcpServer==nullptr)
     {
         QMutexLocker locker(&m_mutex);
@@ -142,11 +141,17 @@ void MyTcpServer::init(QObject *parent,qint16 tcpPort)
 void MyTcpServer::incomingConnection(qintptr socketDescriptor)
 {
     FileSender *fileSender=new FileSender(socketDescriptor);
-    ThreadManager::addObject(QString("fileConnectWith")+socketDescriptor,fileSender);
-    ThreadManager::startThread(QString("fileConnectWith")+socketDescriptor);
+    ThreadManager::addObject(QString("fileConnectWith")+QString::number(socketDescriptor),fileSender);
+    ThreadManager::startThread(QString("fileConnectWith")+QString::number(socketDescriptor));
     connect(this,&MyTcpServer::startInit,fileSender,&FileSender::init);
     connect(fileSender,&FileSender::startConnect,this,&MyTcpServer::startConnect);
     emit startInit();
+}
+
+MyTcpServer *MyTcpServer::getInstance()
+{
+    init();
+    return m_gMyTcpServer;
 }
 
 void MyTcpServer::addSendTarget(QString targetIp,Chat *chatWindow)
@@ -171,13 +176,18 @@ void MyTcpServer::startConnect(QString connectIp,qintptr socketDescriptor,FileSe
     emit prepared();
 }
 
+void MyTcpServer::refuse(QString ip)
+{
+    m_gMyTcpServer->m_targetList.value(ip)->refused();
+}
+
 void MyTcpServer::deleteResourse(QString ip,qint64 socketDescriptor)
 {
     m_gMyTcpServer->m_targetList.value(ip)->deleteLater();
     m_gMyTcpServer->m_fileSenderList.value(ip)->deleteLater();
     m_gMyTcpServer->m_fileSenderList.remove(ip);
     m_gMyTcpServer->m_targetList.remove(ip);
-    ThreadManager::deleteThread(QString("fileConnectWith")+socketDescriptor);
+    ThreadManager::deleteThread(QString("fileConnectWith")+QString::number(socketDescriptor));
 }
 
 FileSender::FileSender(qintptr socketDescriptor)
@@ -221,7 +231,6 @@ void FileSender::startSend(QString fileName)
 
 void FileSender::sendNext(qint64 bytes)
 {
-    qDebug()<<"writtenBytes:"<<m_writtenBytes<<"SentBytes:"<<bytes;
     m_writtenBytes+=bytes;
     if(m_writtenBytes<m_totalBytes)
     {

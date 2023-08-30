@@ -32,6 +32,7 @@ MainWindow::MainWindow(QString ip, QString username, QWidget *parent) :
 //        }
         //打开个人聊天界面
         chat=new Chat(avatarId, item->text(3).toInt(), ip,item->text(2).toInt(),item->text(0),item->text(1),xchat,xport,localName);
+        connect(this,&MainWindow::refuse,MyTcpServer::getInstance(),&MyTcpServer::refuse);
         readMsg(item->text(2).toInt());
         item->setText(4,"");
         connect(this,&MainWindow::receivePersonMsg,chat,&Chat::refresh);
@@ -178,12 +179,12 @@ void MainWindow::processPendinDatagrams()
             }
             case RefuseFile:
             {
-                QString clinetIp, serverAddress;
-                in >> clinetIp >> serverAddress;
+                QString clientIp, serverAddress;
+                in >> clientIp >> serverAddress;
                 QString ipAddress = localIp;
                 if(ipAddress == serverAddress)
                 {
-                    //chat->getSever()->refused();
+                    emit refuse(clientIp);
                 }
 //                else if(ipAddress == "255.255.255.255"){
 //                    if(chat->getSever()->get_Client_Connection()->localAddress().toString()==clinetIp) // 找到对应关闭窗口客户端的服务端
