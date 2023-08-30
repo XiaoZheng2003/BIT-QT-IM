@@ -1,10 +1,10 @@
 #include "group.h"
 #include "ui_group.h"
 
-Group::Group(HeartbeatBroadcaster * reci, QString ip, QUdpSocket *xchat, QWidget *parent) :
+Group::Group(HeartbeatBroadcaster * reci, QString ip, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Group),
-    xport(23333)
+    xport(7895)
 {
     ui->setupUi(this);
     receiver = reci;
@@ -14,6 +14,7 @@ Group::Group(HeartbeatBroadcaster * reci, QString ip, QUdpSocket *xchat, QWidget
     this->xchat=xchat;
     // 将信号 personListChanged() 与槽函数 refresh() 连接起来
     connect(receiver, &HeartbeatBroadcaster::personListChanged, this, &Group::refresh);
+    xchat = new QUdpSocket(this);
 
     initMenu();
 }
