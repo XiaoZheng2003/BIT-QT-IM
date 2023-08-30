@@ -37,6 +37,7 @@ public:
 signals:
     void receivePersonMsg();
     void receiveGroupMsg();
+    void refuse(QString ip);
 
 private slots:
     void on_add_clicked();

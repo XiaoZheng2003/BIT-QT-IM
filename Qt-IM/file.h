@@ -94,12 +94,14 @@ class MyTcpServer:public QTcpServer
 public:
     static void init(QObject *parent,qint16 tcpPort);
     static void addSendTarget(QString targetIp,Chat *chatWindow);
+    static MyTcpServer *getInstance();
 
 protected:
     void incomingConnection(qintptr socketDescriptor) override;
 
 public slots:
     void startConnect(QString connectIp,qintptr socketDescriptor,FileSender *fileSender);
+    void refuse(QString ip);
 
 private slots:
     void deleteResourse(QString ip,qintptr socketDescriptor);
