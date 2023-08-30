@@ -32,6 +32,8 @@ MainWindow::MainWindow(QString ip, QString username, QWidget *parent) :
         }
         //打开个人聊天界面
         chat=new Chat(avatarId, item->text(3).toInt(), ip,item->text(2).toInt(),item->text(0),item->text(1),xchat,xport,localName);
+        readMsg(item->text(2).toInt());
+        item->setText(4,"");
         connect(this,&MainWindow::receivePersonMsg,chat,&Chat::refresh);
         chat->setAttribute(Qt::WA_DeleteOnClose);
         chat->show();
@@ -101,14 +103,18 @@ void MainWindow::processPendinDatagrams()
                 QString id="";
                 while(query.next()){
                     id=query.value(0).toString();
+                    break;
                 }
                 if(id==""){
                     DBManager::runSql(QString("insert into person (nickname,ip) values ('%1','%2')").arg(ip).arg(ip));
                     query.exec("select id from person where ip='"+ip+"'");
                     while(query.next()){
                         id=query.value(0).toString();
+                        break;
                     }
                 }
+                if(!unreadMsg.contains(id.toInt()))
+                    unreadMsg.append(id.toInt());
                 DBManager::runSql("insert into person_msg (id,msg,time,islocal) values ("+id+",'"+msgStr+"','"+time+"',0)");
                 refresh();
                 updateOnline();
@@ -202,6 +208,16 @@ void MainWindow::hasPendinFile(QString serverAddress, QString clientAddress, QSt
     }
 }
 
+void MainWindow::readMsg(int id)
+{
+    for(int i=0;i<unreadMsg.size();){
+        if(unreadMsg.at(i)==id)
+            unreadMsg.removeAt(i);
+        else
+            i++;
+    }
+}
+
 void MainWindow::refresh()
 {
     //单聊页面
@@ -218,14 +234,17 @@ void MainWindow::refresh()
     while(query.next()){
         QTreeWidgetItem *person=new QTreeWidgetItem(personList);
         QString ip=query.value(2).toString();
+        QString id=query.value(0).toString();
         person->setText(0,query.value(1).toString());
         person->setText(1,ip);
         QImage image(QString(":/res/avatar%1.png").arg(query.value(3).toInt()));
         //if(ip!="" && onlineIPs.contains(ip))
             person->setDisabled(true);
         person->setIcon(0, QIcon(QPixmap::fromImage(image)));
-        person->setText(2,query.value(0).toString());
+        person->setText(2,id);
         person->setText(3,query.value(3).toString());
+        person->setText(4,unreadMsg.contains(id.toInt())?"⚫":"");
+        person->setTextColor(4,Qt::red);
     }
 
     //群聊页面
@@ -282,6 +301,7 @@ void MainWindow::initMenu()
             if(QMessageBox::question(this,"提示","确认删除该好友吗？（同时会删除该好友的聊天记录）",
                                      QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes){
                 DBManager::runSql("delete from person where id="+curItem->text(2));
+                readMsg(curItem->text(2).toInt());
                 refresh();
                 updateOnline();
             }
