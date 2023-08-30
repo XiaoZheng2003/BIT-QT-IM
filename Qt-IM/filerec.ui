@@ -20,39 +20,6 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>存储地址:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="pathname"/>
-       </item>
-       <item>
-        <widget class="QPushButton" name="button_normal">
-         <property name="styleSheet">
-          <string notr="true">QPushButton {
-               background-color:#007BFF;
-               color: white;
-               padding: 5px;
-               border: none;
-               border-radius: 10px;
- }
-QPushButton:hover {
-              background-color:  #9cd3fa;
-}</string>
-         </property>
-         <property name="text">
-          <string>选择文件夹</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
       <widget class="QLabel" name="statusLabel">
        <property name="text">
         <string>状态显示</string>

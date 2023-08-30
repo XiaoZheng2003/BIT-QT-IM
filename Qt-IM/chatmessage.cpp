@@ -23,7 +23,8 @@ void QNChatMessage::setTextSuccess()
     m_isSending = true;
 }
 
-void QNChatMessage::setText(QString text, QString time, QSize allSize, QNChatMessage::User_Type userType)
+//qt5
+/*void QNChatMessage::setText(QString text, QString time, QSize allSize, QNChatMessage::User_Type userType)
 {
     m_msg = text;
     m_userType = userType;
@@ -31,7 +32,27 @@ void QNChatMessage::setText(QString text, QString time, QSize allSize, QNChatMes
     m_curTime = QDateTime::fromTime_t(time.toInt()).toString("hh:mm");
     m_allSize = allSize;
     this->update();
+}*/
+
+void QNChatMessage::setText(QString text, QString time, QSize allSize, QNChatMessage::User_Type userType)
+{
+    m_msg = text;
+    m_userType = userType;
+    m_time = time;
+
+    bool ok; // 指示字符串到数字的转换是否成功
+    qint64 timeInSeconds = time.toLongLong(&ok);
+    if (ok) {
+        QDateTime dateTime = QDateTime::fromSecsSinceEpoch(timeInSeconds);
+        m_curTime = dateTime.toString("hh:mm");
+    } else {
+        m_curTime = "";
+    }
+
+    m_allSize = allSize;
+    this->update();
 }
+
 
 QSize QNChatMessage::fontRect(QString str)
 {
@@ -74,7 +95,8 @@ QSize QNChatMessage::fontRect(QString str)
     return QSize(size.width(), hei);
 }
 
-QSize QNChatMessage::getRealString(QString src)
+//qt5
+/*QSize QNChatMessage::getRealString(QString src)
 {
     QFontMetricsF fm(this->font());
     m_lineHeight = fm.lineSpacing();
@@ -115,7 +137,54 @@ QSize QNChatMessage::getRealString(QString src)
         }
     }
     return QSize(nMaxWidth+m_spaceWid+1, (nCount + 1) * m_lineHeight+2*m_lineHeight+1);
+}*/
+
+
+
+QSize QNChatMessage::getRealString(QString src)
+{
+    QFontMetricsF fm(this->font());
+    m_lineHeight = fm.lineSpacing();
+    int nCount = src.count("\n");
+    int nMaxWidth = 0;
+    if(nCount == 0) {
+        nMaxWidth = fm.horizontalAdvance(src);
+        QString value = src;
+        if(nMaxWidth > m_textWidth) {
+            nMaxWidth = m_textWidth;
+            int size = m_textWidth / fm.horizontalAdvance(" ");
+            int num = fm.horizontalAdvance(value) / m_textWidth;
+            int ttmp = num * fm.horizontalAdvance(" ");
+            num = (fm.horizontalAdvance(value)) / m_textWidth;
+            nCount += num;
+            QString temp = "";
+            for(int i = 0; i < num; i++) {
+                temp += value.mid(i * size, (i + 1) * size) + "\n";
+            }
+            src.replace(value, temp);
+        }
+    } else {
+        QStringList lines = src.split("\n");
+        for(int i = 0; i < (nCount + 1); i++) {
+            QString value = lines.at(i);
+            nMaxWidth = fm.horizontalAdvance(value) > nMaxWidth ? fm.horizontalAdvance(value) : nMaxWidth;
+            if(fm.horizontalAdvance(value) > m_textWidth) {
+                nMaxWidth = m_textWidth;
+                int size = m_textWidth / fm.horizontalAdvance(" ");
+                int num = fm.horizontalAdvance(value) / m_textWidth;
+                num = ((i + num) * fm.horizontalAdvance(" ") + fm.horizontalAdvance(value)) / m_textWidth;
+                nCount += num;
+                QString temp = "";
+                for(int i = 0; i < num; i++) {
+                    temp += value.mid(i * size, (i + 1) * size) + "\n";
+                }
+                src.replace(value, temp);
+            }
+        }
+    }
+    return QSize(nMaxWidth + m_spaceWid + 1, (nCount + 1) * m_lineHeight + 2 * m_lineHeight + 1);
 }
+
 
 void QNChatMessage::paintEvent(QPaintEvent *event)
 {
