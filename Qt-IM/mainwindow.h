@@ -34,7 +34,8 @@ public:
     HeartbeatReceiver* receiver;
 
 signals:
-    void receiveMsg();
+    void receivePersonMsg();
+    void receiveGroupMsg();
 
 private slots:
     void on_add_clicked();

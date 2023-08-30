@@ -31,18 +31,22 @@ MainWindow::MainWindow(QString ip, QString username, QWidget *parent) :
         }
         //打开个人聊天界面
         chat=new Chat(ip,item->text(2).toInt(),item->text(0),item->text(1),xchat,xport,localName);
-        connect(this,&MainWindow::receiveMsg,chat,&Chat::refresh);
+        connect(this,&MainWindow::receivePersonMsg,chat,&Chat::refresh);
         chat->setAttribute(Qt::WA_DeleteOnClose);
         chat->show();
-        emit receiveMsg();
+        emit receivePersonMsg();
     });
 
     connect(ui->groupList,&QTreeWidget::itemDoubleClicked,[=](QTreeWidgetItem *item){
         //打开群聊界面
-        group=new Group(broadcaster);
+        group=new Group(broadcaster,localIp,xchat);
+        connect(group,&Group::addPerson,[=](){
+            refresh();updateOnline();
+        });
+        connect(this,&MainWindow::receiveGroupMsg,group,&Group::reloadMessage);
         group->setAttribute(Qt::WA_DeleteOnClose);
         group->show();
-        qDebug()<<item->text(0)<<item->text(2); //群名 IP
+        emit receiveGroupMsg();
     });
 
     receiver = new HeartbeatReceiver(localIp);
@@ -98,7 +102,7 @@ void MainWindow::processPendinDatagrams()
                     id=query.value(0).toString();
                 }
                 if(id==""){
-                    DBManager::runSql("insert into person (nickname,ip) values ('好友','"+ip+"')");
+                    DBManager::runSql(QString("insert into person (nickname,ip) values ('%1','%2')").arg(ip).arg(ip));
                     query.exec("select id from person where ip='"+ip+"'");
                     while(query.next()){
                         id=query.value(0).toString();
@@ -107,7 +111,19 @@ void MainWindow::processPendinDatagrams()
                 DBManager::runSql("insert into person_msg (id,msg,time,islocal) values ("+id+",'"+msgStr+"','"+time+"',0)");
                 refresh();
                 updateOnline();
-                emit receiveMsg();
+                emit receivePersonMsg();
+            }
+            case GroupMessage:
+            {
+                QString id;
+                qDebug()<<"receive msg.";
+                in >> ip >> id >> msgStr;
+                if(ip==localIp) break;
+                DBManager::runSql(QString("insert into group_msg (id,msg,time,islocal,ip)"
+                                          " values (%1,'%2','%3',0,'%4')").arg(-1).arg(msgStr).arg(time).arg(ip));
+                refresh();
+                updateOnline();
+                emit receiveGroupMsg();
             }
             case SendFileName:
             {
@@ -211,21 +227,20 @@ void MainWindow::refresh()
 
     //群聊页面
     QTreeWidget *groupList=ui->groupList;
-//    groupList->clear();
+    groupList->clear();
     groupList->setColumnWidth(0,150);
-    groupList->setColumnHidden(1,true);
     groupList->setColumnHidden(2,true);
     groupList->setColumnHidden(3,true);
     groupList->setIconSize(QSize(25,25));
-//    query.exec("select * from groups");
-//    while(query.next()){
-//        QTreeWidgetItem *group=new QTreeWidgetItem(groupList);
-//        group->setText(0,query.value(1).toString());
-//        group->setIcon(0,QIcon(":/res/group.png"));
-//        group->setText(1,query.value(3).toString());
-//        group->setText(2,query.value(2).toString());
-//        group->setText(3,query.value(0).toString());
-//    }
+    query.exec("select * from groups");
+    while(query.next()){
+        QTreeWidgetItem *group=new QTreeWidgetItem(groupList);
+        group->setText(0,query.value(1).toString());
+        group->setIcon(0,QIcon(":/res/group.png"));
+        group->setText(1,query.value(3).toString());
+        group->setText(2,query.value(2).toString());
+        group->setText(3,query.value(0).toString());
+    }
 }
 
 void MainWindow::initMenu()

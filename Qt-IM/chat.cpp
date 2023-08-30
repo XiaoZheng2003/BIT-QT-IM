@@ -16,6 +16,8 @@ Chat::Chat(QString ip,int tid,QString tname,QString tip,QUdpSocket *xchat,qint32
     localName=lname;
 
     this->setWindowTitle("与"+tname+(tip==""?"":("["+tip+"]"))+"私聊中");
+    ui->listWidget->setStyleSheet("QListWidget::item:selected { background-color: transparent; }");
+
 }
 
 Chat::~Chat()
@@ -30,6 +32,23 @@ QString Chat::getMessage()
     ui->messageTextEdit->setFocus();
     return msg;
 }
+
+void Chat::dealMessage(QNChatMessage *messageW, QListWidgetItem *item, QString text, QString time,  QNChatMessage::User_Type type)
+{
+       messageW->setFixedWidth(this->width());
+       QSize size = messageW->fontRect(text);
+       item->setSizeHint(size);
+       messageW->setText(text, time, size, type);
+       ui->listWidget->setItemWidget(item, messageW);
+}
+
+void Chat::dealMessageTime(QString curMsgTime)
+{
+    Q_UNUSED(curMsgTime);
+     // 不实现时间显示部分
+}
+
+
 
 void Chat::sendMessage(messageType type,QString serverAddress){
     if(~targetId){
@@ -85,20 +104,17 @@ void Chat::sendMessage(messageType type,QString serverAddress){
 void Chat::refresh()
 {
     QSqlQuery query;
-    QTextBrowser *tb=ui->messageTextBrowser;
-    tb->clear();
     query.exec("select * from person_msg where id="+QString::number(targetId));
     while(query.next()){
-        tb->setCurrentFont(QFont("黑体",8));
+        QNChatMessage* messageW = new QNChatMessage(ui->listWidget->parentWidget());
+        QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
         if(query.value(3).toInt()){
-            tb->setTextColor(Qt::blue);
-            tb->append(localName+"["+localIp+"] "+query.value(2).toString());
+            dealMessage(messageW, item, query.value(1).toString(), query.value(2).toString(),  QNChatMessage::User_Me);
         }
         else{
-            tb->setTextColor(Qt::green);
-            tb->append(targetName+(targetIp==""?"":("["+targetIp+"]"))+" "+query.value(2).toString());
+            dealMessage(messageW, item, query.value(1).toString(), query.value(2).toString(),  QNChatMessage::User_She);
         }
-        tb->append(query.value(1).toString());
+        ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
     }
 }
 
@@ -107,6 +123,20 @@ void Chat::keyPressEvent(QKeyEvent *ev)
     if(ev->modifiers()==Qt::ControlModifier && (ev->key()==Qt::Key_Return||ev->key()==Qt::Key_Enter))
         on_sendMsg_clicked();
 }
+void Chat::resizeEvent(QResizeEvent *event)
+{
+    Q_UNUSED(event);
+
+
+    for(int i = 0; i < ui->listWidget->count(); i++) {
+        QNChatMessage* messageW = (QNChatMessage*)ui->listWidget->itemWidget(ui->listWidget->item(i));
+        QListWidgetItem* item = ui->listWidget->item(i);
+
+        dealMessage(messageW, item, messageW->text(), messageW->time(), messageW->userType());
+    }
+}
+
+
 
 void Chat::on_sendMsg_clicked()
 {
@@ -143,8 +173,8 @@ void Chat::on_history_clicked()
 
 void Chat::on_emote_clicked()
 {
-    emoji=new Emoji(ui->messageTextBrowser->x()+this->x(),
-                    ui->messageTextBrowser->y()+ui->messageTextBrowser->height()+this->y()+frameGeometry().height()-geometry().height());
+    emoji=new Emoji(ui->listWidget->x()+this->x(),
+                    ui->listWidget->y()+ui->listWidget->height()+this->y()+frameGeometry().height()-geometry().height());
     emoji->setAttribute(Qt::WA_DeleteOnClose);
     connect(emoji,&Emoji::addEmoji,[=](QString emoji){
        ui->messageTextEdit->insertPlainText(emoji);
