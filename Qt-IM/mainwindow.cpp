@@ -96,9 +96,9 @@ void MainWindow::groupProcessPendinDatagrams(){
         switch (msgType) {
         case GroupMessage:
         {
-            QString id;
-            if(ip==localIp) break;
+            QString id;           
             in >> ip >> id >> msgStr;
+            if(ip==localIp) break;
             DBManager::runSql(QString("insert into group_msg (id,msg,time,islocal,ip)"
                                       " values (%1,'%2','%3',0,'%4')").arg(-1).arg(msgStr).arg(time).arg(ip));
             refresh();
