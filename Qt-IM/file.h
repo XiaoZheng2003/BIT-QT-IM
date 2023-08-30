@@ -24,7 +24,7 @@ public:
     ~File();
     void init();
     void refused();
-    QTcpSocket* get_Client_Connection();
+    void setSocketDescriptor(qint64 socketDescriptor);
 
 protected:
     void closeEvent(QCloseEvent *);
@@ -32,7 +32,7 @@ protected:
 signals:
     void sendFileName(QString);
     void startSend(QString fileName);
-    void quit(QString ip);
+    void quit(QString ip,qint64 socketDescriptor);
 
 public slots:
     void updateClientProgress(qint64 bytes,float timeUsed);
@@ -54,7 +54,7 @@ private:
     QString theFileName;
     QString fileName;
     QString ip;
-
+    qintptr m_socketDescriptor;
 };
 
 class FileSender:public QObject
@@ -65,6 +65,7 @@ public:
 
 public slots:
     void startSend(QString fileName);
+    void init();
     void quit();
 
 private slots:
@@ -73,11 +74,12 @@ private slots:
 signals:
     void sendWrittenBytes(qint64 writtenBytes,float time);
     void sendTotalBytes(qint64 bytes);
+    void startConnect(QString connectIp,qint64 socketDescriptor,FileSender *fileSender);
 
 private:
     QTcpSocket *m_tcpSocket;
     QFile* m_localFile;
-    qintptr m_socketDescriptor;
+    qint64 m_socketDescriptor;
     qint64 m_totalBytes;
     qint64 m_writtenBytes;
     qint64 m_payloadSize;
@@ -96,11 +98,15 @@ public:
 protected:
     void incomingConnection(qintptr socketDescriptor) override;
 
+public slots:
+    void startConnect(QString connectIp,qintptr socketDescriptor,FileSender *fileSender);
+
 private slots:
-    void deleteResourse(QString ip);
+    void deleteResourse(QString ip,qintptr socketDescriptor);
 
 signals:
     void sendFileNameInfo(QString fileName);
+    void startInit();
     void prepared();
 
 private:

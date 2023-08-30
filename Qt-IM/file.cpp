@@ -38,7 +38,6 @@ void File::sendFile()
 
 void File::updateClientProgress(qint64 numBytes,float timeUsed)
 {
-    qApp->processEvents();
     bytesWritten=numBytes;
 
     ui->progressBar->setMaximum(TotalBytes);
@@ -61,6 +60,7 @@ void File::updateClientProgress(qint64 numBytes,float timeUsed)
 void File::setTotalBytes(qint64 bytes)
 {
     TotalBytes=bytes;
+    qDebug()<<"total bytes in file"<<TotalBytes;
 }
 
 void File::on_Button_choose_clicked()
@@ -85,6 +85,11 @@ void File::refused()
     ui->Button_choose->setEnabled(true);
 }
 
+void File::setSocketDescriptor(qintptr socketDescriptor)
+{
+    m_socketDescriptor=socketDescriptor;
+}
+
 void File::closeEvent(QCloseEvent *)
 {
     on_Button_cancle_clicked();
@@ -100,7 +105,7 @@ void File::on_Button_send_clicked()
 
 void File::on_Button_cancle_clicked()
 {
-    emit quit(ip);
+    emit quit(ip,m_socketDescriptor);
     close();
 }
 
@@ -136,22 +141,12 @@ void MyTcpServer::init(QObject *parent,qint16 tcpPort)
 
 void MyTcpServer::incomingConnection(qintptr socketDescriptor)
 {
-    QTcpSocket *temp=new QTcpSocket;
-    temp->setSocketDescriptor(socketDescriptor);
     FileSender *fileSender=new FileSender(socketDescriptor);
-    QString connectIp=temp->peerAddress().toString();
-    connectIp=connectIp.mid(7);
-    temp->deleteLater();
-    m_gMyTcpServer->m_fileSenderList.insert(connectIp,fileSender);
-    ThreadManager::addObject(QString("fileConnectWith")+connectIp,fileSender);
-    ThreadManager::startThread(QString("fileConnectWith")+connectIp);
-    connect(this,&MyTcpServer::prepared,m_gMyTcpServer->m_targetList.value(connectIp),&File::sendFile);
-    connect(m_gMyTcpServer->m_targetList.value(connectIp),&File::startSend,fileSender,&FileSender::startSend);
-    connect(fileSender,&FileSender::sendWrittenBytes,m_gMyTcpServer->m_targetList.value(connectIp),&File::updateClientProgress);
-    connect(fileSender,&FileSender::sendTotalBytes,m_gMyTcpServer->m_targetList.value(connectIp),&File::setTotalBytes);
-    connect(m_gMyTcpServer->m_targetList.value(connectIp),&File::quit,fileSender,&FileSender::quit);
-    connect(m_gMyTcpServer->m_targetList.value(connectIp),&File::quit,this,&MyTcpServer::deleteResourse);
-    emit prepared();
+    ThreadManager::addObject(QString("fileConnectWith")+socketDescriptor,fileSender);
+    ThreadManager::startThread(QString("fileConnectWith")+socketDescriptor);
+    connect(this,&MyTcpServer::startInit,fileSender,&FileSender::init);
+    connect(fileSender,&FileSender::startConnect,this,&MyTcpServer::startConnect);
+    emit startInit();
 }
 
 void MyTcpServer::addSendTarget(QString targetIp,Chat *chatWindow)
@@ -163,13 +158,26 @@ void MyTcpServer::addSendTarget(QString targetIp,Chat *chatWindow)
     fileWindow->show();
 }
 
-void MyTcpServer::deleteResourse(QString ip)
+void MyTcpServer::startConnect(QString connectIp,qintptr socketDescriptor,FileSender *fileSender)
+{
+    m_gMyTcpServer->m_targetList.value(connectIp)->setSocketDescriptor(socketDescriptor);
+    m_gMyTcpServer->m_fileSenderList.insert(connectIp,fileSender);
+    connect(this,&MyTcpServer::prepared,m_gMyTcpServer->m_targetList.value(connectIp),&File::sendFile);
+    connect(m_gMyTcpServer->m_targetList.value(connectIp),&File::startSend,m_gMyTcpServer->m_fileSenderList.value(connectIp),&FileSender::startSend);
+    connect(m_gMyTcpServer->m_fileSenderList.value(connectIp),&FileSender::sendWrittenBytes,m_gMyTcpServer->m_targetList.value(connectIp),&File::updateClientProgress);
+    connect(m_gMyTcpServer->m_fileSenderList.value(connectIp),&FileSender::sendTotalBytes,m_gMyTcpServer->m_targetList.value(connectIp),&File::setTotalBytes);
+    connect(m_gMyTcpServer->m_targetList.value(connectIp),&File::quit,m_gMyTcpServer->m_fileSenderList.value(connectIp),&FileSender::quit);
+    connect(m_gMyTcpServer->m_targetList.value(connectIp),&File::quit,this,&MyTcpServer::deleteResourse);
+    emit prepared();
+}
+
+void MyTcpServer::deleteResourse(QString ip,qint64 socketDescriptor)
 {
     m_gMyTcpServer->m_targetList.value(ip)->deleteLater();
     m_gMyTcpServer->m_fileSenderList.value(ip)->deleteLater();
     m_gMyTcpServer->m_fileSenderList.remove(ip);
     m_gMyTcpServer->m_targetList.remove(ip);
-    ThreadManager::deleteThread(QString("fileConnectWith")+ip);
+    ThreadManager::deleteThread(QString("fileConnectWith")+socketDescriptor);
 }
 
 FileSender::FileSender(qintptr socketDescriptor)
@@ -186,8 +194,6 @@ void FileSender::startSend(QString fileName)
     m_payloadSize = 64 * 1024;
     m_totalBytes = 0;
     m_writtenBytes = 0;
-    m_tcpSocket=new QTcpSocket(this);
-    m_tcpSocket->setSocketDescriptor(m_socketDescriptor);
     connect(m_tcpSocket,&QTcpSocket::bytesWritten,this,&FileSender::sendNext);
     m_localFile=new QFile(fileName);
     if(! m_localFile->open(QFile::ReadOnly))
@@ -196,7 +202,6 @@ void FileSender::startSend(QString fileName)
         return ;
     }
     m_totalBytes=m_localFile->size();
-    emit sendTotalBytes(m_totalBytes);
     QDataStream sendOut(&m_outBlock,QIODevice::WriteOnly);
     sendOut.setVersion(QDataStream::Qt_4_0);
     m_time.start();
@@ -205,6 +210,7 @@ void FileSender::startSend(QString fileName)
     sendOut << qint64(0) <<qint64(0) <<currentFile;
 
     m_totalBytes +=m_outBlock.size();
+    emit sendTotalBytes(m_totalBytes);
     sendOut.device()->seek(0);
 
     sendOut << m_totalBytes << qint64((m_outBlock.size() - sizeof(qint64)*2));
@@ -215,6 +221,7 @@ void FileSender::startSend(QString fileName)
 
 void FileSender::sendNext(qint64 bytes)
 {
+    qDebug()<<"writtenBytes:"<<m_writtenBytes<<"SentBytes:"<<bytes;
     m_writtenBytes+=bytes;
     if(m_writtenBytes<m_totalBytes)
     {
@@ -222,11 +229,23 @@ void FileSender::sendNext(qint64 bytes)
         m_tcpSocket->write(m_outBlock);
         m_outBlock.resize(0);
     }
-    else
+    emit sendWrittenBytes(m_writtenBytes,m_time.elapsed());
+    if(m_writtenBytes==m_totalBytes)
     {
         quit();
     }
-    emit sendWrittenBytes(m_writtenBytes,m_time.elapsed());
+}
+
+void FileSender::init()
+{
+    m_tcpSocket=new QTcpSocket;
+    if(m_tcpSocket->setSocketDescriptor(m_socketDescriptor))
+        qDebug()<<"connect success with"+m_tcpSocket->peerAddress().toString();
+    else
+        qDebug()<<"connect fail";
+    QString connectIp=m_tcpSocket->peerAddress().toString();
+    connectIp=connectIp.mid(7);
+    emit startConnect(connectIp,m_socketDescriptor,this);
 }
 
 void FileSender::quit()
