@@ -17,14 +17,16 @@ public:
 
 public slots:
     void startConnect(QString fileName);
-    void end();
+
 signals:
     void sendReceivedBytes(qint64 bytes,float timeUsed);
     void sendTotalBytes(qint64 bytes);
     void endConnect();
+
 private slots:
     void readMessage();
     void displayError(QAbstractSocket::SocketError socketError);
+
 private:
     qint16 tcpPort;
     qint64 fileNameSize;
@@ -65,7 +67,7 @@ private slots:
 
 signals:
     void startConnect(QString fileName);
-    void quit();
+
 private:
     Ui::Filerec *ui;
     FileReceiver *fileReceiver;
