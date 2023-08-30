@@ -26,10 +26,10 @@ MainWindow::MainWindow(QString ip, QString username, QWidget *parent) :
      ui->groupList->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
     connect(ui->personList,&QTreeWidget::itemDoubleClicked,[=](QTreeWidgetItem *item){
-        if(item->isDisabled()){
-            QMessageBox::critical(this,"错误","该用户为离线状态！");
-            return;
-        }
+//        if(item->isDisabled()){
+//            QMessageBox::critical(this,"错误","该用户为离线状态！");
+//            return;
+//        }
         //打开个人聊天界面
         chat=new Chat(avatarId, item->text(3).toInt(), ip,item->text(2).toInt(),item->text(0),item->text(1),xchat,xport,localName);
         readMsg(item->text(2).toInt());

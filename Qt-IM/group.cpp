@@ -119,14 +119,11 @@ void Group::reloadMessage()
     query.exec("select * from group_msg where id="+QString::number(groupId));
     while(query.next()){
         tb->setCurrentFont(QFont("黑体",8));
-        if(query.value(3).toInt()){
+        if(query.value(3).toInt())
             tb->setTextColor(Qt::blue);
-            tb->append(query.value(4).toString()+" "+query.value(2).toString());
-        }
-        else{
+        else
             tb->setTextColor(Qt::green);
-            tb->append(query.value(4).toString()+" "+query.value(2).toString());
-        }
+        tb->append(query.value(4).toString()+" "+query.value(2).toString());
         tb->append(query.value(1).toString());
     }
 }
@@ -140,4 +137,22 @@ void Group::on_sendMsg_clicked()
 {
     sendMessage(GroupMessage);
     reloadMessage();
+}
+
+void Group::on_emote_clicked()
+{
+    emoji=new Emoji(ui->messageTextBrowser->x()+this->x(),
+                    ui->messageTextBrowser->y()+ui->messageTextBrowser->height()+this->y()+frameGeometry().height()-geometry().height());
+    emoji->setAttribute(Qt::WA_DeleteOnClose);
+    connect(emoji,&Emoji::addEmoji,[=](QString emoji){
+       ui->messageTextEdit->insertPlainText(emoji);
+    });
+    emoji->show();
+}
+
+void Group::on_history_clicked()
+{
+    history=new History(groupId);
+    history->setAttribute(Qt::WA_DeleteOnClose);
+    history->show();
 }
