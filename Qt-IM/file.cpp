@@ -54,6 +54,9 @@ void File::updateClientProgress(qint64 numBytes,float timeUsed)
     if(bytesWritten == TotalBytes)
     {
         ui->serverStatusLabel->setText(tr("传送文件: %1成功").arg(theFileName));
+        ui->Button_cancle->setText("完成");
+        ui->Button_choose->setText("再次选择");
+        ui->Button_choose->setEnabled(true);
     }
 }
 
@@ -105,8 +108,8 @@ void File::on_Button_send_clicked()
 
 void File::on_Button_cancle_clicked()
 {
-    emit quit(ip,m_socketDescriptor);
     close();
+    emit quit(ip,m_socketDescriptor);
 }
 
 //QTcpSocket* File::get_Client_Connection(){
@@ -150,7 +153,6 @@ void MyTcpServer::incomingConnection(qintptr socketDescriptor)
 
 MyTcpServer *MyTcpServer::getInstance()
 {
-    init();
     return m_gMyTcpServer;
 }
 
@@ -264,17 +266,10 @@ void FileSender::quit()
         m_localFile->close();
         m_localFile->deleteLater();
     }
-    else
-    {
-        m_localFile->deleteLater();
-    }
     if(m_tcpSocket!=nullptr)
     {
+        m_tcpSocket->disconnect();
         m_tcpSocket->close();
-        m_tcpSocket->deleteLater();
-    }
-    else
-    {
         m_tcpSocket->deleteLater();
     }
 }
