@@ -12,7 +12,7 @@ class QNChatMessage : public QWidget
 {
     Q_OBJECT
 public:
-    explicit QNChatMessage(QWidget *parent = nullptr);
+    explicit QNChatMessage(int laid, int taid, QWidget *parent = nullptr);
 
     enum User_Type{
         User_System,//系统
