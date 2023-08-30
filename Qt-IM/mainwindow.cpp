@@ -145,7 +145,7 @@ void MainWindow::processPendinDatagrams()
                 QString ipAddress = localIp;
                 if(ipAddress == serverAddress)
                 {
-                    chat->getSever()->refused();
+                    //chat->getSever()->refused();
                 }
 //                else if(ipAddress == "255.255.255.255"){
 //                    if(chat->getSever()->get_Client_Connection()->localAddress().toString()==clinetIp) // 找到对应关闭窗口客户端的服务端

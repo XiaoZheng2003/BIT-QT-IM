@@ -18,7 +18,6 @@
 
 #include "dbmanager.h"
 #include "networktool.h"
-#include "file.h"
 #include "filerec.h"
 #include "history.h"
 #include "emoji.h"
@@ -37,7 +36,6 @@ public:
     ~Chat();
 
     void refresh();
-    File* getSever();
     void sendMessage(messageType type,QString serverAddress = "");
     void dealMessage(QNChatMessage *messageW, QListWidgetItem *item, QString text, QString time, QNChatMessage::User_Type type);
     void dealMessageTime(QString curMsgTime);
@@ -47,12 +45,13 @@ protected:
     void keyPressEvent(QKeyEvent *ev);
     void resizeEvent(QResizeEvent *event);
 
+public slots:
+    void getSendFileName(QString);
+
 private slots:
     void on_sendMsg_clicked();
 
     void on_file_clicked();
-
-    void getSendFileName(QString);
 
     void on_closeBtn_clicked();
 
@@ -72,7 +71,6 @@ private:
     QString message;
     QUdpSocket *xchat;
     qint32 xport;
-    File server;
     QString fileName;
     History *history;
     Emoji *emoji;
