@@ -88,9 +88,6 @@ void Chat::sendMessage(messageType type,QString serverAddress){
                 break;
             }
             case GroupMessage:
-            case NewParticipant:
-            case LeftParticipant:
-            case AskChat:
                 break;
             }
         xchat->writeDatagram(data,data.length(),QHostAddress(targetIp),xport);

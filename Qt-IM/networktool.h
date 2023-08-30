@@ -12,11 +12,8 @@
 enum messageType{
     PersonMessage,
     GroupMessage,
-    NewParticipant,
-    LeftParticipant,
     SendFileName,
     RefuseFile,
-    AskChat
 };
 
 class NetworkTool
