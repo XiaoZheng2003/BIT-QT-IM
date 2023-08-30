@@ -49,7 +49,9 @@ void Group::initMenu()
             }
             if(QMessageBox::question(this,"提示",QString("确认添加好友[%1]？").arg(ip),
                                      QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes){
-                DBManager::runSql(QString("insert into person (nickname,ip) values ('%1','%2')").arg(ip).arg(ip));
+                DBManager::runSql(
+                            QString("insert into person (nickname,ip,avatar) values ('%1','%2',%3)")
+                            .arg(ip).arg(ip).arg(QRandomGenerator::global()->bounded(6)));
                 emit addPerson();
             }
         }

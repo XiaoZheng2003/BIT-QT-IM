@@ -4,6 +4,7 @@
 #include <QMenu>
 #include <QAction>
 #include <QWidget>
+#include <QVector>
 #include <QUdpSocket>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
@@ -57,11 +58,13 @@ private:
     Edit *m_editWindow;
     int avatarId;
     Avatar a;
+    QVector<int> unreadMsg;
 
     void refresh();
     void initMenu();
     void updateOnline();
     void hasPendinFile(QString serverAddress,QString clientAddress,QString filename);
+    void readMsg(int id);
 };
 
 #endif // MAINWINDOW_H
