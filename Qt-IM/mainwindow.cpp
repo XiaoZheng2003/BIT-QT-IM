@@ -5,7 +5,8 @@
 MainWindow::MainWindow(QString ip, QString username, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainWindow),
-    xport(23333)
+    xport(23333),
+    avatarId(0)
 {
     m_editWindow=new Edit(this);
 
@@ -30,7 +31,7 @@ MainWindow::MainWindow(QString ip, QString username, QWidget *parent) :
             return;
         }
         //打开个人聊天界面
-        chat=new Chat(ip,item->text(2).toInt(),item->text(0),item->text(1),xchat,xport,localName);
+        chat=new Chat(avatarId, item->text(3).toInt(), ip,item->text(2).toInt(),item->text(0),item->text(1),xchat,xport,localName);
         connect(this,&MainWindow::receivePersonMsg,chat,&Chat::refresh);
         chat->setAttribute(Qt::WA_DeleteOnClose);
         chat->show();
@@ -178,7 +179,7 @@ void MainWindow::hasPendinFile(QString serverAddress, QString clientAddress, QSt
             }
             else{
                 if(chat == nullptr){
-                    Chat* refusechat = new Chat(localIp,-999,"", serverAddress, xchat, xport, localName); // 发送拒绝消息的临时chat
+                    Chat* refusechat = new Chat(0,0,localIp,-999,"", serverAddress, xchat, xport, localName); // 发送拒绝消息的临时chat
                     refusechat->sendMessage(RefuseFile,serverAddress);
                     delete refusechat;
                 }
@@ -190,7 +191,7 @@ void MainWindow::hasPendinFile(QString serverAddress, QString clientAddress, QSt
         else if(btn == QMessageBox::No)
         {
             if(chat == nullptr){
-                Chat* refusechat = new Chat(localIp,-999,"", serverAddress, xchat, xport, localName); // 发送拒绝消息的临时chat
+                Chat* refusechat = new Chat(0,0,localIp,-999,"", serverAddress, xchat, xport, localName); // 发送拒绝消息的临时chat
                 refusechat->sendMessage(RefuseFile,serverAddress);
                 delete refusechat;
             }
@@ -209,6 +210,7 @@ void MainWindow::refresh()
     personList->clear();
     personList->setColumnWidth(0,150);
     personList->setColumnHidden(2,true);
+    personList->setColumnHidden(3,true);
     personList->setIconSize(QSize(25,25));
     QSqlQuery query;
     query.exec("select * from person");
@@ -223,6 +225,7 @@ void MainWindow::refresh()
             person->setDisabled(true);
         person->setIcon(0, QIcon(QPixmap::fromImage(image)));
         person->setText(2,query.value(0).toString());
+        person->setText(3,query.value(3).toString());
     }
 
     //群聊页面

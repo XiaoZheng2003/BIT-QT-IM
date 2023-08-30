@@ -2,7 +2,8 @@
 #include "file.h"
 #include "ui_chat.h"
 
-Chat::Chat(QString ip,int tid,QString tname,QString tip,QUdpSocket *xchat,qint32 xport,QString lname,QWidget *parent) :
+Chat::Chat(int laid, int taid, QString ip,int tid,QString tname,
+           QString tip,QUdpSocket *xchat,qint32 xport,QString lname,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Chat)
 {
@@ -14,6 +15,8 @@ Chat::Chat(QString ip,int tid,QString tname,QString tip,QUdpSocket *xchat,qint32
     this->xchat=xchat;
     this->xport=xport;
     localName=lname;
+    localAvatarId=laid;
+    targetAvatarId=taid;
 
     this->setWindowTitle("与"+tname+(tip==""?"":("["+tip+"]"))+"私聊中");
     ui->listWidget->setStyleSheet("QListWidget::item:selected { background-color: transparent; }");
@@ -100,10 +103,11 @@ void Chat::sendMessage(messageType type,QString serverAddress){
 
 void Chat::refresh()
 {
+    ui->listWidget->clear();
     QSqlQuery query;
     query.exec("select * from person_msg where id="+QString::number(targetId));
     while(query.next()){
-        QNChatMessage* messageW = new QNChatMessage(ui->listWidget->parentWidget());
+        QNChatMessage* messageW = new QNChatMessage(localAvatarId,targetAvatarId,ui->listWidget->parentWidget());
         QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
         if(query.value(3).toInt()){
             dealMessage(messageW, item, query.value(1).toString(), query.value(2).toString(),  QNChatMessage::User_Me);

@@ -197,6 +197,11 @@ QTreeWidget {
            <string>id</string>
           </property>
          </column>
+         <column>
+          <property name="text">
+           <string>头像id</string>
+          </property>
+         </column>
         </widget>
        </item>
       </layout>

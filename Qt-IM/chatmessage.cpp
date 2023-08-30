@@ -7,14 +7,14 @@
 #include <QLabel>
 #include <QDebug>
 
-QNChatMessage::QNChatMessage(QWidget *parent) : QWidget(parent)
+QNChatMessage::QNChatMessage(int laid, int taid, QWidget *parent) : QWidget(parent)
 {
     QFont te_font = this->font();
    // te_font.setFamily("MicrosoftYaHei");
     te_font.setPointSize(12);
     this->setFont(te_font);
-    m_leftPixmap = QPixmap(":/res/avatar0.png");
-    m_rightPixmap = QPixmap(":/res/avatar0.png");
+    m_leftPixmap = QPixmap(QString(":/res/avatar%1.png").arg(taid));
+    m_rightPixmap = QPixmap(QString(":/res/avatar%1.png").arg(laid));
 }
 
 void QNChatMessage::setTextSuccess()
@@ -30,8 +30,6 @@ void QNChatMessage::setText(QString text, QString time, QSize allSize, QNChatMes
     m_time = time;
     m_curTime = QDateTime::fromTime_t(time.toInt()).toString("hh:mm");
     m_allSize = allSize;
-    //m_leftPixmap = QPixmap(QString(":/res/avatar%1.png").arg(b));
-    //m_rightPixmap = QPixmap(QString(":/res/avatar%1.png").arg(a));
     this->update();
 }
 

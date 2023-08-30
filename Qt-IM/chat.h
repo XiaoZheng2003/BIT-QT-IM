@@ -32,7 +32,9 @@ class Chat : public QWidget
     Q_OBJECT
 
 public:
-    explicit Chat(QString ip,int tid,QString tname,QString tip,QUdpSocket *xchat,qint32 xport,QString lname,QWidget *parent = nullptr);
+    explicit Chat(int laid, int taid, QString ip,int tid,
+                  QString tname,QString tip,QUdpSocket *xchat,qint32 xport,
+                  QString lname,QWidget *parent = nullptr);
     ~Chat();
 
     void refresh();
@@ -64,6 +66,8 @@ private slots:
 private:
     Ui::Chat *ui;
     int targetId;
+    int localAvatarId;
+    int targetAvatarId;
     QString localName;
     QString localIp;
     QString targetName;
