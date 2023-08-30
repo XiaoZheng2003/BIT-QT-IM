@@ -20,7 +20,7 @@ class Group : public QDialog
     Q_OBJECT
 
 public:
-    explicit Group(HeartbeatBroadcaster * reci, QString ip, QUdpSocket *xchat, QWidget *parent = nullptr);
+    explicit Group(HeartbeatBroadcaster * reci, QString ip, QWidget *parent = nullptr);
     ~Group();
 
     void reloadMessage();

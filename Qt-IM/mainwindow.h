@@ -50,11 +50,12 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QUdpSocket *xchat;
+    QUdpSocket *groupxchat;
     qint32 xport;
     QString localName;
     QString localIp;
     Chat *chat;
-    Group *group;
+    Group *group;  
     Edit *m_editWindow;
     int avatarId;
     Avatar a;
@@ -64,6 +65,7 @@ private:
     void initMenu();
     void updateOnline();
     void hasPendinFile(QString serverAddress,QString clientAddress,QString filename);
+    void groupProcessPendinDatagrams();
     void readMsg(int id);
 };
 

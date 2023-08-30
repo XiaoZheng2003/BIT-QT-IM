@@ -42,7 +42,7 @@ MainWindow::MainWindow(QString ip, QString username, QWidget *parent) :
 
     connect(ui->groupList,&QTreeWidget::itemDoubleClicked,[=](QTreeWidgetItem *item){
         //打开群聊界面
-        group=new Group(broadcaster,localIp,xchat);
+        group=new Group(broadcaster,localIp);
         connect(group,&Group::addPerson,[=](){
             refresh();updateOnline();
         });
@@ -56,9 +56,12 @@ MainWindow::MainWindow(QString ip, QString username, QWidget *parent) :
     broadcaster = new HeartbeatBroadcaster;
 
     xchat = new QUdpSocket(this);
-    xchat->bind(QHostAddress(localIp),xport);
+    xchat->bind(QHostAddress(localIp),xport,QUdpSocket::ShareAddress);
 
+    groupxchat = new QUdpSocket(this);
+    groupxchat->bind(7895,QUdpSocket::ShareAddress);
     connect(xchat,&QUdpSocket::readyRead,this,&MainWindow::processPendinDatagrams);
+    connect(groupxchat,&QUdpSocket::readyRead,this,&MainWindow::groupProcessPendinDatagrams);
     connect(broadcaster,&HeartbeatBroadcaster::personListChanged,this,&MainWindow::updateOnline);
 
 //    Group *gr = new Group(broadcaster);
@@ -78,6 +81,33 @@ void MainWindow::on_add_clicked()
     a->exec();
     refresh();
     updateOnline();
+}
+
+void MainWindow::groupProcessPendinDatagrams(){
+    while (groupxchat->hasPendingDatagrams()) {
+        QByteArray datagram;
+        datagram.resize(groupxchat->pendingDatagramSize());
+        groupxchat->readDatagram(datagram.data(),datagram.size());
+        QDataStream in(&datagram,QIODevice::ReadOnly);
+        int msgType;
+        in >> msgType;
+        QString ip,msgStr;
+        QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+        switch (msgType) {
+        case GroupMessage:
+        {
+            QString id;
+            if(ip==localIp) break;
+            in >> ip >> id >> msgStr;
+            DBManager::runSql(QString("insert into group_msg (id,msg,time,islocal,ip)"
+                                      " values (%1,'%2','%3',0,'%4')").arg(-1).arg(msgStr).arg(time).arg(ip));
+            refresh();
+            updateOnline();
+            emit receiveGroupMsg();
+            break;
+        }
+        }
+    }
 }
 
 void MainWindow::processPendinDatagrams()
@@ -131,6 +161,7 @@ void MainWindow::processPendinDatagrams()
                 refresh();
                 updateOnline();
                 emit receiveGroupMsg();
+                break;
             }
             case SendFileName:
             {
@@ -244,7 +275,8 @@ void MainWindow::refresh()
         person->setText(2,id);
         person->setText(3,query.value(3).toString());
         person->setText(4,unreadMsg.contains(id.toInt())?"⚫":"");
-        person->setTextColor(4,Qt::red);
+        person->setData(4, Qt::ForegroundRole, QBrush(Qt::red));
+        //person->setTextColor(4,Qt::red);// qt5
     }
 
     //群聊页面
