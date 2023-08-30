@@ -9,10 +9,11 @@
 
 QNChatMessage::QNChatMessage(int laid, int taid, QWidget *parent) : QWidget(parent)
 {
+    //设置字体样式
     QFont te_font = this->font();
-   // te_font.setFamily("MicrosoftYaHei");
-    te_font.setPointSize(12);
+    te_font.setPointSize(13);
     this->setFont(te_font);
+    //设置聊天双方头像
     m_leftPixmap = QPixmap(QString(":/res/avatar%1.png").arg(taid));
     m_rightPixmap = QPixmap(QString(":/res/avatar%1.png").arg(laid));
 }
@@ -23,6 +24,8 @@ void QNChatMessage::setTextSuccess()
     m_isSending = true;
 }
 
+
+    //聊天信息设置
 void QNChatMessage::setText(QString text, QString time, QSize allSize, QNChatMessage::User_Type userType)
 {
     m_msg = text;
@@ -30,9 +33,63 @@ void QNChatMessage::setText(QString text, QString time, QSize allSize, QNChatMes
     m_time = time;
     m_curTime = QDateTime::fromTime_t(time.toInt()).toString("hh:mm");
     m_allSize = allSize;
+    //消息重绘操作
     this->update();
 }
 
+    //计算消息文本控件大小
+QSize QNChatMessage::getRealString(QString src)
+{
+    QFontMetricsF fm(this->font());
+    //计算行高
+    m_lineHeight = fm.lineSpacing();
+    //统计换行符的个数
+    int nCount = src.count("\n");
+
+    int nMaxWidth = 0;
+    //没有换行符的情况下计算消息文本的宽度
+    if(nCount == 0) {
+        nMaxWidth = fm.width(src);
+        QString value = src;
+
+        //超过最大宽度进行切分
+        if(nMaxWidth > m_textWidth) {
+            nMaxWidth = m_textWidth;
+            QString temp = "";
+            int num = fm.width(value) / m_textWidth;
+            num = ( fm.width(value) ) / m_textWidth;
+            nCount += num;
+            int size = m_textWidth / fm.width(" ");
+            int ttmp = num*fm.width(" ");
+            for(int i = 0; i < num; i++) {
+                temp += value.mid(i*size, (i+1)*size) + "\n";
+            }
+            src.replace(value, temp);
+        }
+    }
+    //有换行符
+    else {
+        for(int i = 0; i < (nCount + 1); i++) {
+            QString value = src.split("\n").at(i);
+            nMaxWidth = fm.width(value) > nMaxWidth ? fm.width(value) : nMaxWidth;
+            if(fm.width(value) > m_textWidth) {
+                nMaxWidth = m_textWidth;
+                QString temp = "";
+                int num = fm.width(value) / m_textWidth;
+                num = ((i+num)*fm.width(" ") + fm.width(value)) / m_textWidth;
+                nCount += num;
+                int size = m_textWidth / fm.width(" ");
+                for(int i = 0; i < num; i++) {
+                    temp += value.mid(i*size, (i+1)*size) + "\n";
+                }
+                src.replace(value, temp);
+            }
+        }
+    }
+    return QSize(nMaxWidth+m_spaceWid+1, (nCount + 1) * m_lineHeight+2*m_lineHeight+1);
+}
+
+    //计算消息控件中各个元素的位置和大小
 QSize QNChatMessage::fontRect(QString str)
 {
     m_msg = str;
@@ -44,20 +101,28 @@ QSize QNChatMessage::fontRect(QString str)
     int sanJiaoW = 6;
     int kuangTMP = 20;
     int textSpaceRect = 12;
+
+    // 计算消息框的宽度和文本区域的宽度
     m_kuangWidth = this->width() - kuangTMP - 2*(iconWH+iconSpaceW+iconRectW);
     m_textWidth = m_kuangWidth - 2*textSpaceRect;
     m_spaceWid = this->width() - m_textWidth;
+
+    // 设置左侧头像和右侧头像的位置和大小
     m_iconLeftRect = QRect(iconSpaceW, iconTMPH, iconWH, iconWH);
     m_iconRightRect = QRect(this->width() - iconSpaceW - iconWH-25, iconTMPH, iconWH, iconWH);
 
-    QSize size = getRealString(m_msg); // 整个的size
+    // 计算整个消息控件的大小
+    QSize size = getRealString(m_msg);
 
-   // qDebug() << "fontRect Size:" << size;
+    // 计算消息控件的高度
     int hei = size.height() < minHei ? minHei : size.height();
 
+    // 设置三角形的位置和大小
     m_sanjiaoLeftRect = QRect(iconWH+iconSpaceW+iconRectW, m_lineHeight/2, sanJiaoW, hei - m_lineHeight);
     m_sanjiaoRightRect = QRect(this->width() - iconRectW - iconWH - iconSpaceW - sanJiaoW-25, m_lineHeight/2, sanJiaoW, hei - m_lineHeight);
 
+
+    // 根据文本宽度和空白宽度判断消息框的位置和大小
     if(size.width() < (m_textWidth+m_spaceWid)) {
         m_kuangLeftRect.setRect(m_sanjiaoLeftRect.x()+m_sanjiaoLeftRect.width(), m_lineHeight/4*3, size.width()-m_spaceWid+2*textSpaceRect, hei-m_lineHeight);
         m_kuangRightRect.setRect(this->width() - size.width() + m_spaceWid - 2*textSpaceRect - iconWH - iconSpaceW - iconRectW - sanJiaoW-25,
@@ -74,61 +139,20 @@ QSize QNChatMessage::fontRect(QString str)
     return QSize(size.width(), hei);
 }
 
-QSize QNChatMessage::getRealString(QString src)
-{
-    QFontMetricsF fm(this->font());
-    m_lineHeight = fm.lineSpacing();
-    int nCount = src.count("\n");
-    int nMaxWidth = 0;
-    if(nCount == 0) {
-        nMaxWidth = fm.width(src);
-        QString value = src;
-        if(nMaxWidth > m_textWidth) {
-            nMaxWidth = m_textWidth;
-            int size = m_textWidth / fm.width(" ");
-            int num = fm.width(value) / m_textWidth;
-            int ttmp = num*fm.width(" ");
-            num = ( fm.width(value) ) / m_textWidth;
-            nCount += num;
-            QString temp = "";
-            for(int i = 0; i < num; i++) {
-                temp += value.mid(i*size, (i+1)*size) + "\n";
-            }
-            src.replace(value, temp);
-        }
-    } else {
-        for(int i = 0; i < (nCount + 1); i++) {
-            QString value = src.split("\n").at(i);
-            nMaxWidth = fm.width(value) > nMaxWidth ? fm.width(value) : nMaxWidth;
-            if(fm.width(value) > m_textWidth) {
-                nMaxWidth = m_textWidth;
-                int size = m_textWidth / fm.width(" ");
-                int num = fm.width(value) / m_textWidth;
-                num = ((i+num)*fm.width(" ") + fm.width(value)) / m_textWidth;
-                nCount += num;
-                QString temp = "";
-                for(int i = 0; i < num; i++) {
-                    temp += value.mid(i*size, (i+1)*size) + "\n";
-                }
-                src.replace(value, temp);
-            }
-        }
-    }
-    return QSize(nMaxWidth+m_spaceWid+1, (nCount + 1) * m_lineHeight+2*m_lineHeight+1);
-}
-
+    //绘制消息控件的外观
 void QNChatMessage::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
 
     QPainter painter(this);
-    painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);//消锯齿
+   // 设置绘制的渲染提示，消除锯齿
+    painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+
     painter.setPen(Qt::NoPen);
     painter.setBrush(QBrush(Qt::gray));
-
-    if(m_userType == User_Type::User_She) { // 用户
+   // 用户
+    if(m_userType == User_Type::User_She) {
         //头像
-//        painter.drawRoundedRect(m_iconLeftRect,m_iconLeftRect.width(),m_iconLeftRect.height());
         painter.drawPixmap(m_iconLeftRect, m_leftPixmap);
 
         //框加边
@@ -142,9 +166,9 @@ void QNChatMessage::paintEvent(QPaintEvent *event)
 
         //三角
         QPointF points[3] = {
-            QPointF(m_sanjiaoLeftRect.x(), 30),
-            QPointF(m_sanjiaoLeftRect.x()+m_sanjiaoLeftRect.width(), 25),
-            QPointF(m_sanjiaoLeftRect.x()+m_sanjiaoLeftRect.width(), 35),
+            QPointF(m_sanjiaoLeftRect.x(), 35),
+            QPointF(m_sanjiaoLeftRect.x()+m_sanjiaoLeftRect.width(), 30),
+            QPointF(m_sanjiaoLeftRect.x()+m_sanjiaoLeftRect.width(), 40),
         };
         QPen pen;
         pen.setColor(col_Kuang);
@@ -166,9 +190,11 @@ void QNChatMessage::paintEvent(QPaintEvent *event)
         option.setWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
         painter.setFont(this->font());
         painter.drawText(m_textLeftRect, m_msg,option);
-    }  else if(m_userType == User_Type::User_Me) { // 自己
-        //头像
-//        painter.drawRoundedRect(m_iconRightRect,m_iconRightRect.width(),m_iconRightRect.height());
+    }
+
+    // 自己
+    else if(m_userType == User_Type::User_Me) {
+
         painter.drawPixmap(m_iconRightRect, m_rightPixmap);
 
         //框
@@ -178,9 +204,9 @@ void QNChatMessage::paintEvent(QPaintEvent *event)
 
         //三角
         QPointF points[3] = {
-            QPointF(m_sanjiaoRightRect.x()+m_sanjiaoRightRect.width(), 30),
-            QPointF(m_sanjiaoRightRect.x(), 25),
-            QPointF(m_sanjiaoRightRect.x(), 35),
+            QPointF(m_sanjiaoRightRect.x()+m_sanjiaoRightRect.width(), 35),
+            QPointF(m_sanjiaoRightRect.x(), 30),
+            QPointF(m_sanjiaoRightRect.x(), 40),
         };
         QPen pen;
         pen.setColor(col_Kuang);
@@ -195,7 +221,8 @@ void QNChatMessage::paintEvent(QPaintEvent *event)
         option.setWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
         painter.setFont(this->font());
         painter.drawText(m_textRightRect,m_msg,option);
-    }  else if(m_userType == User_Type::User_Time) { // 时间
+    }
+    else if(m_userType == User_Type::User_Time) { // 时间
         QPen penText;
         penText.setColor(QColor(153,153,153));
         painter.setPen(penText);
