@@ -33,11 +33,12 @@ signals:
     void sendFileName(QString);
     void startSend(QString fileName);
     void quit(QString ip,qint64 socketDescriptor);
+    void sendComplete(QString ip,qint64 socketDescriptor);
 
 public slots:
     void updateClientProgress(qint64 bytes,float timeUsed);
     void setTotalBytes(qint64 bytes);
-    void sendFile();
+    void sendFile(QString targetIp);
 
 private slots:
     void on_Button_choose_clicked();
@@ -62,11 +63,10 @@ class FileSender:public QObject
     Q_OBJECT
 public:
     FileSender(qintptr socketDescriptor);
+    void init(qintptr socketDescriptor);
 
 public slots:
     void startSend(QString fileName);
-    void init();
-    void quit();
 
 private slots:
     void sendNext(qint64 bytes);
@@ -104,12 +104,13 @@ public slots:
     void refuse(QString ip);
 
 private slots:
-    void deleteResourse(QString ip,qintptr socketDescriptor);
+    void deleteResourse(QString ip,qint64 socketDescriptor);
+    void deleteFileSender(QString ip,qint64 socketDescriptor);
 
 signals:
     void sendFileNameInfo(QString fileName);
-    void startInit();
-    void prepared();
+    void startInit(qintptr socketDescriptor);
+    void prepared(QString ip);
 
 private:
     static MyTcpServer* m_gMyTcpServer;

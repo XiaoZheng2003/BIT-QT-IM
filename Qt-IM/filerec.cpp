@@ -44,7 +44,6 @@ void Filerec::newConnect()
     connect(fileReceiver,&FileReceiver::sendTotalBytes,this,&Filerec::setTotalBytes);
     connect(this,&Filerec::startConnect,fileReceiver,&FileReceiver::startConnect);
     connect(fileReceiver,&FileReceiver::endConnect,this,&Filerec::endConnect);
-    connect(this,&Filerec::quit,fileReceiver,&FileReceiver::end);
     emit startConnect(fileName);
 }
 
@@ -101,7 +100,6 @@ void Filerec::closeEvent(QCloseEvent *)
 
 void Filerec::on_cancelButton_clicked()
 {
-    emit quit();
     ThreadManager::deleteThread(QString("fileConnectWith")+hostAddress.toString());
     fileReceiver->deleteLater();
     close();
@@ -133,12 +131,6 @@ void FileReceiver::startConnect(QString fileName)
     time.start();
 }
 
-void FileReceiver::end()
-{
-    tcpClient->abort();
-    tcpClient->deleteLater();
-    localFile->deleteLater();
-}
 
 void FileReceiver::readMessage()
 {
@@ -175,10 +167,11 @@ void FileReceiver::readMessage()
     emit sendReceivedBytes(receivedBytes,timeUsed);
     if(receivedBytes == totalBytes)
     {
-       localFile ->close();
-       tcpClient->close();
-       end();
-       emit endConnect();
+        localFile ->close();
+        localFile->deleteLater();
+        tcpClient->close();
+        tcpClient->deleteLater();
+        emit endConnect();
     }
 }
 
