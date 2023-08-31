@@ -63,7 +63,7 @@ class FileSender:public QObject
     Q_OBJECT
 public:
     FileSender(qintptr socketDescriptor);
-    void init(qintptr socketDescriptor);
+    void init(qint64 socketDescriptor);
 
 public slots:
     void startSend(QString fileName);
@@ -109,7 +109,7 @@ private slots:
 
 signals:
     void sendFileNameInfo(QString fileName);
-    void startInit(qintptr socketDescriptor);
+    void startInit(qint64 socketDescriptor);
     void prepared(QString ip);
 
 private:

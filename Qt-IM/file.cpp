@@ -265,7 +265,7 @@ void FileSender::sendNext(qint64 bytes)
     }
 }
 
-void FileSender::init(qintptr socketDescriptor)
+void FileSender::init(qint64 socketDescriptor)
 {
     if(m_socketDescriptor!=socketDescriptor)
         return;
